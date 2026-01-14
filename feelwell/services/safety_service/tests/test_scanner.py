@@ -144,7 +144,7 @@ class TestCrisisMessage:
         """Coded language 'become a ghost' must trigger crisis."""
         result = scanner.scan(
             message_id="msg_024",
-            text="Sometimes I think about becoming a ghost",
+            text="Sometimes I think about how to become a ghost",
             student_id="student_123",
         )
         
