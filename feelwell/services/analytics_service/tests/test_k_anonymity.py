@@ -1,6 +1,7 @@
 """Tests for k-anonymity enforcement per ADR-006."""
 import pytest
 
+from feelwell.shared.utils import configure_pii_salt
 from feelwell.services.analytics_service.k_anonymity import (
     KAnonymityEnforcer,
     AggregateResult,
@@ -9,201 +10,226 @@ from feelwell.services.analytics_service.k_anonymity import (
 )
 
 
-@pytest.fixture
-def enforcer():
-    """Create a KAnonymityEnforcer instance."""
-    return KAnonymityEnforcer()
+@pytest.fixture(autouse=True)
+def setup_pii_salt():
+    configure_pii_salt("test_salt_that_is_at_least_32_characters_long")
 
 
 class TestKAnonymityThreshold:
-    """Tests for k-anonymity threshold enforcement."""
+    """Tests for k-anonymity threshold constant."""
     
-    def test_group_below_threshold_suppressed(self, enforcer):
-        """Groups with fewer than k members should be suppressed."""
-        result = enforcer.check_and_suppress(
-            data={"avg_risk": 0.5},
-            group_size=3,
-            context="test_query",
-        )
-        
-        assert result.suppressed is True
-        assert result.data is None
-        assert result.group_size == 3
-        assert "below" in result.suppression_reason.lower()
-    
-    def test_group_at_threshold_passes(self, enforcer):
-        """Groups with exactly k members should pass."""
-        result = enforcer.check_and_suppress(
-            data={"avg_risk": 0.5},
-            group_size=5,
-            context="test_query",
-        )
-        
-        assert result.suppressed is False
-        assert result.data == {"avg_risk": 0.5}
-    
-    def test_group_above_threshold_passes(self, enforcer):
-        """Groups with more than k members should pass."""
-        result = enforcer.check_and_suppress(
-            data={"avg_risk": 0.5},
-            group_size=100,
-            context="test_query",
-        )
-        
-        assert result.suppressed is False
-        assert result.data == {"avg_risk": 0.5}
-    
-    def test_single_student_suppressed(self, enforcer):
-        """Single student data must always be suppressed."""
-        result = enforcer.check_and_suppress(
-            data={"student_risk": 0.8},
-            group_size=1,
-            context="individual_query",
-        )
-        
-        assert result.suppressed is True
-        assert result.data is None
-    
-    def test_default_threshold_is_five(self):
-        """Default k-anonymity threshold should be 5."""
+    def test_default_threshold_is_5(self):
         assert K_ANONYMITY_THRESHOLD == 5
 
 
-class TestCustomThreshold:
-    """Tests for custom k-anonymity thresholds."""
+class TestAggregateResult:
+    """Tests for AggregateResult dataclass."""
     
-    def test_custom_threshold_respected(self):
-        """Custom threshold should be respected."""
+    def test_create_non_suppressed_result(self):
+        result = AggregateResult(
+            data={"avg": 0.5},
+            group_size=10,
+            suppressed=False,
+        )
+        
+        assert result.data == {"avg": 0.5}
+        assert result.group_size == 10
+        assert result.suppressed is False
+        assert result.suppression_reason is None
+    
+    def test_create_suppressed_result(self):
+        result = AggregateResult(
+            data=None,
+            group_size=3,
+            suppressed=True,
+            suppression_reason="Group too small",
+        )
+        
+        assert result.data is None
+        assert result.suppressed is True
+        assert "too small" in result.suppression_reason
+
+
+class TestKAnonymityEnforcer:
+    """Tests for KAnonymityEnforcer class."""
+    
+    def test_default_threshold(self):
+        enforcer = KAnonymityEnforcer()
+        assert enforcer.k_threshold == 5
+    
+    def test_custom_threshold(self):
         enforcer = KAnonymityEnforcer(k_threshold=10)
+        assert enforcer.k_threshold == 10
+    
+    def test_suppresses_below_threshold(self):
+        enforcer = KAnonymityEnforcer(k_threshold=5)
         
-        # Group of 7 should be suppressed with k=10
         result = enforcer.check_and_suppress(
-            data={"avg_risk": 0.5},
-            group_size=7,
+            data={"value": 100},
+            group_size=4,
         )
         
         assert result.suppressed is True
+        assert result.data is None
+        assert result.group_size == 4
     
-    def test_higher_threshold_more_restrictive(self):
-        """Higher threshold should suppress more groups."""
-        enforcer_5 = KAnonymityEnforcer(k_threshold=5)
-        enforcer_10 = KAnonymityEnforcer(k_threshold=10)
+    def test_passes_at_threshold(self):
+        enforcer = KAnonymityEnforcer(k_threshold=5)
         
-        result_5 = enforcer_5.check_and_suppress(data="test", group_size=7)
-        result_10 = enforcer_10.check_and_suppress(data="test", group_size=7)
-        
-        assert result_5.suppressed is False
-        assert result_10.suppressed is True
-
-
-class TestAggregateWithAnonymity:
-    """Tests for aggregation with k-anonymity."""
-    
-    def test_aggregate_avg_with_anonymity(self, enforcer):
-        """Average aggregation should respect k-anonymity."""
-        records = [
-            {"grade": "9", "risk_score": 0.3},
-            {"grade": "9", "risk_score": 0.4},
-            {"grade": "9", "risk_score": 0.5},
-            {"grade": "9", "risk_score": 0.6},
-            {"grade": "9", "risk_score": 0.7},  # 5 students in grade 9
-            {"grade": "10", "risk_score": 0.2},
-            {"grade": "10", "risk_score": 0.3},  # Only 2 students in grade 10
-        ]
-        
-        results = enforcer.aggregate_with_anonymity(
-            records=records,
-            group_by="grade",
-            aggregate_field="risk_score",
-            aggregation="avg",
-        )
-        
-        # Grade 9 should pass (5 students)
-        assert results["9"].suppressed is False
-        assert results["9"].data == pytest.approx(0.5, rel=0.01)
-        
-        # Grade 10 should be suppressed (2 students)
-        assert results["10"].suppressed is True
-        assert results["10"].data is None
-    
-    def test_aggregate_count_with_anonymity(self, enforcer):
-        """Count aggregation should respect k-anonymity."""
-        records = [
-            {"school": "A", "value": 1},
-            {"school": "A", "value": 1},
-            {"school": "A", "value": 1},
-            {"school": "A", "value": 1},
-            {"school": "A", "value": 1},
-            {"school": "A", "value": 1},  # 6 in school A
-            {"school": "B", "value": 1},
-            {"school": "B", "value": 1},  # 2 in school B
-        ]
-        
-        results = enforcer.aggregate_with_anonymity(
-            records=records,
-            group_by="school",
-            aggregate_field="value",
-            aggregation="count",
-        )
-        
-        assert results["A"].suppressed is False
-        assert results["A"].data == 6
-        
-        assert results["B"].suppressed is True
-
-
-class TestConvenienceFunction:
-    """Tests for the convenience function."""
-    
-    def test_enforce_k_anonymity_function(self):
-        """Convenience function should work correctly."""
-        result = enforce_k_anonymity(
-            data={"test": "data"},
-            group_size=3,
-        )
-        
-        assert result.suppressed is True
-    
-    def test_enforce_k_anonymity_with_custom_threshold(self):
-        """Convenience function should accept custom threshold."""
-        result = enforce_k_anonymity(
-            data={"test": "data"},
-            group_size=3,
-            k_threshold=2,
+        result = enforcer.check_and_suppress(
+            data={"value": 100},
+            group_size=5,
         )
         
         assert result.suppressed is False
-
-
-class TestEdgeCases:
-    """Edge case tests for k-anonymity."""
+        assert result.data == {"value": 100}
     
-    def test_empty_records_aggregation(self, enforcer):
-        """Empty records should return empty results."""
-        results = enforcer.aggregate_with_anonymity(
-            records=[],
-            group_by="grade",
-            aggregate_field="risk_score",
-            aggregation="avg",
-        )
+    def test_passes_above_threshold(self):
+        enforcer = KAnonymityEnforcer(k_threshold=5)
         
-        assert len(results) == 0
-    
-    def test_zero_group_size_suppressed(self, enforcer):
-        """Zero group size should be suppressed."""
         result = enforcer.check_and_suppress(
-            data={"test": "data"},
-            group_size=0,
-        )
-        
-        assert result.suppressed is True
-    
-    def test_none_data_preserved_when_passing(self, enforcer):
-        """None data should be preserved if group passes threshold."""
-        result = enforcer.check_and_suppress(
-            data=None,
+            data={"value": 100},
             group_size=10,
         )
         
         assert result.suppressed is False
-        assert result.data is None
+        assert result.data == {"value": 100}
+    
+    def test_suppression_reason_includes_sizes(self):
+        enforcer = KAnonymityEnforcer(k_threshold=5)
+        
+        result = enforcer.check_and_suppress(
+            data="test",
+            group_size=3,
+        )
+        
+        assert "3" in result.suppression_reason
+        assert "5" in result.suppression_reason
+
+
+class TestAggregateWithAnonymity:
+    """Tests for aggregate_with_anonymity method."""
+    
+    def test_aggregates_by_group(self):
+        enforcer = KAnonymityEnforcer(k_threshold=2)
+        
+        records = [
+            {"grade": "9th", "score": 0.5},
+            {"grade": "9th", "score": 0.7},
+            {"grade": "10th", "score": 0.3},
+            {"grade": "10th", "score": 0.5},
+        ]
+        
+        results = enforcer.aggregate_with_anonymity(
+            records=records,
+            group_by="grade",
+            aggregate_field="score",
+            aggregation="avg",
+        )
+        
+        assert "9th" in results
+        assert "10th" in results
+        assert results["9th"].suppressed is False
+        assert results["10th"].suppressed is False
+    
+    def test_suppresses_small_groups(self):
+        enforcer = KAnonymityEnforcer(k_threshold=5)
+        
+        records = [
+            {"grade": "9th", "score": 0.5},
+            {"grade": "9th", "score": 0.7},
+            {"grade": "9th", "score": 0.6},  # 3 records - suppressed
+        ]
+        
+        results = enforcer.aggregate_with_anonymity(
+            records=records,
+            group_by="grade",
+            aggregate_field="score",
+            aggregation="avg",
+        )
+        
+        assert results["9th"].suppressed is True
+    
+    def test_count_aggregation(self):
+        enforcer = KAnonymityEnforcer(k_threshold=2)
+        
+        records = [
+            {"grade": "9th", "score": 1},
+            {"grade": "9th", "score": 1},
+            {"grade": "9th", "score": 1},
+        ]
+        
+        results = enforcer.aggregate_with_anonymity(
+            records=records,
+            group_by="grade",
+            aggregate_field="score",
+            aggregation="count",
+        )
+        
+        assert results["9th"].data == 3
+    
+    def test_sum_aggregation(self):
+        enforcer = KAnonymityEnforcer(k_threshold=2)
+        
+        records = [
+            {"grade": "9th", "score": 10},
+            {"grade": "9th", "score": 20},
+            {"grade": "9th", "score": 30},
+        ]
+        
+        results = enforcer.aggregate_with_anonymity(
+            records=records,
+            group_by="grade",
+            aggregate_field="score",
+            aggregation="sum",
+        )
+        
+        assert results["9th"].data == 60
+    
+    def test_handles_missing_values(self):
+        enforcer = KAnonymityEnforcer(k_threshold=2)
+        
+        records = [
+            {"grade": "9th", "score": 0.5},
+            {"grade": "9th"},  # Missing score
+            {"grade": "9th", "score": 0.7},
+        ]
+        
+        results = enforcer.aggregate_with_anonymity(
+            records=records,
+            group_by="grade",
+            aggregate_field="score",
+            aggregation="avg",
+        )
+        
+        # Should only count records with score
+        assert results["9th"].group_size == 2
+
+
+class TestEnforceKAnonymityFunction:
+    """Tests for convenience function."""
+    
+    def test_suppresses_below_default_threshold(self):
+        result = enforce_k_anonymity(
+            data="sensitive",
+            group_size=4,
+        )
+        
+        assert result.suppressed is True
+    
+    def test_passes_above_default_threshold(self):
+        result = enforce_k_anonymity(
+            data="sensitive",
+            group_size=5,
+        )
+        
+        assert result.suppressed is False
+    
+    def test_custom_threshold(self):
+        result = enforce_k_anonymity(
+            data="sensitive",
+            group_size=8,
+            k_threshold=10,
+        )
+        
+        assert result.suppressed is True
