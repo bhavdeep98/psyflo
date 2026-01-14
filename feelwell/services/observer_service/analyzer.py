@@ -4,6 +4,7 @@ Analyzes each message as it arrives, generating CurrentSnapshot
 for immediate risk assessment.
 """
 import logging
+import os
 import time
 from dataclasses import dataclass
 from datetime import datetime
@@ -17,6 +18,7 @@ from feelwell.shared.models import (
 )
 from feelwell.shared.utils import hash_pii
 from .clinical_markers import ClinicalMarkerDetector
+from .sentiment_analyzer import BERTSentimentAnalyzer, SentimentLabel
 
 logger = logging.getLogger(__name__)
 
@@ -32,6 +34,9 @@ class AnalysisConfig:
     # Thresholds
     caution_threshold: float = 0.4
     crisis_threshold: float = 0.7
+    
+    # BERT configuration
+    bert_enabled: bool = False  # Disabled by default for latency
 
 
 class MessageAnalyzer:
@@ -39,6 +44,7 @@ class MessageAnalyzer:
     
     Generates CurrentSnapshot for each message, combining:
     - Clinical marker detection (PHQ-9, GAD-7)
+    - BERT sentiment analysis (optional)
     - Risk score calculation
     - Risk level classification
     """
@@ -47,21 +53,33 @@ class MessageAnalyzer:
         self,
         config: Optional[AnalysisConfig] = None,
         marker_detector: Optional[ClinicalMarkerDetector] = None,
+        sentiment_analyzer: Optional[BERTSentimentAnalyzer] = None,
     ):
         """Initialize analyzer with dependencies.
         
         Args:
             config: Analysis configuration
             marker_detector: Clinical marker detector (injected for testing)
+            sentiment_analyzer: BERT sentiment analyzer (injected for testing)
         """
         self.config = config or AnalysisConfig()
         self.marker_detector = marker_detector or ClinicalMarkerDetector()
+        
+        # Initialize BERT if enabled
+        bert_enabled = self.config.bert_enabled or os.getenv("BERT_ENABLED", "false").lower() == "true"
+        if sentiment_analyzer is not None:
+            self.sentiment_analyzer = sentiment_analyzer
+        elif bert_enabled:
+            self.sentiment_analyzer = BERTSentimentAnalyzer(enabled=True)
+        else:
+            self.sentiment_analyzer = None
         
         logger.info(
             "MESSAGE_ANALYZER_INITIALIZED",
             extra={
                 "caution_threshold": self.config.caution_threshold,
                 "crisis_threshold": self.config.crisis_threshold,
+                "bert_enabled": self.sentiment_analyzer is not None and self.sentiment_analyzer.is_available,
             }
         )
     
@@ -108,10 +126,19 @@ class MessageAnalyzer:
         # Detect clinical markers
         markers = self.marker_detector.detect(text)
         
+        # Run BERT sentiment analysis if enabled
+        sentiment_score = 0.0
+        sentiment_label = None
+        if self.sentiment_analyzer and self.sentiment_analyzer.is_available:
+            sentiment_result = self.sentiment_analyzer.analyze(text)
+            sentiment_score = sentiment_result.risk_contribution
+            sentiment_label = sentiment_result.label.value
+        
         # Calculate composite risk score
         risk_score = self._calculate_risk_score(
             markers=markers,
             safety_score=safety_risk_score,
+            sentiment_score=sentiment_score,
         )
         
         # Determine risk level
@@ -137,6 +164,8 @@ class MessageAnalyzer:
                 "risk_score": risk_score,
                 "risk_level": risk_level.value,
                 "marker_count": len(markers),
+                "sentiment_label": sentiment_label,
+                "sentiment_score": sentiment_score,
                 "latency_ms": latency_ms,
             }
         )
@@ -147,12 +176,14 @@ class MessageAnalyzer:
         self,
         markers: list,
         safety_score: float,
+        sentiment_score: float = 0.0,
     ) -> float:
         """Calculate composite risk score from multiple signals.
         
         Args:
             markers: Detected clinical markers
             safety_score: Risk score from Safety Service
+            sentiment_score: Risk contribution from BERT sentiment
             
         Returns:
             Composite risk score (0.0-1.0)
@@ -168,8 +199,7 @@ class MessageAnalyzer:
         composite = (
             marker_score * self.config.marker_weight +
             safety_score * self.config.keyword_weight +
-            # Sentiment score would go here (placeholder for BERT integration)
-            0.0 * self.config.sentiment_weight
+            max(sentiment_score, 0.0) * self.config.sentiment_weight  # Only positive contributions
         )
         
         # Normalize to 0.0-1.0

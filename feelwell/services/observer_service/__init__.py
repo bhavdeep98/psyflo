@@ -19,6 +19,7 @@ from .analyzer import MessageAnalyzer, AnalysisConfig
 from .clinical_markers import ClinicalMarkerDetector
 from .session_summarizer import SessionSummarizer
 from .threshold_publisher import ThresholdEventPublisher
+from .sentiment_analyzer import BERTSentimentAnalyzer, SentimentResult, SentimentLabel
 
 __all__ = [
     "MessageAnalyzer",
@@ -26,4 +27,7 @@ __all__ = [
     "ClinicalMarkerDetector",
     "SessionSummarizer",
     "ThresholdEventPublisher",
+    "BERTSentimentAnalyzer",
+    "SentimentResult",
+    "SentimentLabel",
 ]
