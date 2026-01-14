@@ -1,0 +1,20 @@
+{
+  "version": "36.0.0",
+  "files": {
+    "1254f7df864e366ab6c39926c35bb06a7553bc4190009f411fdf42d8a5a03a1d": {
+      "source": {
+        "path": "Feelwell-Dashboards-dev.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "618351925005-us-east-1": {
+          "bucketName": "cdk-hnb659fds-assets-618351925005-us-east-1",
+          "objectKey": "1254f7df864e366ab6c39926c35bb06a7553bc4190009f411fdf42d8a5a03a1d.json",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::618351925005:role/cdk-hnb659fds-file-publishing-role-618351925005-us-east-1"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

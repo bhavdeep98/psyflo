@@ -1,0 +1,34 @@
+{
+  "version": "36.0.0",
+  "files": {
+    "59ffe6389bee009bca6355273c2146d4309dd8cd56f3a019189fd81f96b63207": {
+      "source": {
+        "path": "Feelwell-CrisisEngine-dev.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "618351925005-us-east-1": {
+          "bucketName": "cdk-hnb659fds-assets-618351925005-us-east-1",
+          "objectKey": "59ffe6389bee009bca6355273c2146d4309dd8cd56f3a019189fd81f96b63207.json",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::618351925005:role/cdk-hnb659fds-file-publishing-role-618351925005-us-east-1"
+        }
+      }
+    }
+  },
+  "dockerImages": {
+    "8f18123928f0935702932ce1845cdeb4a8857ebe7c6be77e1b0e2adb2d7b2f55": {
+      "source": {
+        "directory": "asset.8f18123928f0935702932ce1845cdeb4a8857ebe7c6be77e1b0e2adb2d7b2f55"
+      },
+      "destinations": {
+        "618351925005-us-east-1": {
+          "repositoryName": "cdk-hnb659fds-container-assets-618351925005-us-east-1",
+          "imageTag": "8f18123928f0935702932ce1845cdeb4a8857ebe7c6be77e1b0e2adb2d7b2f55",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::618351925005:role/cdk-hnb659fds-image-publishing-role-618351925005-us-east-1"
+        }
+      }
+    }
+  }
+}

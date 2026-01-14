@@ -1,0 +1,20 @@
+{
+  "version": "36.0.0",
+  "files": {
+    "0036a34d817166e777849fbbdec1cf5cab9ab8a445ca039b197f74e425808588": {
+      "source": {
+        "path": "Feelwell-EcsCluster-dev.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "618351925005-us-east-1": {
+          "bucketName": "cdk-hnb659fds-assets-618351925005-us-east-1",
+          "objectKey": "0036a34d817166e777849fbbdec1cf5cab9ab8a445ca039b197f74e425808588.json",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::618351925005:role/cdk-hnb659fds-file-publishing-role-618351925005-us-east-1"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

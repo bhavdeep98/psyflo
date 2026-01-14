@@ -1,0 +1,20 @@
+{
+  "version": "36.0.0",
+  "files": {
+    "dbfa6614a5e2edb72eece8bffef69ebb6f38ddd4c5b6b04d045b1529dc527382": {
+      "source": {
+        "path": "Feelwell-Encryption-dev.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "618351925005-us-east-1": {
+          "bucketName": "cdk-hnb659fds-assets-618351925005-us-east-1",
+          "objectKey": "dbfa6614a5e2edb72eece8bffef69ebb6f38ddd4c5b6b04d045b1529dc527382.json",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::618351925005:role/cdk-hnb659fds-file-publishing-role-618351925005-us-east-1"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

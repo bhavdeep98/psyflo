@@ -1,0 +1,188 @@
+{
+ "Resources": {
+  "ClusterEB0386A7": {
+   "Type": "AWS::ECS::Cluster",
+   "Properties": {
+    "ClusterName": "feelwell-dev",
+    "ClusterSettings": [
+     {
+      "Name": "containerInsights",
+      "Value": "enabled"
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "MicroservicesOrchestration"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-EcsCluster-dev/Cluster/Resource"
+   }
+  },
+  "ClusterDefaultServiceDiscoveryNamespaceC336F9B4": {
+   "Type": "AWS::ServiceDiscovery::PrivateDnsNamespace",
+   "Properties": {
+    "Name": "feelwell.dev.local",
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "MicroservicesOrchestration"
+     }
+    ],
+    "Vpc": {
+     "Fn::ImportValue": "Feelwell-Vpc-dev:ExportsOutputRefFeelwellVpcA8A91F6D72F23A7A"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-EcsCluster-dev/Cluster/DefaultServiceDiscoveryNamespace/Resource"
+   }
+  },
+  "Cluster3DA9CCBA": {
+   "Type": "AWS::ECS::ClusterCapacityProviderAssociations",
+   "Properties": {
+    "CapacityProviders": [
+     "FARGATE",
+     "FARGATE_SPOT"
+    ],
+    "Cluster": {
+     "Ref": "ClusterEB0386A7"
+    },
+    "DefaultCapacityProviderStrategy": []
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-EcsCluster-dev/Cluster/Cluster"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/22OwQrCMBBEv8V7GrX6A1LPWuoHSExW2LYmZXcTKaH/boNHPc3whhmm1vtDrXcb8+bKuqEa8aHzTYwd1IruGSzr3IyRBUg1T/9rGzMZizK3FBI6oBNzsGgEg+dFMVBCCw7ZhgQ069wSJiNw9nwxL+C1DGXtD16WElyjTFGK64BDpJUrHxzonrepPuryvmfEiqIXfIHuvvoBNQJpbdoAAAA="
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-EcsCluster-dev/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "ClusterName": {
+   "Description": "ECS cluster name",
+   "Value": {
+    "Ref": "ClusterEB0386A7"
+   },
+   "Export": {
+    "Name": "dev-EcsClusterName"
+   }
+  },
+  "ClusterArn": {
+   "Description": "ECS cluster ARN",
+   "Value": {
+    "Fn::GetAtt": [
+     "ClusterEB0386A7",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "dev-EcsClusterArn"
+   }
+  },
+  "NamespaceId": {
+   "Description": "Service discovery namespace ID",
+   "Value": {
+    "Fn::GetAtt": [
+     "ClusterDefaultServiceDiscoveryNamespaceC336F9B4",
+     "Id"
+    ]
+   },
+   "Export": {
+    "Name": "dev-ServiceDiscoveryNamespaceId"
+   }
+  },
+  "ExportsOutputRefClusterEB0386A796A0E3FE": {
+   "Value": {
+    "Ref": "ClusterEB0386A7"
+   },
+   "Export": {
+    "Name": "Feelwell-EcsCluster-dev:ExportsOutputRefClusterEB0386A796A0E3FE"
+   }
+  },
+  "ExportsOutputFnGetAttClusterDefaultServiceDiscoveryNamespaceC336F9B4Id9F5BE664": {
+   "Value": {
+    "Fn::GetAtt": [
+     "ClusterDefaultServiceDiscoveryNamespaceC336F9B4",
+     "Id"
+    ]
+   },
+   "Export": {
+    "Name": "Feelwell-EcsCluster-dev:ExportsOutputFnGetAttClusterDefaultServiceDiscoveryNamespaceC336F9B4Id9F5BE664"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

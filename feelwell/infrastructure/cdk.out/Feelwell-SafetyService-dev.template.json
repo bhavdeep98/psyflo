@@ -1,0 +1,466 @@
+{
+ "Resources": {
+  "ScannerFunctionServiceRole2A05BEFD": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Compliance",
+      "Value": "ADR-001"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "CriticalService",
+      "Value": "true"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     },
+     {
+      "Key": "Service",
+      "Value": "safety-service"
+     },
+     {
+      "Key": "SLO",
+      "Value": "99.99-availability"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-SafetyService-dev/ScannerFunction/ServiceRole/Resource"
+   }
+  },
+  "ScannerFunctionServiceRoleDefaultPolicy945CFF2B": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "xray:PutTelemetryRecords",
+        "xray:PutTraceSegments"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": [
+        "kinesis:PutRecord",
+        "kinesis:PutRecords"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::ImportValue": "Feelwell-CrisisEngine-dev:ExportsOutputFnGetAttEventStream271A91DBArn4969004D"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "ScannerFunctionServiceRoleDefaultPolicy945CFF2B",
+    "Roles": [
+     {
+      "Ref": "ScannerFunctionServiceRole2A05BEFD"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-SafetyService-dev/ScannerFunction/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "ScannerFunction1B1642AE": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Architectures": [
+     "arm64"
+    ],
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-618351925005-us-east-1",
+     "S3Key": "6c87dbc03ecedc3362c07bd7169d0603b1868679b91d4bd3e5940841349b269f.zip"
+    },
+    "Description": "Deterministic safety scanner - runs before LLM (ADR-001)",
+    "Environment": {
+     "Variables": {
+      "ENVIRONMENT": "dev",
+      "SERVICE_NAME": "safety-service",
+      "CRISIS_STREAM_ARN": {
+       "Fn::ImportValue": "Feelwell-CrisisEngine-dev:ExportsOutputFnGetAttEventStream271A91DBArn4969004D"
+      },
+      "LOG_REDACTION_ENABLED": "true"
+     }
+    },
+    "FunctionName": "feelwell-safety-scanner-dev",
+    "Handler": "scanner.handler",
+    "MemorySize": 512,
+    "Role": {
+     "Fn::GetAtt": [
+      "ScannerFunctionServiceRole2A05BEFD",
+      "Arn"
+     ]
+    },
+    "Runtime": "python3.12",
+    "Tags": [
+     {
+      "Key": "Compliance",
+      "Value": "ADR-001"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "CriticalService",
+      "Value": "true"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     },
+     {
+      "Key": "Service",
+      "Value": "safety-service"
+     },
+     {
+      "Key": "SLO",
+      "Value": "99.99-availability"
+     }
+    ],
+    "Timeout": 5,
+    "TracingConfig": {
+     "Mode": "Active"
+    }
+   },
+   "DependsOn": [
+    "ScannerFunctionServiceRoleDefaultPolicy945CFF2B",
+    "ScannerFunctionServiceRole2A05BEFD"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-SafetyService-dev/ScannerFunction/Resource",
+    "aws:asset:path": "asset.6c87dbc03ecedc3362c07bd7169d0603b1868679b91d4bd3e5940841349b269f",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "ScannerFunctionLogRetentionA56B9D5D": {
+   "Type": "Custom::LogRetention",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A",
+      "Arn"
+     ]
+    },
+    "LogGroupName": {
+     "Fn::Join": [
+      "",
+      [
+       "/aws/lambda/",
+       {
+        "Ref": "ScannerFunction1B1642AE"
+       }
+      ]
+     ]
+    },
+    "RetentionInDays": 30
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-SafetyService-dev/ScannerFunction/LogRetention/Resource"
+   }
+  },
+  "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-SafetyService-dev/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/ServiceRole/Resource"
+   }
+  },
+  "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "logs:DeleteRetentionPolicy",
+        "logs:PutRetentionPolicy"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB",
+    "Roles": [
+     {
+      "Ref": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-SafetyService-dev/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Handler": "index.handler",
+    "Runtime": "nodejs18.x",
+    "Timeout": 900,
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-618351925005-us-east-1",
+     "S3Key": "4e26bf2d0a26f2097fb2b261f22bb51e3f6b4b52635777b1e54edbd8e2d58c35.zip"
+    },
+    "Role": {
+     "Fn::GetAtt": [
+      "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB",
+      "Arn"
+     ]
+    },
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     }
+    ]
+   },
+   "DependsOn": [
+    "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB",
+    "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-SafetyService-dev/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/Resource",
+    "aws:asset:path": "asset.4e26bf2d0a26f2097fb2b261f22bb51e3f6b4b52635777b1e54edbd8e2d58c35",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "LatencyAlarm5394FC57": {
+   "Type": "AWS::CloudWatch::Alarm",
+   "Properties": {
+    "AlarmDescription": "Safety scanner latency > 100ms - investigate immediately",
+    "AlarmName": "feelwell-safety-scanner-latency-dev",
+    "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+    "DatapointsToAlarm": 2,
+    "Dimensions": [
+     {
+      "Name": "FunctionName",
+      "Value": {
+       "Ref": "ScannerFunction1B1642AE"
+      }
+     }
+    ],
+    "EvaluationPeriods": 3,
+    "MetricName": "Duration",
+    "Namespace": "AWS/Lambda",
+    "Period": 300,
+    "Statistic": "Average",
+    "Threshold": 100
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-SafetyService-dev/LatencyAlarm/Resource"
+   }
+  },
+  "ErrorAlarmC73DBEA2": {
+   "Type": "AWS::CloudWatch::Alarm",
+   "Properties": {
+    "AlarmDescription": "Safety scanner errors - CRITICAL",
+    "AlarmName": "feelwell-safety-scanner-errors-dev",
+    "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+    "Dimensions": [
+     {
+      "Name": "FunctionName",
+      "Value": {
+       "Ref": "ScannerFunction1B1642AE"
+      }
+     }
+    ],
+    "EvaluationPeriods": 1,
+    "MetricName": "Errors",
+    "Namespace": "AWS/Lambda",
+    "Period": 300,
+    "Statistic": "Sum",
+    "Threshold": 1
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-SafetyService-dev/ErrorAlarm/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/zWPUQrCMBBEz+J/umr1Air4JSj1ALJN1xqbJtJNLBJyd5OIX/N2FmZ2a1hvalgtcOZKdkOlVQvh6lAOIlm3oHFsO4Rw9EY6ZY043M2fo1A4QmispmwXvVit5CePP4qCNzdkJsewy5Jm2Hs5kNsjk9C2ZzjZviFHphRIbX03o5MPCDuN05jDCsQoGmLrJ0miZKU7e2X6Uv5fJD579/IuCmM7gicv3/UW8o9PVqqafKoZCZqffgF5EL03AAEAAA=="
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-SafetyService-dev/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "FunctionArn": {
+   "Description": "Safety scanner Lambda ARN",
+   "Value": {
+    "Fn::GetAtt": [
+     "ScannerFunction1B1642AE",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "dev-SafetyScannerArn"
+   }
+  },
+  "FunctionName": {
+   "Description": "Safety scanner Lambda name",
+   "Value": {
+    "Ref": "ScannerFunction1B1642AE"
+   },
+   "Export": {
+    "Name": "dev-SafetyScannerName"
+   }
+  },
+  "ExportsOutputRefScannerFunction1B1642AE08D79E71": {
+   "Value": {
+    "Ref": "ScannerFunction1B1642AE"
+   },
+   "Export": {
+    "Name": "Feelwell-SafetyService-dev:ExportsOutputRefScannerFunction1B1642AE08D79E71"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

@@ -1,0 +1,551 @@
+{
+ "Resources": {
+  "SecurityGroupDD263621": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "OpenSearch security group - RAG and logs",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "255.255.255.255/32",
+      "Description": "Disallow all traffic",
+      "FromPort": 252,
+      "IpProtocol": "icmp",
+      "ToPort": 86
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     }
+    ],
+    "VpcId": {
+     "Fn::ImportValue": "Feelwell-Vpc-dev:ExportsOutputRefFeelwellVpcA8A91F6D72F23A7A"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-OpenSearch-dev/SecurityGroup/Resource"
+   }
+  },
+  "DomainSlowSearchLogs5B35A97A": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "RetentionInDays": 30,
+    "Tags": [
+     {
+      "Key": "Compliance",
+      "Value": "SOC2"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "RAG-VectorSearch"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-OpenSearch-dev/Domain/SlowSearchLogs/Resource"
+   }
+  },
+  "DomainSlowIndexLogsFE2F1061": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "RetentionInDays": 30,
+    "Tags": [
+     {
+      "Key": "Compliance",
+      "Value": "SOC2"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "RAG-VectorSearch"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-OpenSearch-dev/Domain/SlowIndexLogs/Resource"
+   }
+  },
+  "DomainAppLogs21698C1B": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "RetentionInDays": 30,
+    "Tags": [
+     {
+      "Key": "Compliance",
+      "Value": "SOC2"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "RAG-VectorSearch"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-OpenSearch-dev/Domain/AppLogs/Resource"
+   }
+  },
+  "DomainESLogGroupPolicyc805befe68c283400f283228307e2448a5a8285a8987947C92": {
+   "Type": "Custom::CloudwatchLogResourcePolicy",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "AWS679f53fac002430cb0da5b7982bd22872D164C4C",
+      "Arn"
+     ]
+    },
+    "Create": {
+     "Fn::Join": [
+      "",
+      [
+       "{\"service\":\"CloudWatchLogs\",\"action\":\"putResourcePolicy\",\"parameters\":{\"policyName\":\"ESLogPolicyc805befe68c283400f283228307e2448a5a8285a89\",\"policyDocument\":\"{\\\"Statement\\\":[{\\\"Action\\\":[\\\"logs:PutLogEvents\\\",\\\"logs:CreateLogStream\\\"],\\\"Effect\\\":\\\"Allow\\\",\\\"Principal\\\":{\\\"Service\\\":\\\"es.amazonaws.com\\\"},\\\"Resource\\\":[\\\"",
+       {
+        "Fn::GetAtt": [
+         "DomainSlowSearchLogs5B35A97A",
+         "Arn"
+        ]
+       },
+       "\\\",\\\"",
+       {
+        "Fn::GetAtt": [
+         "DomainSlowIndexLogsFE2F1061",
+         "Arn"
+        ]
+       },
+       "\\\",\\\"",
+       {
+        "Fn::GetAtt": [
+         "DomainAppLogs21698C1B",
+         "Arn"
+        ]
+       },
+       "\\\"]}],\\\"Version\\\":\\\"2012-10-17\\\"}\"},\"physicalResourceId\":{\"id\":\"ESLogGroupPolicyc805befe68c283400f283228307e2448a5a8285a89\"}}"
+      ]
+     ]
+    },
+    "Update": {
+     "Fn::Join": [
+      "",
+      [
+       "{\"service\":\"CloudWatchLogs\",\"action\":\"putResourcePolicy\",\"parameters\":{\"policyName\":\"ESLogPolicyc805befe68c283400f283228307e2448a5a8285a89\",\"policyDocument\":\"{\\\"Statement\\\":[{\\\"Action\\\":[\\\"logs:PutLogEvents\\\",\\\"logs:CreateLogStream\\\"],\\\"Effect\\\":\\\"Allow\\\",\\\"Principal\\\":{\\\"Service\\\":\\\"es.amazonaws.com\\\"},\\\"Resource\\\":[\\\"",
+       {
+        "Fn::GetAtt": [
+         "DomainSlowSearchLogs5B35A97A",
+         "Arn"
+        ]
+       },
+       "\\\",\\\"",
+       {
+        "Fn::GetAtt": [
+         "DomainSlowIndexLogsFE2F1061",
+         "Arn"
+        ]
+       },
+       "\\\",\\\"",
+       {
+        "Fn::GetAtt": [
+         "DomainAppLogs21698C1B",
+         "Arn"
+        ]
+       },
+       "\\\"]}],\\\"Version\\\":\\\"2012-10-17\\\"}\"},\"physicalResourceId\":{\"id\":\"ESLogGroupPolicyc805befe68c283400f283228307e2448a5a8285a89\"}}"
+      ]
+     ]
+    },
+    "Delete": "{\"service\":\"CloudWatchLogs\",\"action\":\"deleteResourcePolicy\",\"parameters\":{\"policyName\":\"ESLogPolicyc805befe68c283400f283228307e2448a5a8285a89\"},\"ignoreErrorCodesMatching\":\"ResourceNotFoundException\"}",
+    "InstallLatestAwsSdk": true
+   },
+   "DependsOn": [
+    "DomainESLogGroupPolicyc805befe68c283400f283228307e2448a5a8285a89CustomResourcePolicy43962198"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-OpenSearch-dev/Domain/ESLogGroupPolicyc805befe68c283400f283228307e2448a5a8285a89/Resource/Default"
+   }
+  },
+  "DomainESLogGroupPolicyc805befe68c283400f283228307e2448a5a8285a89CustomResourcePolicy43962198": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "logs:DeleteResourcePolicy",
+        "logs:PutResourcePolicy"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "DomainESLogGroupPolicyc805befe68c283400f283228307e2448a5a8285a89CustomResourcePolicy43962198",
+    "Roles": [
+     {
+      "Ref": "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-OpenSearch-dev/Domain/ESLogGroupPolicyc805befe68c283400f283228307e2448a5a8285a89/CustomResourcePolicy/Resource"
+   }
+  },
+  "Domain66AC69E0": {
+   "Type": "AWS::OpenSearchService::Domain",
+   "Properties": {
+    "ClusterConfig": {
+     "DedicatedMasterEnabled": false,
+     "InstanceCount": 1,
+     "InstanceType": "t3.medium.search",
+     "MultiAZWithStandbyEnabled": true,
+     "ZoneAwarenessEnabled": false
+    },
+    "DomainEndpointOptions": {
+     "EnforceHTTPS": true,
+     "TLSSecurityPolicy": "Policy-Min-TLS-1-0-2019-07"
+    },
+    "DomainName": "feelwell-dev",
+    "EBSOptions": {
+     "EBSEnabled": true,
+     "VolumeSize": 20,
+     "VolumeType": "gp3"
+    },
+    "EncryptionAtRestOptions": {
+     "Enabled": true,
+     "KmsKeyId": {
+      "Fn::ImportValue": "Feelwell-Encryption-dev:ExportsOutputRefMasterKey0175C9E20D9768D9"
+     }
+    },
+    "EngineVersion": "OpenSearch_2.11",
+    "LogPublishingOptions": {
+     "ES_APPLICATION_LOGS": {
+      "CloudWatchLogsLogGroupArn": {
+       "Fn::GetAtt": [
+        "DomainAppLogs21698C1B",
+        "Arn"
+       ]
+      },
+      "Enabled": true
+     },
+     "SEARCH_SLOW_LOGS": {
+      "CloudWatchLogsLogGroupArn": {
+       "Fn::GetAtt": [
+        "DomainSlowSearchLogs5B35A97A",
+        "Arn"
+       ]
+      },
+      "Enabled": true
+     },
+     "INDEX_SLOW_LOGS": {
+      "CloudWatchLogsLogGroupArn": {
+       "Fn::GetAtt": [
+        "DomainSlowIndexLogsFE2F1061",
+        "Arn"
+       ]
+      },
+      "Enabled": true
+     }
+    },
+    "NodeToNodeEncryptionOptions": {
+     "Enabled": true
+    },
+    "Tags": [
+     {
+      "Key": "Compliance",
+      "Value": "SOC2"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "RAG-VectorSearch"
+     }
+    ],
+    "VPCOptions": {
+     "SecurityGroupIds": [
+      {
+       "Fn::GetAtt": [
+        "SecurityGroupDD263621",
+        "GroupId"
+       ]
+      }
+     ],
+     "SubnetIds": [
+      {
+       "Fn::ImportValue": "Feelwell-Vpc-dev:ExportsOutputRefFeelwellVpcDatabaseSubnet1Subnet842FF0141D829F28"
+      },
+      {
+       "Fn::ImportValue": "Feelwell-Vpc-dev:ExportsOutputRefFeelwellVpcDatabaseSubnet2Subnet9CC4EE9804D0E8FB"
+      }
+     ]
+    }
+   },
+   "DependsOn": [
+    "DomainESLogGroupPolicyc805befe68c283400f283228307e2448a5a8285a89CustomResourcePolicy43962198",
+    "DomainESLogGroupPolicyc805befe68c283400f283228307e2448a5a8285a8987947C92"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-OpenSearch-dev/Domain/Resource"
+   }
+  },
+  "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-OpenSearch-dev/AWS679f53fac002430cb0da5b7982bd2287/ServiceRole/Resource"
+   }
+  },
+  "AWS679f53fac002430cb0da5b7982bd22872D164C4C": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-618351925005-us-east-1",
+     "S3Key": "cb92a348b5b60bcbbe3888108f15e75877121eb402b4a74526927300fcc54975.zip"
+    },
+    "Handler": "index.handler",
+    "Role": {
+     "Fn::GetAtt": [
+      "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs18.x",
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     }
+    ],
+    "Timeout": 120
+   },
+   "DependsOn": [
+    "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-OpenSearch-dev/AWS679f53fac002430cb0da5b7982bd2287/Resource",
+    "aws:asset:path": "asset.cb92a348b5b60bcbbe3888108f15e75877121eb402b4a74526927300fcc54975",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/12Q0U7DMAxFv4X3NEDHD7AheEEClQ+oMtcUr21cxcmmqeq/42xrJXi6515fOZFL+7gp7cOdO0kBTVf0tLfTV3TQGY3qCaFUj5ACxfNb4DSa3bf/E8yGR/SCLsCPYDgSoJ1eeHDkc/dKs+m5FTu9c7tuWVhnbtg3Th8i3/YY2b8mD5HYmxW0v/BsyA12+uSe4JwHN6q4x2yzzkY2tRPBKPY5i3q7TdBh3DrRMSSJPNQBhVMA1NZJdpesukXmv9XNC69w2a33avXnufGR4pjibDw3aA9yfyyfbL7vQYiKkHykAW111V8Z/wlUfAEAAA=="
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-OpenSearch-dev/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "DomainEndpoint": {
+   "Description": "OpenSearch domain endpoint",
+   "Value": {
+    "Fn::GetAtt": [
+     "Domain66AC69E0",
+     "DomainEndpoint"
+    ]
+   },
+   "Export": {
+    "Name": "dev-OpenSearchEndpoint"
+   }
+  },
+  "DomainArn": {
+   "Description": "OpenSearch domain ARN",
+   "Value": {
+    "Fn::GetAtt": [
+     "Domain66AC69E0",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "dev-OpenSearchArn"
+   }
+  },
+  "ExportsOutputFnGetAttDomain66AC69E0DomainEndpoint34F0DAB2": {
+   "Value": {
+    "Fn::GetAtt": [
+     "Domain66AC69E0",
+     "DomainEndpoint"
+    ]
+   },
+   "Export": {
+    "Name": "Feelwell-OpenSearch-dev:ExportsOutputFnGetAttDomain66AC69E0DomainEndpoint34F0DAB2"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

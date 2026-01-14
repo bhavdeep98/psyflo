@@ -1,0 +1,222 @@
+{
+ "Resources": {
+  "OperationsDashboard06307C07": {
+   "Type": "AWS::CloudWatch::Dashboard",
+   "Properties": {
+    "DashboardBody": {
+     "Fn::Join": [
+      "",
+      [
+       "{\"start\":\"-PT3H\",\"widgets\":[{\"type\":\"text\",\"width\":24,\"height\":2,\"x\":0,\"y\":0,\"properties\":{\"markdown\":\"# Feelwell Operations Dashboard - DEV\\n\\nReal-time service health and performance metrics.\"}},{\"type\":\"metric\",\"width\":8,\"height\":6,\"x\":0,\"y\":2,\"properties\":{\"view\":\"timeSeries\",\"title\":\"ECS Running Tasks\",\"region\":\"",
+       {
+        "Ref": "AWS::Region"
+       },
+       "\",\"metrics\":[[\"AWS/ECS\",\"RunningTaskCount\",\"ClusterName\",\"feelwell-dev\",\"ServiceName\",\"chat-service\",{\"label\":\"chat-service\",\"period\":60}],[\"AWS/ECS\",\"RunningTaskCount\",\"ClusterName\",\"feelwell-dev\",\"ServiceName\",\"observer-service\",{\"label\":\"observer-service\",\"period\":60}],[\"AWS/ECS\",\"RunningTaskCount\",\"ClusterName\",\"feelwell-dev\",\"ServiceName\",\"crisis-engine\",{\"label\":\"crisis-engine\",\"period\":60}]],\"yAxis\":{}}},{\"type\":\"metric\",\"width\":8,\"height\":6,\"x\":8,\"y\":2,\"properties\":{\"view\":\"timeSeries\",\"title\":\"ECS CPU Utilization\",\"region\":\"",
+       {
+        "Ref": "AWS::Region"
+       },
+       "\",\"metrics\":[[\"AWS/ECS\",\"CPUUtilization\",\"ClusterName\",\"feelwell-dev\",\"ServiceName\",\"chat-service\",{\"label\":\"chat-service\",\"period\":60}],[\"AWS/ECS\",\"CPUUtilization\",\"ClusterName\",\"feelwell-dev\",\"ServiceName\",\"observer-service\",{\"label\":\"observer-service\",\"period\":60}],[\"AWS/ECS\",\"CPUUtilization\",\"ClusterName\",\"feelwell-dev\",\"ServiceName\",\"crisis-engine\",{\"label\":\"crisis-engine\",\"period\":60}]],\"yAxis\":{}}},{\"type\":\"metric\",\"width\":8,\"height\":6,\"x\":16,\"y\":2,\"properties\":{\"view\":\"timeSeries\",\"title\":\"ECS Memory Utilization\",\"region\":\"",
+       {
+        "Ref": "AWS::Region"
+       },
+       "\",\"metrics\":[[\"AWS/ECS\",\"MemoryUtilization\",\"ClusterName\",\"feelwell-dev\",\"ServiceName\",\"chat-service\",{\"label\":\"chat-service\",\"period\":60}],[\"AWS/ECS\",\"MemoryUtilization\",\"ClusterName\",\"feelwell-dev\",\"ServiceName\",\"observer-service\",{\"label\":\"observer-service\",\"period\":60}],[\"AWS/ECS\",\"MemoryUtilization\",\"ClusterName\",\"feelwell-dev\",\"ServiceName\",\"crisis-engine\",{\"label\":\"crisis-engine\",\"period\":60}]],\"yAxis\":{}}},{\"type\":\"metric\",\"width\":8,\"height\":6,\"x\":0,\"y\":8,\"properties\":{\"view\":\"timeSeries\",\"title\":\"Safety Scanner - Invocations\",\"region\":\"",
+       {
+        "Ref": "AWS::Region"
+       },
+       "\",\"metrics\":[[\"AWS/Lambda\",\"Invocations\",\"FunctionName\",\"feelwell-safety-scanner-dev\",{\"period\":60,\"stat\":\"Sum\"}]],\"yAxis\":{}}},{\"type\":\"metric\",\"width\":8,\"height\":6,\"x\":8,\"y\":8,\"properties\":{\"view\":\"timeSeries\",\"title\":\"Safety Scanner - Duration (p99)\",\"region\":\"",
+       {
+        "Ref": "AWS::Region"
+       },
+       "\",\"metrics\":[[\"AWS/Lambda\",\"Duration\",\"FunctionName\",\"feelwell-safety-scanner-dev\",{\"period\":60,\"stat\":\"p99\"}]],\"annotations\":{\"horizontal\":[{\"value\":50,\"label\":\"Target (50ms)\",\"color\":\"#2ca02c\",\"yAxis\":\"left\"},{\"value\":100,\"label\":\"SLO (100ms)\",\"color\":\"#ff7f0e\",\"yAxis\":\"left\"}]},\"yAxis\":{}}},{\"type\":\"metric\",\"width\":8,\"height\":6,\"x\":16,\"y\":8,\"properties\":{\"view\":\"timeSeries\",\"title\":\"Safety Scanner - Errors\",\"region\":\"",
+       {
+        "Ref": "AWS::Region"
+       },
+       "\",\"metrics\":[[\"AWS/Lambda\",\"Errors\",\"FunctionName\",\"feelwell-safety-scanner-dev\",{\"color\":\"#d62728\",\"period\":60,\"stat\":\"Sum\"}]],\"yAxis\":{}}}]}"
+      ]
+     ]
+    },
+    "DashboardName": "Feelwell-Operations-dev"
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Dashboards-dev/OperationsDashboard/Resource"
+   }
+  },
+  "SafetyDashboard4BDE615B": {
+   "Type": "AWS::CloudWatch::Dashboard",
+   "Properties": {
+    "DashboardBody": {
+     "Fn::Join": [
+      "",
+      [
+       "{\"start\":\"-PT1H\",\"widgets\":[{\"type\":\"text\",\"width\":24,\"height\":3,\"x\":0,\"y\":0,\"properties\":{\"markdown\":\"# Feelwell Safety Dashboard - DEV\\n\\n**CRITICAL METRICS** - Crisis detection and response times.\\n\\n⚠️ All metrics are aggregated. No individual student data is displayed (ADR-006).\"}},{\"type\":\"metric\",\"width\":6,\"height\":4,\"x\":0,\"y\":3,\"properties\":{\"view\":\"singleValue\",\"title\":\"Crisis Engine Tasks\",\"region\":\"",
+       {
+        "Ref": "AWS::Region"
+       },
+       "\",\"metrics\":[[\"AWS/ECS\",\"RunningTaskCount\",\"ClusterName\",\"feelwell-dev\",\"ServiceName\",\"crisis-engine\",{\"label\":\"crisis-engine\",\"period\":60}]]}},{\"type\":\"metric\",\"width\":9,\"height\":4,\"x\":6,\"y\":3,\"properties\":{\"view\":\"timeSeries\",\"title\":\"Kinesis - Crisis Events (Records/min)\",\"region\":\"",
+       {
+        "Ref": "AWS::Region"
+       },
+       "\",\"metrics\":[[\"AWS/Kinesis\",\"IncomingRecords\",\"StreamName\",\"feelwell-crisis-events-dev\",{\"period\":60,\"stat\":\"Sum\"}]],\"yAxis\":{}}},{\"type\":\"metric\",\"width\":9,\"height\":4,\"x\":15,\"y\":3,\"properties\":{\"view\":\"timeSeries\",\"title\":\"Kinesis - Iterator Age (Processing Lag)\",\"region\":\"",
+       {
+        "Ref": "AWS::Region"
+       },
+       "\",\"metrics\":[[\"AWS/Kinesis\",\"GetRecords.IteratorAgeMilliseconds\",\"StreamName\",\"feelwell-crisis-events-dev\",{\"period\":60,\"stat\":\"Maximum\"}]],\"annotations\":{\"horizontal\":[{\"value\":60000,\"label\":\"SLO (1 min)\",\"color\":\"#ff7f0e\",\"yAxis\":\"left\"}]},\"yAxis\":{}}},{\"type\":\"metric\",\"width\":12,\"height\":6,\"x\":0,\"y\":7,\"properties\":{\"view\":\"timeSeries\",\"title\":\"Safety Scanner - Latency Distribution\",\"region\":\"",
+       {
+        "Ref": "AWS::Region"
+       },
+       "\",\"metrics\":[[\"AWS/Lambda\",\"Duration\",\"FunctionName\",\"feelwell-safety-scanner-dev\",{\"label\":\"p50\",\"stat\":\"p50\"}],[\"AWS/Lambda\",\"Duration\",\"FunctionName\",\"feelwell-safety-scanner-dev\",{\"label\":\"p90\",\"stat\":\"p90\"}],[\"AWS/Lambda\",\"Duration\",\"FunctionName\",\"feelwell-safety-scanner-dev\",{\"label\":\"p99\",\"stat\":\"p99\"}]],\"annotations\":{\"horizontal\":[{\"value\":50,\"label\":\"Target\",\"color\":\"#2ca02c\",\"yAxis\":\"left\"},{\"value\":100,\"label\":\"SLO\",\"color\":\"#ff7f0e\",\"yAxis\":\"left\"}]},\"yAxis\":{}}},{\"type\":\"metric\",\"width\":12,\"height\":6,\"x\":12,\"y\":7,\"properties\":{\"view\":\"timeSeries\",\"title\":\"Safety Scanner - Concurrent Executions\",\"region\":\"",
+       {
+        "Ref": "AWS::Region"
+       },
+       "\",\"metrics\":[[\"AWS/Lambda\",\"ConcurrentExecutions\",\"FunctionName\",\"feelwell-safety-scanner-dev\",{\"period\":60,\"stat\":\"Maximum\"}]],\"yAxis\":{}}}]}"
+      ]
+     ]
+    },
+    "DashboardName": "Feelwell-Safety-dev"
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Dashboards-dev/SafetyDashboard/Resource"
+   }
+  },
+  "DatabaseDashboard4B2EFB2E": {
+   "Type": "AWS::CloudWatch::Dashboard",
+   "Properties": {
+    "DashboardBody": {
+     "Fn::Join": [
+      "",
+      [
+       "{\"start\":\"-PT6H\",\"widgets\":[{\"type\":\"text\",\"width\":24,\"height\":2,\"x\":0,\"y\":0,\"properties\":{\"markdown\":\"# Feelwell Database Dashboard - DEV\\n\\nDatabase performance and capacity metrics.\"}},{\"type\":\"text\",\"width\":24,\"height\":1,\"x\":0,\"y\":2,\"properties\":{\"markdown\":\"## DocumentDB (Conversations)\"}},{\"type\":\"metric\",\"width\":8,\"height\":6,\"x\":0,\"y\":3,\"properties\":{\"view\":\"timeSeries\",\"title\":\"DocumentDB - CPU Utilization\",\"region\":\"",
+       {
+        "Ref": "AWS::Region"
+       },
+       "\",\"metrics\":[[\"AWS/DocDB\",\"CPUUtilization\",\"DBClusterIdentifier\",\"feelwell-dev\"]],\"annotations\":{\"horizontal\":[{\"value\":80,\"label\":\"Warning\",\"color\":\"#ff7f0e\",\"yAxis\":\"left\"}]},\"yAxis\":{}}},{\"type\":\"metric\",\"width\":8,\"height\":6,\"x\":8,\"y\":3,\"properties\":{\"view\":\"timeSeries\",\"title\":\"DocumentDB - Connections\",\"region\":\"",
+       {
+        "Ref": "AWS::Region"
+       },
+       "\",\"metrics\":[[\"AWS/DocDB\",\"DatabaseConnections\",\"DBClusterIdentifier\",\"feelwell-dev\"]],\"yAxis\":{}}},{\"type\":\"metric\",\"width\":8,\"height\":6,\"x\":16,\"y\":3,\"properties\":{\"view\":\"timeSeries\",\"title\":\"DocumentDB - Read/Write Latency\",\"region\":\"",
+       {
+        "Ref": "AWS::Region"
+       },
+       "\",\"metrics\":[[\"AWS/DocDB\",\"ReadLatency\",\"DBClusterIdentifier\",\"feelwell-dev\",{\"label\":\"Read\"}],[\"AWS/DocDB\",\"WriteLatency\",\"DBClusterIdentifier\",\"feelwell-dev\",{\"label\":\"Write\"}]],\"yAxis\":{}}},{\"type\":\"text\",\"width\":24,\"height\":1,\"x\":0,\"y\":9,\"properties\":{\"markdown\":\"## PostgreSQL (Clinical Data)\"}},{\"type\":\"metric\",\"width\":8,\"height\":6,\"x\":0,\"y\":10,\"properties\":{\"view\":\"timeSeries\",\"title\":\"PostgreSQL - CPU Utilization\",\"region\":\"",
+       {
+        "Ref": "AWS::Region"
+       },
+       "\",\"metrics\":[[\"AWS/RDS\",\"CPUUtilization\",\"DBInstanceIdentifier\",\"feelwell-dev\"]],\"annotations\":{\"horizontal\":[{\"value\":80,\"label\":\"Warning\",\"color\":\"#ff7f0e\",\"yAxis\":\"left\"}]},\"yAxis\":{}}},{\"type\":\"metric\",\"width\":8,\"height\":6,\"x\":8,\"y\":10,\"properties\":{\"view\":\"timeSeries\",\"title\":\"PostgreSQL - Connections\",\"region\":\"",
+       {
+        "Ref": "AWS::Region"
+       },
+       "\",\"metrics\":[[\"AWS/RDS\",\"DatabaseConnections\",\"DBInstanceIdentifier\",\"feelwell-dev\"]],\"yAxis\":{}}},{\"type\":\"metric\",\"width\":8,\"height\":6,\"x\":16,\"y\":10,\"properties\":{\"view\":\"timeSeries\",\"title\":\"PostgreSQL - Free Storage\",\"region\":\"",
+       {
+        "Ref": "AWS::Region"
+       },
+       "\",\"metrics\":[[\"AWS/RDS\",\"FreeStorageSpace\",\"DBInstanceIdentifier\",\"feelwell-dev\"]],\"yAxis\":{}}},{\"type\":\"text\",\"width\":24,\"height\":1,\"x\":0,\"y\":16,\"properties\":{\"markdown\":\"## Redis (Session Cache)\"}},{\"type\":\"metric\",\"width\":8,\"height\":6,\"x\":0,\"y\":17,\"properties\":{\"view\":\"timeSeries\",\"title\":\"Redis - CPU Utilization\",\"region\":\"",
+       {
+        "Ref": "AWS::Region"
+       },
+       "\",\"metrics\":[[\"AWS/ElastiCache\",\"CPUUtilization\",\"CacheClusterId\",\"feelwell-redis-dev\"]],\"yAxis\":{}}},{\"type\":\"metric\",\"width\":8,\"height\":6,\"x\":8,\"y\":17,\"properties\":{\"view\":\"timeSeries\",\"title\":\"Redis - Memory Usage\",\"region\":\"",
+       {
+        "Ref": "AWS::Region"
+       },
+       "\",\"metrics\":[[\"AWS/ElastiCache\",\"DatabaseMemoryUsagePercentage\",\"CacheClusterId\",\"feelwell-redis-dev\"]],\"annotations\":{\"horizontal\":[{\"value\":80,\"label\":\"Warning\",\"color\":\"#ff7f0e\",\"yAxis\":\"left\"}]},\"yAxis\":{}}},{\"type\":\"metric\",\"width\":8,\"height\":6,\"x\":16,\"y\":17,\"properties\":{\"view\":\"timeSeries\",\"title\":\"Redis - Cache Hits/Misses\",\"region\":\"",
+       {
+        "Ref": "AWS::Region"
+       },
+       "\",\"metrics\":[[\"AWS/ElastiCache\",\"CacheHits\",\"CacheClusterId\",\"feelwell-redis-dev\",{\"color\":\"#2ca02c\",\"label\":\"Hits\",\"stat\":\"Sum\"}],[\"AWS/ElastiCache\",\"CacheMisses\",\"CacheClusterId\",\"feelwell-redis-dev\",{\"color\":\"#d62728\",\"label\":\"Misses\",\"stat\":\"Sum\"}]],\"yAxis\":{}}}]}"
+      ]
+     ]
+    },
+    "DashboardName": "Feelwell-Database-dev"
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Dashboards-dev/DatabaseDashboard/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/zPSMzQ20jNQTCwv1k1OydbNyUzSqw4uSUzO1gEKxSfn5JemlCeWJGfoVbskFmck5ScWpeg4p+XBObUgnn9pSUFpCYgVlFqcX1qUnFqrk5efkqqXVaxfZmSiB7IhqzgzU7eoNK8kMzdVLwhCAwAOIg3/fgAAAA=="
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Dashboards-dev/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "OperationsDashboardUrl": {
+   "Description": "Operations dashboard URL",
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      "https://us-east-1.console.aws.amazon.com/cloudwatch/home?region=us-east-1#dashboards:name=",
+      {
+       "Ref": "OperationsDashboard06307C07"
+      }
+     ]
+    ]
+   }
+  },
+  "SafetyDashboardUrl": {
+   "Description": "Safety dashboard URL",
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      "https://us-east-1.console.aws.amazon.com/cloudwatch/home?region=us-east-1#dashboards:name=",
+      {
+       "Ref": "SafetyDashboard4BDE615B"
+      }
+     ]
+    ]
+   }
+  },
+  "DatabaseDashboardUrl": {
+   "Description": "Database dashboard URL",
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      "https://us-east-1.console.aws.amazon.com/cloudwatch/home?region=us-east-1#dashboards:name=",
+      {
+       "Ref": "DatabaseDashboard4B2EFB2E"
+      }
+     ]
+    ]
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

@@ -1,0 +1,212 @@
+{
+ "Resources": {
+  "SecurityGroupDD263621": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "Redis security group - session cache",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "255.255.255.255/32",
+      "Description": "Disallow all traffic",
+      "FromPort": 252,
+      "IpProtocol": "icmp",
+      "ToPort": 86
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     }
+    ],
+    "VpcId": {
+     "Fn::ImportValue": "Feelwell-Vpc-dev:ExportsOutputRefFeelwellVpcA8A91F6D72F23A7A"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Redis-dev/SecurityGroup/Resource"
+   }
+  },
+  "SubnetGroup": {
+   "Type": "AWS::ElastiCache::SubnetGroup",
+   "Properties": {
+    "CacheSubnetGroupName": "feelwell-redis-dev",
+    "Description": "Feelwell Redis subnet group",
+    "SubnetIds": [
+     {
+      "Fn::ImportValue": "Feelwell-Vpc-dev:ExportsOutputRefFeelwellVpcDatabaseSubnet1Subnet842FF0141D829F28"
+     },
+     {
+      "Fn::ImportValue": "Feelwell-Vpc-dev:ExportsOutputRefFeelwellVpcDatabaseSubnet2Subnet9CC4EE9804D0E8FB"
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Redis-dev/SubnetGroup"
+   }
+  },
+  "Cluster": {
+   "Type": "AWS::ElastiCache::CacheCluster",
+   "Properties": {
+    "CacheNodeType": "cache.t3.medium",
+    "CacheSubnetGroupName": "feelwell-redis-dev",
+    "Engine": "redis",
+    "EngineVersion": "7.0",
+    "NumCacheNodes": 1,
+    "PreferredMaintenanceWindow": "sun:05:00-sun:06:00",
+    "SnapshotRetentionLimit": 0,
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DataClassification",
+      "Value": "Ephemeral"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "SessionCache"
+     }
+    ],
+    "TransitEncryptionEnabled": true,
+    "VpcSecurityGroupIds": [
+     {
+      "Fn::GetAtt": [
+       "SecurityGroupDD263621",
+       "GroupId"
+      ]
+     }
+    ]
+   },
+   "DependsOn": [
+    "SubnetGroup"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Redis-dev/Cluster"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/1WOwQrCMBBEv8V7umr0D3LwKNQPkHS7YtqYlGRXkZB/t0EQPM3MmzmMhv1Bw25jX7nDce68G6Bc2OKsVnQthHrNhJIcv08pyqLMLfyBqsjbzA4t3glKq2UIxL+1aYXxkplSrY2chRfh5nrKURJSVSGOBFPePvUR2qMpO9clCeweBP1XPygl7EyuAAAA"
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Redis-dev/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "RedisEndpoint": {
+   "Description": "Redis endpoint address",
+   "Value": {
+    "Fn::GetAtt": [
+     "Cluster",
+     "RedisEndpoint.Address"
+    ]
+   },
+   "Export": {
+    "Name": "dev-RedisEndpoint"
+   }
+  },
+  "RedisPort": {
+   "Description": "Redis port",
+   "Value": {
+    "Fn::GetAtt": [
+     "Cluster",
+     "RedisEndpoint.Port"
+    ]
+   },
+   "Export": {
+    "Name": "dev-RedisPort"
+   }
+  },
+  "ExportsOutputFnGetAttClusterRedisEndpointAddress56EA7C81": {
+   "Value": {
+    "Fn::GetAtt": [
+     "Cluster",
+     "RedisEndpoint.Address"
+    ]
+   },
+   "Export": {
+    "Name": "Feelwell-Redis-dev:ExportsOutputFnGetAttClusterRedisEndpointAddress56EA7C81"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

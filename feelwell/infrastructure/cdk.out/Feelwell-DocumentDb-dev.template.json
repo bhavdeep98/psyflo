@@ -1,0 +1,347 @@
+{
+ "Resources": {
+  "CredentialsF8F243AA": {
+   "Type": "AWS::SecretsManager::Secret",
+   "Properties": {
+    "Description": "DocumentDB admin credentials",
+    "GenerateSecretString": {
+     "ExcludePunctuation": true,
+     "GenerateStringKey": "password",
+     "PasswordLength": 32,
+     "SecretStringTemplate": "{\"username\":\"feelwell_admin\"}"
+    },
+    "KmsKeyId": {
+     "Fn::ImportValue": "Feelwell-Encryption-dev:ExportsOutputFnGetAttMasterKey0175C9E2Arn2B8655C7"
+    },
+    "Name": "feelwell/dev/documentdb/credentials",
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-DocumentDb-dev/Credentials/Resource"
+   }
+  },
+  "SecurityGroupDD263621": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "DocumentDB security group - conversation storage",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "255.255.255.255/32",
+      "Description": "Disallow all traffic",
+      "FromPort": 252,
+      "IpProtocol": "icmp",
+      "ToPort": 86
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     }
+    ],
+    "VpcId": {
+     "Fn::ImportValue": "Feelwell-Vpc-dev:ExportsOutputRefFeelwellVpcA8A91F6D72F23A7A"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-DocumentDb-dev/SecurityGroup/Resource"
+   }
+  },
+  "ClusterSubnetsDCFA5CB7": {
+   "Type": "AWS::DocDB::DBSubnetGroup",
+   "Properties": {
+    "DBSubnetGroupDescription": "Subnets for Cluster database",
+    "SubnetIds": [
+     {
+      "Fn::ImportValue": "Feelwell-Vpc-dev:ExportsOutputRefFeelwellVpcDatabaseSubnet1Subnet842FF0141D829F28"
+     },
+     {
+      "Fn::ImportValue": "Feelwell-Vpc-dev:ExportsOutputRefFeelwellVpcDatabaseSubnet2Subnet9CC4EE9804D0E8FB"
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Compliance",
+      "Value": "FERPA-COPPA"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DataClassification",
+      "Value": "HighlySensitive"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "ConversationStorage"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-DocumentDb-dev/Cluster/Subnets"
+   }
+  },
+  "ClusterEB0386A7": {
+   "Type": "AWS::DocDB::DBCluster",
+   "Properties": {
+    "BackupRetentionPeriod": 1,
+    "DBSubnetGroupName": {
+     "Ref": "ClusterSubnetsDCFA5CB7"
+    },
+    "DeletionProtection": false,
+    "KmsKeyId": {
+     "Fn::ImportValue": "Feelwell-Encryption-dev:ExportsOutputFnGetAttMasterKey0175C9E2Arn2B8655C7"
+    },
+    "MasterUserPassword": {
+     "Fn::Join": [
+      "",
+      [
+       "{{resolve:secretsmanager:",
+       {
+        "Ref": "CredentialsF8F243AA"
+       },
+       ":SecretString:password::}}"
+      ]
+     ]
+    },
+    "MasterUsername": "feelwell_admin",
+    "PreferredBackupWindow": "03:00-04:00",
+    "PreferredMaintenanceWindow": "sun:04:00-sun:05:00",
+    "StorageEncrypted": true,
+    "Tags": [
+     {
+      "Key": "Compliance",
+      "Value": "FERPA-COPPA"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DataClassification",
+      "Value": "HighlySensitive"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "ConversationStorage"
+     }
+    ],
+    "VpcSecurityGroupIds": [
+     {
+      "Fn::GetAtt": [
+       "SecurityGroupDD263621",
+       "GroupId"
+      ]
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-DocumentDb-dev/Cluster/Resource"
+   }
+  },
+  "ClusterInstance1448F06E4": {
+   "Type": "AWS::DocDB::DBInstance",
+   "Properties": {
+    "DBClusterIdentifier": {
+     "Ref": "ClusterEB0386A7"
+    },
+    "DBInstanceClass": "db.t3.medium",
+    "Tags": [
+     {
+      "Key": "Compliance",
+      "Value": "FERPA-COPPA"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DataClassification",
+      "Value": "HighlySensitive"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "ConversationStorage"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-DocumentDb-dev/Cluster/Instance1"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/1WP3QrCMAyFn8X7rmr1CbaBeCVsDyBdG6X7aUeTKjL67nabKF4l5zvJCRF8fxB8t5FPzJTust40fKpJqo4ldJ0QlAfCQVp5B5+sRbPiZtcuMlBiwcEbep28C+PH/YHItFM6BZeSZCMRij4ggZ8Hy7wOjQX6bpb5n3u2SNIqiHHWl0BjWM5XgC74xJl1GniL24c48vmVFo3JfLBkBuDVWt8CnexD5wAAAA=="
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-DocumentDb-dev/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "ClusterEndpoint": {
+   "Description": "DocumentDB cluster endpoint",
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      {
+       "Fn::GetAtt": [
+        "ClusterEB0386A7",
+        "Endpoint"
+       ]
+      },
+      ":",
+      {
+       "Fn::GetAtt": [
+        "ClusterEB0386A7",
+        "Port"
+       ]
+      }
+     ]
+    ]
+   },
+   "Export": {
+    "Name": "dev-DocumentDbEndpoint"
+   }
+  },
+  "CredentialsSecretArn": {
+   "Description": "DocumentDB credentials secret ARN",
+   "Value": {
+    "Ref": "CredentialsF8F243AA"
+   },
+   "Export": {
+    "Name": "dev-DocumentDbCredentialsArn"
+   }
+  },
+  "ExportsOutputFnGetAttClusterEB0386A7Endpoint48674F7C": {
+   "Value": {
+    "Fn::GetAtt": [
+     "ClusterEB0386A7",
+     "Endpoint"
+    ]
+   },
+   "Export": {
+    "Name": "Feelwell-DocumentDb-dev:ExportsOutputFnGetAttClusterEB0386A7Endpoint48674F7C"
+   }
+  },
+  "ExportsOutputFnGetAttClusterEB0386A7PortB06A1F19": {
+   "Value": {
+    "Fn::GetAtt": [
+     "ClusterEB0386A7",
+     "Port"
+    ]
+   },
+   "Export": {
+    "Name": "Feelwell-DocumentDb-dev:ExportsOutputFnGetAttClusterEB0386A7PortB06A1F19"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

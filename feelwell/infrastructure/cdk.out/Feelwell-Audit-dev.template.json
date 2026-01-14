@@ -1,0 +1,340 @@
+{
+ "Resources": {
+  "AuditLedger": {
+   "Type": "AWS::QLDB::Ledger",
+   "Properties": {
+    "DeletionProtection": false,
+    "KmsKey": {
+     "Fn::ImportValue": "Feelwell-Encryption-dev:ExportsOutputFnGetAttAuditKeyB2DBB069Arn5601654C"
+    },
+    "Name": "feelwell-audit-dev",
+    "PermissionsMode": "STANDARD",
+    "Tags": [
+     {
+      "Key": "ADR",
+      "Value": "ADR-005"
+     },
+     {
+      "Key": "Compliance",
+      "Value": "FERPA-HIPAA-SOC2"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "ImmutableAuditTrail"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Audit-dev/AuditLedger"
+   }
+  },
+  "AuditArchive60EBC247": {
+   "Type": "AWS::S3::Bucket",
+   "Properties": {
+    "BucketEncryption": {
+     "ServerSideEncryptionConfiguration": [
+      {
+       "ServerSideEncryptionByDefault": {
+        "KMSMasterKeyID": {
+         "Fn::ImportValue": "Feelwell-Encryption-dev:ExportsOutputFnGetAttAuditKeyB2DBB069Arn5601654C"
+        },
+        "SSEAlgorithm": "aws:kms"
+       }
+      }
+     ]
+    },
+    "BucketName": "feelwell-audit-archive-dev-618351925005-us-east-1",
+    "LifecycleConfiguration": {
+     "Rules": [
+      {
+       "Id": "AuditArchiveLifecycle",
+       "Status": "Enabled",
+       "Transitions": [
+        {
+         "StorageClass": "GLACIER",
+         "TransitionInDays": 365
+        },
+        {
+         "StorageClass": "DEEP_ARCHIVE",
+         "TransitionInDays": 2555
+        }
+       ]
+      }
+     ]
+    },
+    "PublicAccessBlockConfiguration": {
+     "BlockPublicAcls": true,
+     "BlockPublicPolicy": true,
+     "IgnorePublicAcls": true,
+     "RestrictPublicBuckets": true
+    },
+    "Tags": [
+     {
+      "Key": "Compliance",
+      "Value": "FERPA-HIPAA-SOC2"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "AuditArchive"
+     },
+     {
+      "Key": "Retention",
+      "Value": "7+years"
+     }
+    ],
+    "VersioningConfiguration": {
+     "Status": "Enabled"
+    }
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Audit-dev/AuditArchive/Resource"
+   }
+  },
+  "AuditArchivePolicy043AB9F5": {
+   "Type": "AWS::S3::BucketPolicy",
+   "Properties": {
+    "Bucket": {
+     "Ref": "AuditArchive60EBC247"
+    },
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "s3:*",
+       "Condition": {
+        "Bool": {
+         "aws:SecureTransport": "false"
+        }
+       },
+       "Effect": "Deny",
+       "Principal": {
+        "AWS": "*"
+       },
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "AuditArchive60EBC247",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "AuditArchive60EBC247",
+             "Arn"
+            ]
+           },
+           "/*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": "s3:GetBucketAcl",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "cloudtrail.amazonaws.com"
+       },
+       "Resource": {
+        "Fn::GetAtt": [
+         "AuditArchive60EBC247",
+         "Arn"
+        ]
+       }
+      },
+      {
+       "Action": "s3:PutObject",
+       "Condition": {
+        "StringEquals": {
+         "s3:x-amz-acl": "bucket-owner-full-control"
+        }
+       },
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "cloudtrail.amazonaws.com"
+       },
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          {
+           "Fn::GetAtt": [
+            "AuditArchive60EBC247",
+            "Arn"
+           ]
+          },
+          "/cloudtrail/AWSLogs/618351925005/*"
+         ]
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Audit-dev/AuditArchive/Policy/Resource"
+   }
+  },
+  "ApiAuditTrailD2ABB035": {
+   "Type": "AWS::CloudTrail::Trail",
+   "Properties": {
+    "EnableLogFileValidation": true,
+    "EventSelectors": [
+     {
+      "IncludeManagementEvents": true,
+      "ReadWriteType": "All"
+     }
+    ],
+    "IncludeGlobalServiceEvents": true,
+    "IsLogging": true,
+    "IsMultiRegionTrail": true,
+    "KMSKeyId": {
+     "Fn::ImportValue": "Feelwell-Encryption-dev:ExportsOutputFnGetAttAuditKeyB2DBB069Arn5601654C"
+    },
+    "S3BucketName": {
+     "Ref": "AuditArchive60EBC247"
+    },
+    "S3KeyPrefix": "cloudtrail",
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     }
+    ],
+    "TrailName": "feelwell-api-audit-dev"
+   },
+   "DependsOn": [
+    "AuditArchivePolicy043AB9F5"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Audit-dev/ApiAuditTrail/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/0WOSw7CIBBAz+IeRqWeQLcmmureUBgNBUH5aAzh7pZi4uq9eZlMhsG6Y7Ba8HegQmpq1AD5FLnQZEqX/DRygN3V7lHe0JPQQd4moTGSKf6s4eiMEp9/bnMhwrgko+fKQD5X1JVZSql6SPGR5nM9Bpe8wEKskwhjWL7YBup3Y1CK+mSjuiP0jV/TL7lJugAAAA=="
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Audit-dev/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "LedgerName": {
+   "Description": "QLDB audit ledger name",
+   "Value": "feelwell-audit-dev",
+   "Export": {
+    "Name": "dev-AuditLedgerName"
+   }
+  },
+  "ArchiveBucketArn": {
+   "Description": "Audit archive S3 bucket ARN",
+   "Value": {
+    "Fn::GetAtt": [
+     "AuditArchive60EBC247",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "dev-AuditArchiveBucketArn"
+   }
+  },
+  "TrailArn": {
+   "Description": "CloudTrail ARN",
+   "Value": {
+    "Fn::GetAtt": [
+     "ApiAuditTrailD2ABB035",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "dev-CloudTrailArn"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

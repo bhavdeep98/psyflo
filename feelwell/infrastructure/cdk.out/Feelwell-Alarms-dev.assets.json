@@ -1,0 +1,20 @@
+{
+  "version": "36.0.0",
+  "files": {
+    "0f4761dc8da79072f570c1a83bbafd814f95266649a4a5e991a8a645fc4cddfc": {
+      "source": {
+        "path": "Feelwell-Alarms-dev.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "618351925005-us-east-1": {
+          "bucketName": "cdk-hnb659fds-assets-618351925005-us-east-1",
+          "objectKey": "0f4761dc8da79072f570c1a83bbafd814f95266649a4a5e991a8a645fc4cddfc.json",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::618351925005:role/cdk-hnb659fds-file-publishing-role-618351925005-us-east-1"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

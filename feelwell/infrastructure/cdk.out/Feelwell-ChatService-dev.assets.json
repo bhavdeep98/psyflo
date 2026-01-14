@@ -1,0 +1,34 @@
+{
+  "version": "36.0.0",
+  "files": {
+    "87f39d57192e79b8ca7b25407c314972e8714a9b99d5cbb5edb88492293d11fc": {
+      "source": {
+        "path": "Feelwell-ChatService-dev.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "618351925005-us-east-1": {
+          "bucketName": "cdk-hnb659fds-assets-618351925005-us-east-1",
+          "objectKey": "87f39d57192e79b8ca7b25407c314972e8714a9b99d5cbb5edb88492293d11fc.json",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::618351925005:role/cdk-hnb659fds-file-publishing-role-618351925005-us-east-1"
+        }
+      }
+    }
+  },
+  "dockerImages": {
+    "055f5141d8afd2b72965ac50709ddab5a3e4110f69ba8cfdb1d843a68467a46a": {
+      "source": {
+        "directory": "asset.055f5141d8afd2b72965ac50709ddab5a3e4110f69ba8cfdb1d843a68467a46a"
+      },
+      "destinations": {
+        "618351925005-us-east-1": {
+          "repositoryName": "cdk-hnb659fds-container-assets-618351925005-us-east-1",
+          "imageTag": "055f5141d8afd2b72965ac50709ddab5a3e4110f69ba8cfdb1d843a68467a46a",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::618351925005:role/cdk-hnb659fds-image-publishing-role-618351925005-us-east-1"
+        }
+      }
+    }
+  }
+}

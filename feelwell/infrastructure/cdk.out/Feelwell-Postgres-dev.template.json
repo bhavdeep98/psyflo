@@ -1,0 +1,318 @@
+{
+ "Resources": {
+  "CredentialsF8F243AA": {
+   "Type": "AWS::SecretsManager::Secret",
+   "Properties": {
+    "Description": "PostgreSQL admin credentials",
+    "GenerateSecretString": {
+     "ExcludePunctuation": true,
+     "GenerateStringKey": "password",
+     "PasswordLength": 32,
+     "SecretStringTemplate": "{\"username\":\"feelwell_admin\"}"
+    },
+    "KmsKeyId": {
+     "Fn::ImportValue": "Feelwell-Encryption-dev:ExportsOutputFnGetAttMasterKey0175C9E2Arn2B8655C7"
+    },
+    "Name": "feelwell/dev/postgres/credentials",
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Postgres-dev/Credentials/Resource"
+   }
+  },
+  "CredentialsAttachment37730F3C": {
+   "Type": "AWS::SecretsManager::SecretTargetAttachment",
+   "Properties": {
+    "SecretId": {
+     "Ref": "CredentialsF8F243AA"
+    },
+    "TargetId": {
+     "Ref": "InstanceC1063A87"
+    },
+    "TargetType": "AWS::RDS::DBInstance"
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Postgres-dev/Credentials/Attachment/Resource"
+   }
+  },
+  "SecurityGroupDD263621": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "PostgreSQL security group - clinical data",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "255.255.255.255/32",
+      "Description": "Disallow all traffic",
+      "FromPort": 252,
+      "IpProtocol": "icmp",
+      "ToPort": 86
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     }
+    ],
+    "VpcId": {
+     "Fn::ImportValue": "Feelwell-Vpc-dev:ExportsOutputRefFeelwellVpcA8A91F6D72F23A7A"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Postgres-dev/SecurityGroup/Resource"
+   }
+  },
+  "InstanceSubnetGroupF2CBA54F": {
+   "Type": "AWS::RDS::DBSubnetGroup",
+   "Properties": {
+    "DBSubnetGroupDescription": "Subnet group for Instance database",
+    "SubnetIds": [
+     {
+      "Fn::ImportValue": "Feelwell-Vpc-dev:ExportsOutputRefFeelwellVpcDatabaseSubnet1Subnet842FF0141D829F28"
+     },
+     {
+      "Fn::ImportValue": "Feelwell-Vpc-dev:ExportsOutputRefFeelwellVpcDatabaseSubnet2Subnet9CC4EE9804D0E8FB"
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Compliance",
+      "Value": "FERPA-COPPA-HIPAA"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DataClassification",
+      "Value": "HighlySensitive"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "ClinicalData"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Postgres-dev/Instance/SubnetGroup/Default"
+   }
+  },
+  "InstanceC1063A87": {
+   "Type": "AWS::RDS::DBInstance",
+   "Properties": {
+    "AllocatedStorage": "20",
+    "BackupRetentionPeriod": 1,
+    "CopyTagsToSnapshot": true,
+    "DBInstanceClass": "db.t3.small",
+    "DBSubnetGroupName": {
+     "Ref": "InstanceSubnetGroupF2CBA54F"
+    },
+    "DeletionProtection": false,
+    "EnableCloudwatchLogsExports": [
+     "postgresql",
+     "upgrade"
+    ],
+    "EnablePerformanceInsights": false,
+    "Engine": "postgres",
+    "EngineVersion": "15",
+    "KmsKeyId": {
+     "Fn::ImportValue": "Feelwell-Encryption-dev:ExportsOutputFnGetAttMasterKey0175C9E2Arn2B8655C7"
+    },
+    "MasterUserPassword": {
+     "Fn::Join": [
+      "",
+      [
+       "{{resolve:secretsmanager:",
+       {
+        "Ref": "CredentialsF8F243AA"
+       },
+       ":SecretString:password::}}"
+      ]
+     ]
+    },
+    "MasterUsername": {
+     "Fn::Join": [
+      "",
+      [
+       "{{resolve:secretsmanager:",
+       {
+        "Ref": "CredentialsF8F243AA"
+       },
+       ":SecretString:username::}}"
+      ]
+     ]
+    },
+    "MaxAllocatedStorage": 50,
+    "MultiAZ": false,
+    "PreferredBackupWindow": "03:00-04:00",
+    "PreferredMaintenanceWindow": "sun:04:00-sun:05:00",
+    "PubliclyAccessible": false,
+    "StorageEncrypted": true,
+    "StorageType": "gp3",
+    "Tags": [
+     {
+      "Key": "Compliance",
+      "Value": "FERPA-COPPA-HIPAA"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DataClassification",
+      "Value": "HighlySensitive"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "ClinicalData"
+     }
+    ],
+    "VPCSecurityGroups": [
+     {
+      "Fn::GetAtt": [
+       "SecurityGroupDD263621",
+       "GroupId"
+      ]
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Postgres-dev/Instance/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/2VP2w6CMAz9Ft/H1OkPqCTGJxPw3ZRRcSKDrJ3GEP5dbl6iT6fn1rRKzhdKziZwp0CneXA1iaxjBp2LVjrWhNohUwEWMnSt1XOxOdlxGuAALkNecVs8F2i/Ar9OI1Crfo93hh9bV/pqTH+ERriUZB0CQwKEO0sMVqOIfWKR351w/Se8ok3T8b3nyvfHREild60ubJmivND0ppay+/xCxgTOWzYFymjAJ9SnvfcWAQAA"
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Postgres-dev/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "InstanceEndpoint": {
+   "Description": "PostgreSQL instance endpoint",
+   "Value": {
+    "Fn::GetAtt": [
+     "InstanceC1063A87",
+     "Endpoint.Address"
+    ]
+   },
+   "Export": {
+    "Name": "dev-PostgresEndpoint"
+   }
+  },
+  "CredentialsSecretArn": {
+   "Description": "PostgreSQL credentials secret ARN",
+   "Value": {
+    "Ref": "CredentialsF8F243AA"
+   },
+   "Export": {
+    "Name": "dev-PostgresCredentialsArn"
+   }
+  },
+  "ExportsOutputFnGetAttInstanceC1063A87EndpointAddress6BABBCD4": {
+   "Value": {
+    "Fn::GetAtt": [
+     "InstanceC1063A87",
+     "Endpoint.Address"
+    ]
+   },
+   "Export": {
+    "Name": "Feelwell-Postgres-dev:ExportsOutputFnGetAttInstanceC1063A87EndpointAddress6BABBCD4"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

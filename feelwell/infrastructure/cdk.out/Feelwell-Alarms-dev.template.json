@@ -1,0 +1,354 @@
+{
+ "Resources": {
+  "CriticalAlerts1F1E9D64": {
+   "Type": "AWS::SNS::Topic",
+   "Properties": {
+    "DisplayName": "[CRITICAL] Feelwell dev",
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "Observability"
+     }
+    ],
+    "TopicName": "feelwell-alerts-critical-dev"
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Alarms-dev/CriticalAlerts/Resource"
+   }
+  },
+  "WarningAlerts855AE01C": {
+   "Type": "AWS::SNS::Topic",
+   "Properties": {
+    "DisplayName": "[WARNING] Feelwell dev",
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "Observability"
+     }
+    ],
+    "TopicName": "feelwell-alerts-warning-dev"
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Alarms-dev/WarningAlerts/Resource"
+   }
+  },
+  "InfoAlerts8C370155": {
+   "Type": "AWS::SNS::Topic",
+   "Properties": {
+    "DisplayName": "[INFO] Feelwell dev",
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "Observability"
+     }
+    ],
+    "TopicName": "feelwell-alerts-info-dev"
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Alarms-dev/InfoAlerts/Resource"
+   }
+  },
+  "SafetyScannerLatency60532227": {
+   "Type": "AWS::CloudWatch::Alarm",
+   "Properties": {
+    "AlarmActions": [
+     {
+      "Ref": "WarningAlerts855AE01C"
+     }
+    ],
+    "AlarmDescription": "[WARNING] Safety scanner p99 latency > 100ms - investigate immediately",
+    "AlarmName": "feelwell-safetyscannerlatency-dev",
+    "ComparisonOperator": "GreaterThanThreshold",
+    "DatapointsToAlarm": 2,
+    "Dimensions": [
+     {
+      "Name": "FunctionName",
+      "Value": {
+       "Fn::ImportValue": "Feelwell-SafetyService-dev:ExportsOutputRefScannerFunction1B1642AE08D79E71"
+      }
+     }
+    ],
+    "EvaluationPeriods": 2,
+    "ExtendedStatistic": "p99",
+    "MetricName": "Duration",
+    "Namespace": "AWS/Lambda",
+    "Period": 300,
+    "Threshold": 100,
+    "TreatMissingData": "missing"
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Alarms-dev/SafetyScannerLatency/Resource"
+   }
+  },
+  "SafetyScannerErrors1ACACCED": {
+   "Type": "AWS::CloudWatch::Alarm",
+   "Properties": {
+    "AlarmActions": [
+     {
+      "Ref": "CriticalAlerts1F1E9D64"
+     }
+    ],
+    "AlarmDescription": "[CRITICAL] Safety scanner errors detected - CRITICAL safety system",
+    "AlarmName": "feelwell-safetyscannererrors-dev",
+    "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+    "DatapointsToAlarm": 1,
+    "Dimensions": [
+     {
+      "Name": "FunctionName",
+      "Value": {
+       "Fn::ImportValue": "Feelwell-SafetyService-dev:ExportsOutputRefScannerFunction1B1642AE08D79E71"
+      }
+     }
+    ],
+    "EvaluationPeriods": 1,
+    "MetricName": "Errors",
+    "Namespace": "AWS/Lambda",
+    "OKActions": [
+     {
+      "Ref": "CriticalAlerts1F1E9D64"
+     }
+    ],
+    "Period": 300,
+    "Statistic": "Sum",
+    "Threshold": 1,
+    "TreatMissingData": "missing"
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Alarms-dev/SafetyScannerErrors/Resource"
+   }
+  },
+  "SafetyScannerThrottles015511B5": {
+   "Type": "AWS::CloudWatch::Alarm",
+   "Properties": {
+    "AlarmActions": [
+     {
+      "Ref": "WarningAlerts855AE01C"
+     }
+    ],
+    "AlarmDescription": "[WARNING] Safety scanner being throttled - increase concurrency",
+    "AlarmName": "feelwell-safetyscannerthrottles-dev",
+    "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+    "DatapointsToAlarm": 1,
+    "Dimensions": [
+     {
+      "Name": "FunctionName",
+      "Value": {
+       "Fn::ImportValue": "Feelwell-SafetyService-dev:ExportsOutputRefScannerFunction1B1642AE08D79E71"
+      }
+     }
+    ],
+    "EvaluationPeriods": 1,
+    "MetricName": "Throttles",
+    "Namespace": "AWS/Lambda",
+    "Period": 300,
+    "Statistic": "Sum",
+    "Threshold": 1,
+    "TreatMissingData": "missing"
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Alarms-dev/SafetyScannerThrottles/Resource"
+   }
+  },
+  "DocumentDbCpu039F4466": {
+   "Type": "AWS::CloudWatch::Alarm",
+   "Properties": {
+    "AlarmActions": [
+     {
+      "Ref": "WarningAlerts855AE01C"
+     }
+    ],
+    "AlarmDescription": "[WARNING] DocumentDB CPU > 80% - consider scaling",
+    "AlarmName": "feelwell-documentdbcpu-dev",
+    "ComparisonOperator": "GreaterThanThreshold",
+    "DatapointsToAlarm": 3,
+    "Dimensions": [
+     {
+      "Name": "DBClusterIdentifier",
+      "Value": "feelwell-dev"
+     }
+    ],
+    "EvaluationPeriods": 3,
+    "MetricName": "CPUUtilization",
+    "Namespace": "AWS/DocDB",
+    "Period": 300,
+    "Statistic": "Average",
+    "Threshold": 80,
+    "TreatMissingData": "missing"
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Alarms-dev/DocumentDbCpu/Resource"
+   }
+  },
+  "PostgresConnections32FE1141": {
+   "Type": "AWS::CloudWatch::Alarm",
+   "Properties": {
+    "AlarmActions": [
+     {
+      "Ref": "WarningAlerts855AE01C"
+     }
+    ],
+    "AlarmDescription": "[WARNING] PostgreSQL connections > 80% of max",
+    "AlarmName": "feelwell-postgresconnections-dev",
+    "ComparisonOperator": "GreaterThanThreshold",
+    "DatapointsToAlarm": 2,
+    "Dimensions": [
+     {
+      "Name": "DBInstanceIdentifier",
+      "Value": "feelwell-dev"
+     }
+    ],
+    "EvaluationPeriods": 2,
+    "MetricName": "DatabaseConnections",
+    "Namespace": "AWS/RDS",
+    "Period": 300,
+    "Statistic": "Average",
+    "Threshold": 80,
+    "TreatMissingData": "missing"
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Alarms-dev/PostgresConnections/Resource"
+   }
+  },
+  "RedisMemory1B5E4A67": {
+   "Type": "AWS::CloudWatch::Alarm",
+   "Properties": {
+    "AlarmActions": [
+     {
+      "Ref": "WarningAlerts855AE01C"
+     }
+    ],
+    "AlarmDescription": "[WARNING] Redis memory > 80% - consider scaling or TTL review",
+    "AlarmName": "feelwell-redismemory-dev",
+    "ComparisonOperator": "GreaterThanThreshold",
+    "DatapointsToAlarm": 2,
+    "Dimensions": [
+     {
+      "Name": "CacheClusterId",
+      "Value": "feelwell-redis-dev"
+     }
+    ],
+    "EvaluationPeriods": 2,
+    "MetricName": "DatabaseMemoryUsagePercentage",
+    "Namespace": "AWS/ElastiCache",
+    "Period": 300,
+    "Statistic": "Average",
+    "Threshold": 80,
+    "TreatMissingData": "missing"
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Alarms-dev/RedisMemory/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/yXNQQ7CIBAF0LO4h1GpFzAewKR2b+iAkZZCwwx2Qbi7Ulf/5f/FV3DuFJwOeiOJZpbejVAerHEWv+pZKBCUIa4Oxe0VdlSBPmazacY3lKvXaWnbjlob75nXzE29pZgT2ipCNBYmOn7UBdrhRM7JlAO7xUL/zy/1tyR1jQAAAA=="
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Alarms-dev/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "CriticalAlertTopicArn": {
+   "Description": "Critical alerts SNS topic ARN",
+   "Value": {
+    "Ref": "CriticalAlerts1F1E9D64"
+   },
+   "Export": {
+    "Name": "dev-CriticalAlertTopicArn"
+   }
+  },
+  "WarningAlertTopicArn": {
+   "Description": "Warning alerts SNS topic ARN",
+   "Value": {
+    "Ref": "WarningAlerts855AE01C"
+   },
+   "Export": {
+    "Name": "dev-WarningAlertTopicArn"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

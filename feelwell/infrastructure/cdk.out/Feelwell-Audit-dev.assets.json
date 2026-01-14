@@ -1,0 +1,20 @@
+{
+  "version": "36.0.0",
+  "files": {
+    "01e0f5f5bbd9080f5920987e0bc85254e12d5edb1ca2ae9f7b529575fdf1b1d9": {
+      "source": {
+        "path": "Feelwell-Audit-dev.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "618351925005-us-east-1": {
+          "bucketName": "cdk-hnb659fds-assets-618351925005-us-east-1",
+          "objectKey": "01e0f5f5bbd9080f5920987e0bc85254e12d5edb1ca2ae9f7b529575fdf1b1d9.json",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::618351925005:role/cdk-hnb659fds-file-publishing-role-618351925005-us-east-1"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

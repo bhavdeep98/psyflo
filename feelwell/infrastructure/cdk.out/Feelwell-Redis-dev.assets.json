@@ -1,0 +1,20 @@
+{
+  "version": "36.0.0",
+  "files": {
+    "f3e81299852578b5c9ef56095bbd00eff487a52e4b9786593f1d359a670eb91f": {
+      "source": {
+        "path": "Feelwell-Redis-dev.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "618351925005-us-east-1": {
+          "bucketName": "cdk-hnb659fds-assets-618351925005-us-east-1",
+          "objectKey": "f3e81299852578b5c9ef56095bbd00eff487a52e4b9786593f1d359a670eb91f.json",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::618351925005:role/cdk-hnb659fds-file-publishing-role-618351925005-us-east-1"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

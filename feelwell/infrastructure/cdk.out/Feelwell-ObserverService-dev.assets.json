@@ -1,0 +1,34 @@
+{
+  "version": "36.0.0",
+  "files": {
+    "8c21ee17ad45d1f4f7a504200b8907e295d3b50b69d669cc166b412013660871": {
+      "source": {
+        "path": "Feelwell-ObserverService-dev.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "618351925005-us-east-1": {
+          "bucketName": "cdk-hnb659fds-assets-618351925005-us-east-1",
+          "objectKey": "8c21ee17ad45d1f4f7a504200b8907e295d3b50b69d669cc166b412013660871.json",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::618351925005:role/cdk-hnb659fds-file-publishing-role-618351925005-us-east-1"
+        }
+      }
+    }
+  },
+  "dockerImages": {
+    "281c3eca6eab2c9e67b90c300c767ea9a290ba5edf0a72eab498b53627e63ef9": {
+      "source": {
+        "directory": "asset.281c3eca6eab2c9e67b90c300c767ea9a290ba5edf0a72eab498b53627e63ef9"
+      },
+      "destinations": {
+        "618351925005-us-east-1": {
+          "repositoryName": "cdk-hnb659fds-container-assets-618351925005-us-east-1",
+          "imageTag": "281c3eca6eab2c9e67b90c300c767ea9a290ba5edf0a72eab498b53627e63ef9",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::618351925005:role/cdk-hnb659fds-image-publishing-role-618351925005-us-east-1"
+        }
+      }
+    }
+  }
+}

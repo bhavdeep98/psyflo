@@ -1,0 +1,315 @@
+{
+ "Resources": {
+  "MasterKey0175C9E2": {
+   "Type": "AWS::KMS::Key",
+   "Properties": {
+    "Description": "Master encryption key for Feelwell data (FERPA/HIPAA)",
+    "EnableKeyRotation": true,
+    "KeyPolicy": {
+     "Statement": [
+      {
+       "Action": "kms:*",
+       "Effect": "Allow",
+       "Principal": {
+        "AWS": {
+         "Fn::Join": [
+          "",
+          [
+           "arn:",
+           {
+            "Ref": "AWS::Partition"
+           },
+           ":iam::618351925005:root"
+          ]
+         ]
+        }
+       },
+       "Resource": "*"
+      },
+      {
+       "Action": [
+        "kms:Decrypt",
+        "kms:DescribeKey",
+        "kms:Encrypt",
+        "kms:GenerateDataKey*",
+        "kms:ReEncrypt*"
+       ],
+       "Condition": {
+        "StringEquals": {
+         "kms:CallerAccount": "618351925005"
+        }
+       },
+       "Effect": "Allow",
+       "Principal": {
+        "Service": [
+         "elasticache.amazonaws.com",
+         "es.amazonaws.com",
+         "logs.us-east-1.amazonaws.com",
+         "rds.amazonaws.com"
+        ]
+       },
+       "Resource": "*",
+       "Sid": "AllowServiceAccess"
+      },
+      {
+       "Action": [
+        "kms:CreateGrant",
+        "kms:Decrypt",
+        "kms:DescribeKey",
+        "kms:Encrypt",
+        "kms:GenerateDataKey*",
+        "kms:ReEncrypt*"
+       ],
+       "Condition": {
+        "StringEquals": {
+         "kms:ViaService": "secretsmanager.us-east-1.amazonaws.com"
+        }
+       },
+       "Effect": "Allow",
+       "Principal": {
+        "AWS": {
+         "Fn::Join": [
+          "",
+          [
+           "arn:",
+           {
+            "Ref": "AWS::Partition"
+           },
+           ":iam::618351925005:root"
+          ]
+         ]
+        }
+       },
+       "Resource": "*"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PendingWindowInDays": 30,
+    "Tags": [
+     {
+      "Key": "Compliance",
+      "Value": "FERPA-HIPAA"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "DataEncryption"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Encryption-dev/MasterKey/Resource"
+   }
+  },
+  "MasterKeyAlias9C01E073": {
+   "Type": "AWS::KMS::Alias",
+   "Properties": {
+    "AliasName": "alias/feelwell-dev-master",
+    "TargetKeyId": {
+     "Fn::GetAtt": [
+      "MasterKey0175C9E2",
+      "Arn"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Encryption-dev/MasterKey/Alias/Resource"
+   }
+  },
+  "AuditKeyB2DBB069": {
+   "Type": "AWS::KMS::Key",
+   "Properties": {
+    "Description": "Encryption key for audit trail (QLDB, CloudTrail)",
+    "EnableKeyRotation": true,
+    "KeyPolicy": {
+     "Statement": [
+      {
+       "Action": "kms:*",
+       "Effect": "Allow",
+       "Principal": {
+        "AWS": {
+         "Fn::Join": [
+          "",
+          [
+           "arn:",
+           {
+            "Ref": "AWS::Partition"
+           },
+           ":iam::618351925005:root"
+          ]
+         ]
+        }
+       },
+       "Resource": "*"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PendingWindowInDays": 30,
+    "Tags": [
+     {
+      "Key": "Compliance",
+      "Value": "SOC2-FERPA"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "AuditEncryption"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Encryption-dev/AuditKey/Resource"
+   }
+  },
+  "AuditKeyAlias03A4B3A2": {
+   "Type": "AWS::KMS::Alias",
+   "Properties": {
+    "AliasName": "alias/feelwell-dev-audit",
+    "TargetKeyId": {
+     "Fn::GetAtt": [
+      "AuditKeyB2DBB069",
+      "Arn"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Encryption-dev/AuditKey/Alias/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/zPSMzQ20jNQTCwv1k1OydbNyUzSqw4uSUzO1gEKxWfnFutVe6dW6jin5YEox5zMxGIQB8yoBbH8S0sKSktArKDU4vzSouTUWp28/JRUvaxi/TIjEz2Q6VnFmZm6RaV5JZm5qXpBEBoAS9dOx3oAAAA="
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Encryption-dev/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "MasterKeyArn": {
+   "Description": "Master KMS key ARN",
+   "Value": {
+    "Fn::GetAtt": [
+     "MasterKey0175C9E2",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "dev-MasterKeyArn"
+   }
+  },
+  "AuditKeyArn": {
+   "Description": "Audit KMS key ARN",
+   "Value": {
+    "Fn::GetAtt": [
+     "AuditKeyB2DBB069",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "dev-AuditKeyArn"
+   }
+  },
+  "ExportsOutputFnGetAttMasterKey0175C9E2Arn2B8655C7": {
+   "Value": {
+    "Fn::GetAtt": [
+     "MasterKey0175C9E2",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "Feelwell-Encryption-dev:ExportsOutputFnGetAttMasterKey0175C9E2Arn2B8655C7"
+   }
+  },
+  "ExportsOutputRefMasterKey0175C9E20D9768D9": {
+   "Value": {
+    "Ref": "MasterKey0175C9E2"
+   },
+   "Export": {
+    "Name": "Feelwell-Encryption-dev:ExportsOutputRefMasterKey0175C9E20D9768D9"
+   }
+  },
+  "ExportsOutputFnGetAttAuditKeyB2DBB069Arn5601654C": {
+   "Value": {
+    "Fn::GetAtt": [
+     "AuditKeyB2DBB069",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "Feelwell-Encryption-dev:ExportsOutputFnGetAttAuditKeyB2DBB069Arn5601654C"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}
