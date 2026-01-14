@@ -1,0 +1,168 @@
+{
+ "Resources": {
+  "MasterKey0175C9E2": {
+   "Type": "AWS::KMS::Key",
+   "Properties": {
+    "Description": "Master key for Feelwell data encryption",
+    "EnableKeyRotation": true,
+    "KeyPolicy": {
+     "Statement": [
+      {
+       "Action": "kms:*",
+       "Effect": "Allow",
+       "Principal": {
+        "AWS": {
+         "Fn::Join": [
+          "",
+          [
+           "arn:",
+           {
+            "Ref": "AWS::Partition"
+           },
+           ":iam::618351925005:root"
+          ]
+         ]
+        }
+       },
+       "Resource": "*"
+      },
+      {
+       "Action": [
+        "kms:CreateGrant",
+        "kms:Decrypt",
+        "kms:DescribeKey",
+        "kms:Encrypt",
+        "kms:GenerateDataKey*",
+        "kms:ReEncrypt*"
+       ],
+       "Condition": {
+        "StringEquals": {
+         "kms:ViaService": "secretsmanager.us-east-1.amazonaws.com"
+        }
+       },
+       "Effect": "Allow",
+       "Principal": {
+        "AWS": {
+         "Fn::Join": [
+          "",
+          [
+           "arn:",
+           {
+            "Ref": "AWS::Partition"
+           },
+           ":iam::618351925005:root"
+          ]
+         ]
+        }
+       },
+       "Resource": "*"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "production"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Security-production/MasterKey/Resource"
+   }
+  },
+  "MasterKeyAlias9C01E073": {
+   "Type": "AWS::KMS::Alias",
+   "Properties": {
+    "AliasName": "alias/feelwell-master-key",
+    "TargetKeyId": {
+     "Fn::GetAtt": [
+      "MasterKey0175C9E2",
+      "Arn"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Security-production/MasterKey/Alias/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/zPSMzQ20jNQTCwv1k1OydbNyUzSqw4uSUzO1gEKxWfnFutVe6dW6jin5YEox5zMxGIQB8yoBbGCUovzS4uSU2t18vJTUvWyivXLjEz0QGZmFWdm6haV5pVk5qbqBUFoAGLJuZ1wAAAA"
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Security-production/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "ExportsOutputFnGetAttMasterKey0175C9E2Arn2B8655C7": {
+   "Value": {
+    "Fn::GetAtt": [
+     "MasterKey0175C9E2",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "Feelwell-Security-production:ExportsOutputFnGetAttMasterKey0175C9E2Arn2B8655C7"
+   }
+  },
+  "ExportsOutputRefMasterKey0175C9E20D9768D9": {
+   "Value": {
+    "Ref": "MasterKey0175C9E2"
+   },
+   "Export": {
+    "Name": "Feelwell-Security-production:ExportsOutputRefMasterKey0175C9E20D9768D9"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

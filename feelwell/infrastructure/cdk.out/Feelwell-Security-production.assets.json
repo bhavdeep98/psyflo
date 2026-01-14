@@ -1,0 +1,20 @@
+{
+  "version": "36.0.0",
+  "files": {
+    "72233271146d26d95ac0cfd2da45868a20703a72989e4aa24da941ab0cd26666": {
+      "source": {
+        "path": "Feelwell-Security-production.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "618351925005-us-east-1": {
+          "bucketName": "cdk-hnb659fds-assets-618351925005-us-east-1",
+          "objectKey": "72233271146d26d95ac0cfd2da45868a20703a72989e4aa24da941ab0cd26666.json",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::618351925005:role/cdk-hnb659fds-file-publishing-role-618351925005-us-east-1"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

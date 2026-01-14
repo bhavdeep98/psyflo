@@ -1,0 +1,1947 @@
+{
+ "Resources": {
+  "FeelwellCluster25818ADD": {
+   "Type": "AWS::ECS::Cluster",
+   "Properties": {
+    "ClusterSettings": [
+     {
+      "Name": "containerInsights",
+      "Value": "enabled"
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Compute-dev/FeelwellCluster/Resource"
+   }
+  },
+  "BedrockApiKey0BF0102A": {
+   "Type": "AWS::SecretsManager::Secret",
+   "Properties": {
+    "GenerateSecretString": {},
+    "Name": "dev/feelwell/bedrock-api-key",
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Compute-dev/BedrockApiKey/Resource"
+   }
+  },
+  "ChatServiceTaskDefTaskRoleC15ADC7C": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "ecs-tasks.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/CloudWatchAgentServerPolicy"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Compliance",
+      "Value": "FERPA-COPPA"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DataAccess",
+      "Value": "PII"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     },
+     {
+      "Key": "Service",
+      "Value": "chat-service"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Compute-dev/ChatService/TaskDef/TaskRole/Resource"
+   }
+  },
+  "ChatServiceTaskDefTaskRoleDefaultPolicy2B80E06E": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "logs:CreateLogStream",
+        "logs:DescribeLogGroups",
+        "logs:DescribeLogStreams",
+        "logs:PutLogEvents",
+        "ssmmessages:CreateControlChannel",
+        "ssmmessages:CreateDataChannel",
+        "ssmmessages:OpenControlChannel",
+        "ssmmessages:OpenDataChannel"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "ChatServiceTaskDefTaskRoleDefaultPolicy2B80E06E",
+    "Roles": [
+     {
+      "Ref": "ChatServiceTaskDefTaskRoleC15ADC7C"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Compute-dev/ChatService/TaskDef/TaskRole/DefaultPolicy/Resource"
+   }
+  },
+  "ChatServiceTaskDef861B3D20": {
+   "Type": "AWS::ECS::TaskDefinition",
+   "Properties": {
+    "ContainerDefinitions": [
+     {
+      "Environment": [
+       {
+        "Name": "ENVIRONMENT",
+        "Value": "dev"
+       },
+       {
+        "Name": "DOCDB_ENDPOINT",
+        "Value": {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::ImportValue": "Feelwell-Database-dev:ExportsOutputFnGetAttConversationStore557298E2Endpoint2301EC84"
+           },
+           ":",
+           {
+            "Fn::ImportValue": "Feelwell-Database-dev:ExportsOutputFnGetAttConversationStore557298E2Port29252BC6"
+           }
+          ]
+         ]
+        }
+       },
+       {
+        "Name": "REDIS_ENDPOINT",
+        "Value": {
+         "Fn::ImportValue": "Feelwell-Database-dev:ExportsOutputFnGetAttSessionCacheRedisEndpointAddress127E13B5"
+        }
+       },
+       {
+        "Name": "OPENSEARCH_ENDPOINT",
+        "Value": {
+         "Fn::ImportValue": "Feelwell-Database-dev:ExportsOutputFnGetAttRAGVectorStoreAEDE5AE4DomainEndpointFDEB69FB"
+        }
+       },
+       {
+        "Name": "SERVICE_NAME",
+        "Value": "chat-service"
+       },
+       {
+        "Name": "LOG_REDACTION_ENABLED",
+        "Value": "true"
+       }
+      ],
+      "Essential": true,
+      "HealthCheck": {
+       "Command": [
+        "CMD-SHELL",
+        "curl -f http://localhost:8080/health || exit 1"
+       ],
+       "Interval": 30,
+       "Retries": 3,
+       "StartPeriod": 60,
+       "Timeout": 5
+      },
+      "Image": {
+       "Fn::Sub": "618351925005.dkr.ecr.us-east-1.${AWS::URLSuffix}/cdk-hnb659fds-container-assets-618351925005-us-east-1:055f5141d8afd2b72965ac50709ddab5a3e4110f69ba8cfdb1d843a68467a46a"
+      },
+      "LogConfiguration": {
+       "LogDriver": "awslogs",
+       "Options": {
+        "awslogs-group": {
+         "Ref": "ChatServiceTaskDefAppContainerLogGroup65A507C0"
+        },
+        "awslogs-stream-prefix": "chat-service",
+        "awslogs-region": "us-east-1"
+       }
+      },
+      "Name": "AppContainer",
+      "PortMappings": [
+       {
+        "ContainerPort": 8080,
+        "Protocol": "tcp"
+       }
+      ],
+      "Secrets": [
+       {
+        "Name": "BEDROCK_API_KEY",
+        "ValueFrom": {
+         "Ref": "BedrockApiKey0BF0102A"
+        }
+       }
+      ]
+     }
+    ],
+    "Cpu": "512",
+    "ExecutionRoleArn": {
+     "Fn::GetAtt": [
+      "ChatServiceTaskDefExecutionRole6C55BC68",
+      "Arn"
+     ]
+    },
+    "Family": "FeelwellComputedevChatServiceTaskDef7DB95B83",
+    "Memory": "1024",
+    "NetworkMode": "awsvpc",
+    "RequiresCompatibilities": [
+     "FARGATE"
+    ],
+    "RuntimePlatform": {
+     "CpuArchitecture": "ARM64",
+     "OperatingSystemFamily": "LINUX"
+    },
+    "Tags": [
+     {
+      "Key": "Compliance",
+      "Value": "FERPA-COPPA"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DataAccess",
+      "Value": "PII"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     },
+     {
+      "Key": "Service",
+      "Value": "chat-service"
+     }
+    ],
+    "TaskRoleArn": {
+     "Fn::GetAtt": [
+      "ChatServiceTaskDefTaskRoleC15ADC7C",
+      "Arn"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Compute-dev/ChatService/TaskDef/Resource"
+   }
+  },
+  "ChatServiceTaskDefAppContainerLogGroup65A507C0": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "RetentionInDays": 30,
+    "Tags": [
+     {
+      "Key": "Compliance",
+      "Value": "FERPA-COPPA"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DataAccess",
+      "Value": "PII"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     },
+     {
+      "Key": "Service",
+      "Value": "chat-service"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Compute-dev/ChatService/TaskDef/AppContainer/LogGroup/Resource"
+   }
+  },
+  "ChatServiceTaskDefExecutionRole6C55BC68": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "ecs-tasks.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "Tags": [
+     {
+      "Key": "Compliance",
+      "Value": "FERPA-COPPA"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DataAccess",
+      "Value": "PII"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     },
+     {
+      "Key": "Service",
+      "Value": "chat-service"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Compute-dev/ChatService/TaskDef/ExecutionRole/Resource"
+   }
+  },
+  "ChatServiceTaskDefExecutionRoleDefaultPolicyAC18EF77": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "ecr:BatchCheckLayerAvailability",
+        "ecr:BatchGetImage",
+        "ecr:GetDownloadUrlForLayer"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:",
+          {
+           "Ref": "AWS::Partition"
+          },
+          ":ecr:us-east-1:618351925005:repository/cdk-hnb659fds-container-assets-618351925005-us-east-1"
+         ]
+        ]
+       }
+      },
+      {
+       "Action": "ecr:GetAuthorizationToken",
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": [
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "ChatServiceTaskDefAppContainerLogGroup65A507C0",
+         "Arn"
+        ]
+       }
+      },
+      {
+       "Action": [
+        "secretsmanager:DescribeSecret",
+        "secretsmanager:GetSecretValue"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Ref": "BedrockApiKey0BF0102A"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "ChatServiceTaskDefExecutionRoleDefaultPolicyAC18EF77",
+    "Roles": [
+     {
+      "Ref": "ChatServiceTaskDefExecutionRole6C55BC68"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Compute-dev/ChatService/TaskDef/ExecutionRole/DefaultPolicy/Resource"
+   }
+  },
+  "ChatService018D98F5": {
+   "Type": "AWS::ECS::Service",
+   "Properties": {
+    "Cluster": {
+     "Ref": "FeelwellCluster25818ADD"
+    },
+    "DeploymentConfiguration": {
+     "Alarms": {
+      "AlarmNames": [],
+      "Enable": false,
+      "Rollback": false
+     },
+     "DeploymentCircuitBreaker": {
+      "Enable": true,
+      "Rollback": true
+     },
+     "MaximumPercent": 200,
+     "MinimumHealthyPercent": 50
+    },
+    "DeploymentController": {
+     "Type": "ECS"
+    },
+    "DesiredCount": 1,
+    "EnableECSManagedTags": false,
+    "EnableExecuteCommand": true,
+    "LaunchType": "FARGATE",
+    "NetworkConfiguration": {
+     "AwsvpcConfiguration": {
+      "AssignPublicIp": "DISABLED",
+      "SecurityGroups": [
+       {
+        "Fn::GetAtt": [
+         "ChatServiceSecurityGroup4C36C748",
+         "GroupId"
+        ]
+       }
+      ],
+      "Subnets": [
+       {
+        "Fn::ImportValue": "Feelwell-Networking-dev:ExportsOutputRefFeelwellVPCApplicationSubnet1Subnet8CCA40F328748D30"
+       },
+       {
+        "Fn::ImportValue": "Feelwell-Networking-dev:ExportsOutputRefFeelwellVPCApplicationSubnet2SubnetDE84878C5F39F7E0"
+       },
+       {
+        "Fn::ImportValue": "Feelwell-Networking-dev:ExportsOutputRefFeelwellVPCApplicationSubnet3Subnet5F00A0D3C281D7E7"
+       }
+      ]
+     }
+    },
+    "Tags": [
+     {
+      "Key": "Compliance",
+      "Value": "FERPA-COPPA"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DataAccess",
+      "Value": "PII"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     },
+     {
+      "Key": "Service",
+      "Value": "chat-service"
+     }
+    ],
+    "TaskDefinition": {
+     "Ref": "ChatServiceTaskDef861B3D20"
+    }
+   },
+   "DependsOn": [
+    "ChatServiceTaskDefTaskRoleDefaultPolicy2B80E06E",
+    "ChatServiceTaskDefTaskRoleC15ADC7C"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Compute-dev/ChatService/Service/Service"
+   }
+  },
+  "ChatServiceSecurityGroup4C36C748": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "Feelwell-Compute-dev/ChatService/Service/SecurityGroup",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Compliance",
+      "Value": "FERPA-COPPA"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DataAccess",
+      "Value": "PII"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     },
+     {
+      "Key": "Service",
+      "Value": "chat-service"
+     }
+    ],
+    "VpcId": {
+     "Fn::ImportValue": "Feelwell-Networking-dev:ExportsOutputRefFeelwellVPC602A5B4265939C65"
+    }
+   },
+   "DependsOn": [
+    "ChatServiceTaskDefTaskRoleDefaultPolicy2B80E06E",
+    "ChatServiceTaskDefTaskRoleC15ADC7C"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Compute-dev/ChatService/Service/SecurityGroup/Resource"
+   }
+  },
+  "ChatServiceTaskCountTarget0E0B3973": {
+   "Type": "AWS::ApplicationAutoScaling::ScalableTarget",
+   "Properties": {
+    "MaxCapacity": 2,
+    "MinCapacity": 1,
+    "ResourceId": {
+     "Fn::Join": [
+      "",
+      [
+       "service/",
+       {
+        "Ref": "FeelwellCluster25818ADD"
+       },
+       "/",
+       {
+        "Fn::GetAtt": [
+         "ChatService018D98F5",
+         "Name"
+        ]
+       }
+      ]
+     ]
+    },
+    "RoleARN": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":iam::618351925005:role/aws-service-role/ecs.application-autoscaling.amazonaws.com/AWSServiceRoleForApplicationAutoScaling_ECSService"
+      ]
+     ]
+    },
+    "ScalableDimension": "ecs:service:DesiredCount",
+    "ServiceNamespace": "ecs"
+   },
+   "DependsOn": [
+    "ChatServiceTaskDefTaskRoleDefaultPolicy2B80E06E",
+    "ChatServiceTaskDefTaskRoleC15ADC7C"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Compute-dev/ChatService/Service/TaskCount/Target/Resource"
+   }
+  },
+  "ChatServiceTaskCountTargetCpuScaling3F90CDBE": {
+   "Type": "AWS::ApplicationAutoScaling::ScalingPolicy",
+   "Properties": {
+    "PolicyName": "FeelwellComputedevChatServiceTaskCountTargetCpuScaling9C60505D",
+    "PolicyType": "TargetTrackingScaling",
+    "ScalingTargetId": {
+     "Ref": "ChatServiceTaskCountTarget0E0B3973"
+    },
+    "TargetTrackingScalingPolicyConfiguration": {
+     "PredefinedMetricSpecification": {
+      "PredefinedMetricType": "ECSServiceAverageCPUUtilization"
+     },
+     "TargetValue": 70
+    }
+   },
+   "DependsOn": [
+    "ChatServiceTaskDefTaskRoleDefaultPolicy2B80E06E",
+    "ChatServiceTaskDefTaskRoleC15ADC7C"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Compute-dev/ChatService/Service/TaskCount/Target/CpuScaling/Resource"
+   }
+  },
+  "ChatServiceHighCPUD39034B1": {
+   "Type": "AWS::CloudWatch::Alarm",
+   "Properties": {
+    "AlarmDescription": "chat-service CPU > 80%",
+    "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+    "Dimensions": [
+     {
+      "Name": "ClusterName",
+      "Value": {
+       "Ref": "FeelwellCluster25818ADD"
+      }
+     },
+     {
+      "Name": "ServiceName",
+      "Value": {
+       "Fn::GetAtt": [
+        "ChatService018D98F5",
+        "Name"
+       ]
+      }
+     }
+    ],
+    "EvaluationPeriods": 2,
+    "MetricName": "CPUUtilization",
+    "Namespace": "AWS/ECS",
+    "Period": 300,
+    "Statistic": "Average",
+    "Threshold": 80
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Compute-dev/ChatService/HighCPU/Resource"
+   }
+  },
+  "ObserverServiceTaskDefTaskRole3B7E74F3": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "ecs-tasks.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/CloudWatchAgentServerPolicy"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Compliance",
+      "Value": "FERPA-COPPA"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DataAccess",
+      "Value": "PII"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     },
+     {
+      "Key": "Service",
+      "Value": "observer-service"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Compute-dev/ObserverService/TaskDef/TaskRole/Resource"
+   }
+  },
+  "ObserverServiceTaskDefTaskRoleDefaultPolicy9EDEBCCE": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "logs:CreateLogStream",
+        "logs:DescribeLogGroups",
+        "logs:DescribeLogStreams",
+        "logs:PutLogEvents",
+        "ssmmessages:CreateControlChannel",
+        "ssmmessages:CreateDataChannel",
+        "ssmmessages:OpenControlChannel",
+        "ssmmessages:OpenDataChannel"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "ObserverServiceTaskDefTaskRoleDefaultPolicy9EDEBCCE",
+    "Roles": [
+     {
+      "Ref": "ObserverServiceTaskDefTaskRole3B7E74F3"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Compute-dev/ObserverService/TaskDef/TaskRole/DefaultPolicy/Resource"
+   }
+  },
+  "ObserverServiceTaskDef5FF19256": {
+   "Type": "AWS::ECS::TaskDefinition",
+   "Properties": {
+    "ContainerDefinitions": [
+     {
+      "Environment": [
+       {
+        "Name": "ENVIRONMENT",
+        "Value": "dev"
+       },
+       {
+        "Name": "POSTGRES_ENDPOINT",
+        "Value": {
+         "Fn::ImportValue": "Feelwell-Database-dev:ExportsOutputFnGetAttClinicalDataStoreB43DCCE2EndpointAddress583D4C70"
+        }
+       },
+       {
+        "Name": "SERVICE_NAME",
+        "Value": "observer-service"
+       },
+       {
+        "Name": "LOG_REDACTION_ENABLED",
+        "Value": "true"
+       }
+      ],
+      "Essential": true,
+      "HealthCheck": {
+       "Command": [
+        "CMD-SHELL",
+        "curl -f http://localhost:8080/health || exit 1"
+       ],
+       "Interval": 30,
+       "Retries": 3,
+       "StartPeriod": 60,
+       "Timeout": 5
+      },
+      "Image": {
+       "Fn::Sub": "618351925005.dkr.ecr.us-east-1.${AWS::URLSuffix}/cdk-hnb659fds-container-assets-618351925005-us-east-1:281c3eca6eab2c9e67b90c300c767ea9a290ba5edf0a72eab498b53627e63ef9"
+      },
+      "LogConfiguration": {
+       "LogDriver": "awslogs",
+       "Options": {
+        "awslogs-group": {
+         "Ref": "ObserverServiceTaskDefAppContainerLogGroup30D7B2E4"
+        },
+        "awslogs-stream-prefix": "observer-service",
+        "awslogs-region": "us-east-1"
+       }
+      },
+      "Name": "AppContainer",
+      "PortMappings": [
+       {
+        "ContainerPort": 8080,
+        "Protocol": "tcp"
+       }
+      ]
+     }
+    ],
+    "Cpu": "512",
+    "ExecutionRoleArn": {
+     "Fn::GetAtt": [
+      "ObserverServiceTaskDefExecutionRoleB7253ACA",
+      "Arn"
+     ]
+    },
+    "Family": "FeelwellComputedevObserverServiceTaskDef982146C2",
+    "Memory": "1024",
+    "NetworkMode": "awsvpc",
+    "RequiresCompatibilities": [
+     "FARGATE"
+    ],
+    "RuntimePlatform": {
+     "CpuArchitecture": "ARM64",
+     "OperatingSystemFamily": "LINUX"
+    },
+    "Tags": [
+     {
+      "Key": "Compliance",
+      "Value": "FERPA-COPPA"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DataAccess",
+      "Value": "PII"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     },
+     {
+      "Key": "Service",
+      "Value": "observer-service"
+     }
+    ],
+    "TaskRoleArn": {
+     "Fn::GetAtt": [
+      "ObserverServiceTaskDefTaskRole3B7E74F3",
+      "Arn"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Compute-dev/ObserverService/TaskDef/Resource"
+   }
+  },
+  "ObserverServiceTaskDefAppContainerLogGroup30D7B2E4": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "RetentionInDays": 30,
+    "Tags": [
+     {
+      "Key": "Compliance",
+      "Value": "FERPA-COPPA"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DataAccess",
+      "Value": "PII"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     },
+     {
+      "Key": "Service",
+      "Value": "observer-service"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Compute-dev/ObserverService/TaskDef/AppContainer/LogGroup/Resource"
+   }
+  },
+  "ObserverServiceTaskDefExecutionRoleB7253ACA": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "ecs-tasks.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "Tags": [
+     {
+      "Key": "Compliance",
+      "Value": "FERPA-COPPA"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DataAccess",
+      "Value": "PII"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     },
+     {
+      "Key": "Service",
+      "Value": "observer-service"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Compute-dev/ObserverService/TaskDef/ExecutionRole/Resource"
+   }
+  },
+  "ObserverServiceTaskDefExecutionRoleDefaultPolicyD44CDFE3": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "ecr:BatchCheckLayerAvailability",
+        "ecr:BatchGetImage",
+        "ecr:GetDownloadUrlForLayer"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:",
+          {
+           "Ref": "AWS::Partition"
+          },
+          ":ecr:us-east-1:618351925005:repository/cdk-hnb659fds-container-assets-618351925005-us-east-1"
+         ]
+        ]
+       }
+      },
+      {
+       "Action": "ecr:GetAuthorizationToken",
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": [
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "ObserverServiceTaskDefAppContainerLogGroup30D7B2E4",
+         "Arn"
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "ObserverServiceTaskDefExecutionRoleDefaultPolicyD44CDFE3",
+    "Roles": [
+     {
+      "Ref": "ObserverServiceTaskDefExecutionRoleB7253ACA"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Compute-dev/ObserverService/TaskDef/ExecutionRole/DefaultPolicy/Resource"
+   }
+  },
+  "ObserverService891FF37A": {
+   "Type": "AWS::ECS::Service",
+   "Properties": {
+    "Cluster": {
+     "Ref": "FeelwellCluster25818ADD"
+    },
+    "DeploymentConfiguration": {
+     "Alarms": {
+      "AlarmNames": [],
+      "Enable": false,
+      "Rollback": false
+     },
+     "DeploymentCircuitBreaker": {
+      "Enable": true,
+      "Rollback": true
+     },
+     "MaximumPercent": 200,
+     "MinimumHealthyPercent": 50
+    },
+    "DeploymentController": {
+     "Type": "ECS"
+    },
+    "DesiredCount": 1,
+    "EnableECSManagedTags": false,
+    "EnableExecuteCommand": true,
+    "LaunchType": "FARGATE",
+    "NetworkConfiguration": {
+     "AwsvpcConfiguration": {
+      "AssignPublicIp": "DISABLED",
+      "SecurityGroups": [
+       {
+        "Fn::GetAtt": [
+         "ObserverServiceSecurityGroup9BFB7A7D",
+         "GroupId"
+        ]
+       }
+      ],
+      "Subnets": [
+       {
+        "Fn::ImportValue": "Feelwell-Networking-dev:ExportsOutputRefFeelwellVPCApplicationSubnet1Subnet8CCA40F328748D30"
+       },
+       {
+        "Fn::ImportValue": "Feelwell-Networking-dev:ExportsOutputRefFeelwellVPCApplicationSubnet2SubnetDE84878C5F39F7E0"
+       },
+       {
+        "Fn::ImportValue": "Feelwell-Networking-dev:ExportsOutputRefFeelwellVPCApplicationSubnet3Subnet5F00A0D3C281D7E7"
+       }
+      ]
+     }
+    },
+    "Tags": [
+     {
+      "Key": "Compliance",
+      "Value": "FERPA-COPPA"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DataAccess",
+      "Value": "PII"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     },
+     {
+      "Key": "Service",
+      "Value": "observer-service"
+     }
+    ],
+    "TaskDefinition": {
+     "Ref": "ObserverServiceTaskDef5FF19256"
+    }
+   },
+   "DependsOn": [
+    "ObserverServiceTaskDefTaskRoleDefaultPolicy9EDEBCCE",
+    "ObserverServiceTaskDefTaskRole3B7E74F3"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Compute-dev/ObserverService/Service/Service"
+   }
+  },
+  "ObserverServiceSecurityGroup9BFB7A7D": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "Feelwell-Compute-dev/ObserverService/Service/SecurityGroup",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Compliance",
+      "Value": "FERPA-COPPA"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DataAccess",
+      "Value": "PII"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     },
+     {
+      "Key": "Service",
+      "Value": "observer-service"
+     }
+    ],
+    "VpcId": {
+     "Fn::ImportValue": "Feelwell-Networking-dev:ExportsOutputRefFeelwellVPC602A5B4265939C65"
+    }
+   },
+   "DependsOn": [
+    "ObserverServiceTaskDefTaskRoleDefaultPolicy9EDEBCCE",
+    "ObserverServiceTaskDefTaskRole3B7E74F3"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Compute-dev/ObserverService/Service/SecurityGroup/Resource"
+   }
+  },
+  "ObserverServiceTaskCountTargetC7FC0455": {
+   "Type": "AWS::ApplicationAutoScaling::ScalableTarget",
+   "Properties": {
+    "MaxCapacity": 2,
+    "MinCapacity": 1,
+    "ResourceId": {
+     "Fn::Join": [
+      "",
+      [
+       "service/",
+       {
+        "Ref": "FeelwellCluster25818ADD"
+       },
+       "/",
+       {
+        "Fn::GetAtt": [
+         "ObserverService891FF37A",
+         "Name"
+        ]
+       }
+      ]
+     ]
+    },
+    "RoleARN": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":iam::618351925005:role/aws-service-role/ecs.application-autoscaling.amazonaws.com/AWSServiceRoleForApplicationAutoScaling_ECSService"
+      ]
+     ]
+    },
+    "ScalableDimension": "ecs:service:DesiredCount",
+    "ServiceNamespace": "ecs"
+   },
+   "DependsOn": [
+    "ObserverServiceTaskDefTaskRoleDefaultPolicy9EDEBCCE",
+    "ObserverServiceTaskDefTaskRole3B7E74F3"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Compute-dev/ObserverService/Service/TaskCount/Target/Resource"
+   }
+  },
+  "ObserverServiceTaskCountTargetCpuScaling3E603052": {
+   "Type": "AWS::ApplicationAutoScaling::ScalingPolicy",
+   "Properties": {
+    "PolicyName": "FeelwellComputedevObserverServiceTaskCountTargetCpuScaling934C055E",
+    "PolicyType": "TargetTrackingScaling",
+    "ScalingTargetId": {
+     "Ref": "ObserverServiceTaskCountTargetC7FC0455"
+    },
+    "TargetTrackingScalingPolicyConfiguration": {
+     "PredefinedMetricSpecification": {
+      "PredefinedMetricType": "ECSServiceAverageCPUUtilization"
+     },
+     "TargetValue": 70
+    }
+   },
+   "DependsOn": [
+    "ObserverServiceTaskDefTaskRoleDefaultPolicy9EDEBCCE",
+    "ObserverServiceTaskDefTaskRole3B7E74F3"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Compute-dev/ObserverService/Service/TaskCount/Target/CpuScaling/Resource"
+   }
+  },
+  "ObserverServiceHighCPU399C2319": {
+   "Type": "AWS::CloudWatch::Alarm",
+   "Properties": {
+    "AlarmDescription": "observer-service CPU > 80%",
+    "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+    "Dimensions": [
+     {
+      "Name": "ClusterName",
+      "Value": {
+       "Ref": "FeelwellCluster25818ADD"
+      }
+     },
+     {
+      "Name": "ServiceName",
+      "Value": {
+       "Fn::GetAtt": [
+        "ObserverService891FF37A",
+        "Name"
+       ]
+      }
+     }
+    ],
+    "EvaluationPeriods": 2,
+    "MetricName": "CPUUtilization",
+    "Namespace": "AWS/ECS",
+    "Period": 300,
+    "Statistic": "Average",
+    "Threshold": 80
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Compute-dev/ObserverService/HighCPU/Resource"
+   }
+  },
+  "CrisisEngineTaskDefTaskRoleD46A7E8E": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "ecs-tasks.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/CloudWatchAgentServerPolicy"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Compliance",
+      "Value": "FERPA-COPPA"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "CriticalService",
+      "Value": "true"
+     },
+     {
+      "Key": "DataAccess",
+      "Value": "PII"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     },
+     {
+      "Key": "Service",
+      "Value": "crisis-engine"
+     },
+     {
+      "Key": "SLO",
+      "Value": "99.99-availability"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Compute-dev/CrisisEngine/TaskDef/TaskRole/Resource"
+   }
+  },
+  "CrisisEngineTaskDefTaskRoleDefaultPolicyEECF17F0": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "logs:CreateLogStream",
+        "logs:DescribeLogGroups",
+        "logs:DescribeLogStreams",
+        "logs:PutLogEvents",
+        "ssmmessages:CreateControlChannel",
+        "ssmmessages:CreateDataChannel",
+        "ssmmessages:OpenControlChannel",
+        "ssmmessages:OpenDataChannel"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "CrisisEngineTaskDefTaskRoleDefaultPolicyEECF17F0",
+    "Roles": [
+     {
+      "Ref": "CrisisEngineTaskDefTaskRoleD46A7E8E"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Compute-dev/CrisisEngine/TaskDef/TaskRole/DefaultPolicy/Resource"
+   }
+  },
+  "CrisisEngineTaskDef0CA5E3A7": {
+   "Type": "AWS::ECS::TaskDefinition",
+   "Properties": {
+    "ContainerDefinitions": [
+     {
+      "Environment": [
+       {
+        "Name": "ENVIRONMENT",
+        "Value": "dev"
+       },
+       {
+        "Name": "SERVICE_NAME",
+        "Value": "crisis-engine"
+       },
+       {
+        "Name": "LOG_REDACTION_ENABLED",
+        "Value": "true"
+       }
+      ],
+      "Essential": true,
+      "HealthCheck": {
+       "Command": [
+        "CMD-SHELL",
+        "curl -f http://localhost:8080/health || exit 1"
+       ],
+       "Interval": 30,
+       "Retries": 3,
+       "StartPeriod": 60,
+       "Timeout": 5
+      },
+      "Image": {
+       "Fn::Sub": "618351925005.dkr.ecr.us-east-1.${AWS::URLSuffix}/cdk-hnb659fds-container-assets-618351925005-us-east-1:8f18123928f0935702932ce1845cdeb4a8857ebe7c6be77e1b0e2adb2d7b2f55"
+      },
+      "LogConfiguration": {
+       "LogDriver": "awslogs",
+       "Options": {
+        "awslogs-group": {
+         "Ref": "CrisisEngineTaskDefAppContainerLogGroup55B275EF"
+        },
+        "awslogs-stream-prefix": "crisis-engine",
+        "awslogs-region": "us-east-1"
+       }
+      },
+      "Name": "AppContainer",
+      "PortMappings": [
+       {
+        "ContainerPort": 8080,
+        "Protocol": "tcp"
+       }
+      ]
+     }
+    ],
+    "Cpu": "512",
+    "ExecutionRoleArn": {
+     "Fn::GetAtt": [
+      "CrisisEngineTaskDefExecutionRole910C42F5",
+      "Arn"
+     ]
+    },
+    "Family": "FeelwellComputedevCrisisEngineTaskDef32C27884",
+    "Memory": "1024",
+    "NetworkMode": "awsvpc",
+    "RequiresCompatibilities": [
+     "FARGATE"
+    ],
+    "RuntimePlatform": {
+     "CpuArchitecture": "ARM64",
+     "OperatingSystemFamily": "LINUX"
+    },
+    "Tags": [
+     {
+      "Key": "Compliance",
+      "Value": "FERPA-COPPA"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "CriticalService",
+      "Value": "true"
+     },
+     {
+      "Key": "DataAccess",
+      "Value": "PII"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     },
+     {
+      "Key": "Service",
+      "Value": "crisis-engine"
+     },
+     {
+      "Key": "SLO",
+      "Value": "99.99-availability"
+     }
+    ],
+    "TaskRoleArn": {
+     "Fn::GetAtt": [
+      "CrisisEngineTaskDefTaskRoleD46A7E8E",
+      "Arn"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Compute-dev/CrisisEngine/TaskDef/Resource"
+   }
+  },
+  "CrisisEngineTaskDefAppContainerLogGroup55B275EF": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "RetentionInDays": 30,
+    "Tags": [
+     {
+      "Key": "Compliance",
+      "Value": "FERPA-COPPA"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "CriticalService",
+      "Value": "true"
+     },
+     {
+      "Key": "DataAccess",
+      "Value": "PII"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     },
+     {
+      "Key": "Service",
+      "Value": "crisis-engine"
+     },
+     {
+      "Key": "SLO",
+      "Value": "99.99-availability"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Compute-dev/CrisisEngine/TaskDef/AppContainer/LogGroup/Resource"
+   }
+  },
+  "CrisisEngineTaskDefExecutionRole910C42F5": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "ecs-tasks.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "Tags": [
+     {
+      "Key": "Compliance",
+      "Value": "FERPA-COPPA"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "CriticalService",
+      "Value": "true"
+     },
+     {
+      "Key": "DataAccess",
+      "Value": "PII"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     },
+     {
+      "Key": "Service",
+      "Value": "crisis-engine"
+     },
+     {
+      "Key": "SLO",
+      "Value": "99.99-availability"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Compute-dev/CrisisEngine/TaskDef/ExecutionRole/Resource"
+   }
+  },
+  "CrisisEngineTaskDefExecutionRoleDefaultPolicy5A0B7BF4": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "ecr:BatchCheckLayerAvailability",
+        "ecr:BatchGetImage",
+        "ecr:GetDownloadUrlForLayer"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:",
+          {
+           "Ref": "AWS::Partition"
+          },
+          ":ecr:us-east-1:618351925005:repository/cdk-hnb659fds-container-assets-618351925005-us-east-1"
+         ]
+        ]
+       }
+      },
+      {
+       "Action": "ecr:GetAuthorizationToken",
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": [
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "CrisisEngineTaskDefAppContainerLogGroup55B275EF",
+         "Arn"
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "CrisisEngineTaskDefExecutionRoleDefaultPolicy5A0B7BF4",
+    "Roles": [
+     {
+      "Ref": "CrisisEngineTaskDefExecutionRole910C42F5"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Compute-dev/CrisisEngine/TaskDef/ExecutionRole/DefaultPolicy/Resource"
+   }
+  },
+  "CrisisEngineService7CF2983F": {
+   "Type": "AWS::ECS::Service",
+   "Properties": {
+    "Cluster": {
+     "Ref": "FeelwellCluster25818ADD"
+    },
+    "DeploymentConfiguration": {
+     "Alarms": {
+      "AlarmNames": [],
+      "Enable": false,
+      "Rollback": false
+     },
+     "DeploymentCircuitBreaker": {
+      "Enable": true,
+      "Rollback": true
+     },
+     "MaximumPercent": 200,
+     "MinimumHealthyPercent": 50
+    },
+    "DeploymentController": {
+     "Type": "ECS"
+    },
+    "DesiredCount": 2,
+    "EnableECSManagedTags": false,
+    "EnableExecuteCommand": true,
+    "LaunchType": "FARGATE",
+    "NetworkConfiguration": {
+     "AwsvpcConfiguration": {
+      "AssignPublicIp": "DISABLED",
+      "SecurityGroups": [
+       {
+        "Fn::GetAtt": [
+         "CrisisEngineServiceSecurityGroup53A11612",
+         "GroupId"
+        ]
+       }
+      ],
+      "Subnets": [
+       {
+        "Fn::ImportValue": "Feelwell-Networking-dev:ExportsOutputRefFeelwellVPCApplicationSubnet1Subnet8CCA40F328748D30"
+       },
+       {
+        "Fn::ImportValue": "Feelwell-Networking-dev:ExportsOutputRefFeelwellVPCApplicationSubnet2SubnetDE84878C5F39F7E0"
+       },
+       {
+        "Fn::ImportValue": "Feelwell-Networking-dev:ExportsOutputRefFeelwellVPCApplicationSubnet3Subnet5F00A0D3C281D7E7"
+       }
+      ]
+     }
+    },
+    "Tags": [
+     {
+      "Key": "Compliance",
+      "Value": "FERPA-COPPA"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "CriticalService",
+      "Value": "true"
+     },
+     {
+      "Key": "DataAccess",
+      "Value": "PII"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     },
+     {
+      "Key": "Service",
+      "Value": "crisis-engine"
+     },
+     {
+      "Key": "SLO",
+      "Value": "99.99-availability"
+     }
+    ],
+    "TaskDefinition": {
+     "Ref": "CrisisEngineTaskDef0CA5E3A7"
+    }
+   },
+   "DependsOn": [
+    "CrisisEngineTaskDefTaskRoleDefaultPolicyEECF17F0",
+    "CrisisEngineTaskDefTaskRoleD46A7E8E"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Compute-dev/CrisisEngine/Service/Service"
+   }
+  },
+  "CrisisEngineServiceSecurityGroup53A11612": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "Feelwell-Compute-dev/CrisisEngine/Service/SecurityGroup",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Compliance",
+      "Value": "FERPA-COPPA"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "CriticalService",
+      "Value": "true"
+     },
+     {
+      "Key": "DataAccess",
+      "Value": "PII"
+     },
+     {
+      "Key": "Environment",
+      "Value": "dev"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     },
+     {
+      "Key": "Service",
+      "Value": "crisis-engine"
+     },
+     {
+      "Key": "SLO",
+      "Value": "99.99-availability"
+     }
+    ],
+    "VpcId": {
+     "Fn::ImportValue": "Feelwell-Networking-dev:ExportsOutputRefFeelwellVPC602A5B4265939C65"
+    }
+   },
+   "DependsOn": [
+    "CrisisEngineTaskDefTaskRoleDefaultPolicyEECF17F0",
+    "CrisisEngineTaskDefTaskRoleD46A7E8E"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Compute-dev/CrisisEngine/Service/SecurityGroup/Resource"
+   }
+  },
+  "CrisisEngineHighCPUD3FE3263": {
+   "Type": "AWS::CloudWatch::Alarm",
+   "Properties": {
+    "AlarmDescription": "crisis-engine CPU > 80%",
+    "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+    "Dimensions": [
+     {
+      "Name": "ClusterName",
+      "Value": {
+       "Ref": "FeelwellCluster25818ADD"
+      }
+     },
+     {
+      "Name": "ServiceName",
+      "Value": {
+       "Fn::GetAtt": [
+        "CrisisEngineService7CF2983F",
+        "Name"
+       ]
+      }
+     }
+    ],
+    "EvaluationPeriods": 2,
+    "MetricName": "CPUUtilization",
+    "Namespace": "AWS/ECS",
+    "Period": 300,
+    "Statistic": "Average",
+    "Threshold": 80
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Compute-dev/CrisisEngine/HighCPU/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/11S0U7DMAz8Ft6zAIUfGEMgJB5Qt/fJy7ySNY0rJ900Vfl3nHQbjCdfzr5rzmmlH58q/XAHxzAz23bm7EaPywimVUKtRzRBjws3hIisFjt/gW/ADURcQWhfcWe9jZZ8HvjPkI9gPfIf7qxdIh+swSy6wKUBBxtXbBc0+JhUQMMYQwceGmS5WzlPooySstDpsSZXnEr9ImfNKR8nlJSMriEEMdKvZFrkj07s5pnJPV1jT8FG4tMLBFSOGon9Sc0709BnowvOVlW5xcA2nq79GyIp6Hv5MOS4MEQKksv6RnTXgNycU9wyU1mxPIAIlpPuN88NkZRxNGyPEM23HucOuMszBaSkagw0sGy1xJQ3bURZdnRuJOVpi3of7g/Vs85/wT5YO2PZu+1Q11P9AddkbtUiAgAA"
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Compute-dev/CDKMetadata/Default"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

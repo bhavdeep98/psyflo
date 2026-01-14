@@ -1,0 +1,1174 @@
+{
+  "version": "36.0.0",
+  "artifacts": {
+    "Feelwell-Networking-production.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "Feelwell-Networking-production.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "Feelwell-Networking-production": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://618351925005/us-east-1",
+      "properties": {
+        "templateFile": "Feelwell-Networking-production.template.json",
+        "terminationProtection": false,
+        "tags": {
+          "CostCenter": "Engineering",
+          "Environment": "production",
+          "ManagedBy": "CDK",
+          "Project": "Feelwell"
+        },
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::618351925005:role/cdk-hnb659fds-deploy-role-618351925005-us-east-1",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::618351925005:role/cdk-hnb659fds-cfn-exec-role-618351925005-us-east-1",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-618351925005-us-east-1/518784b6dd87cad10cbacefa4b18135bd78e1698fea339a84532344ed12e4627.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "Feelwell-Networking-production.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::618351925005:role/cdk-hnb659fds-lookup-role-618351925005-us-east-1",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "Feelwell-Networking-production.assets"
+      ],
+      "metadata": {
+        "/Feelwell-Networking-production": [
+          {
+            "type": "aws:cdk:stack-tags",
+            "data": [
+              {
+                "Key": "CostCenter",
+                "Value": "Engineering"
+              },
+              {
+                "Key": "Environment",
+                "Value": "production"
+              },
+              {
+                "Key": "ManagedBy",
+                "Value": "CDK"
+              },
+              {
+                "Key": "Project",
+                "Value": "Feelwell"
+              }
+            ]
+          }
+        ],
+        "/Feelwell-Networking-production/FeelwellVPC/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FeelwellVPC602A5B42"
+          }
+        ],
+        "/Feelwell-Networking-production/FeelwellVPC/PublicSubnet1/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FeelwellVPCPublicSubnet1SubnetED8F6B0A"
+          }
+        ],
+        "/Feelwell-Networking-production/FeelwellVPC/PublicSubnet1/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FeelwellVPCPublicSubnet1RouteTableF7E06C58"
+          }
+        ],
+        "/Feelwell-Networking-production/FeelwellVPC/PublicSubnet1/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FeelwellVPCPublicSubnet1RouteTableAssociation2789073C"
+          }
+        ],
+        "/Feelwell-Networking-production/FeelwellVPC/PublicSubnet1/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FeelwellVPCPublicSubnet1DefaultRoute8814A721"
+          }
+        ],
+        "/Feelwell-Networking-production/FeelwellVPC/PublicSubnet1/EIP": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FeelwellVPCPublicSubnet1EIPAC25F26E"
+          }
+        ],
+        "/Feelwell-Networking-production/FeelwellVPC/PublicSubnet1/NATGateway": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FeelwellVPCPublicSubnet1NATGatewayD17C7C9E"
+          }
+        ],
+        "/Feelwell-Networking-production/FeelwellVPC/PublicSubnet2/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FeelwellVPCPublicSubnet2Subnet5172D5EE"
+          }
+        ],
+        "/Feelwell-Networking-production/FeelwellVPC/PublicSubnet2/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FeelwellVPCPublicSubnet2RouteTableEC19B497"
+          }
+        ],
+        "/Feelwell-Networking-production/FeelwellVPC/PublicSubnet2/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FeelwellVPCPublicSubnet2RouteTableAssociation077D1865"
+          }
+        ],
+        "/Feelwell-Networking-production/FeelwellVPC/PublicSubnet2/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FeelwellVPCPublicSubnet2DefaultRoute550C1ACB"
+          }
+        ],
+        "/Feelwell-Networking-production/FeelwellVPC/PublicSubnet2/EIP": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FeelwellVPCPublicSubnet2EIPF1D39BEA"
+          }
+        ],
+        "/Feelwell-Networking-production/FeelwellVPC/PublicSubnet2/NATGateway": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FeelwellVPCPublicSubnet2NATGateway51F1E8DF"
+          }
+        ],
+        "/Feelwell-Networking-production/FeelwellVPC/PublicSubnet3/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FeelwellVPCPublicSubnet3SubnetFCCDC8AE"
+          }
+        ],
+        "/Feelwell-Networking-production/FeelwellVPC/PublicSubnet3/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FeelwellVPCPublicSubnet3RouteTable4A06591C"
+          }
+        ],
+        "/Feelwell-Networking-production/FeelwellVPC/PublicSubnet3/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FeelwellVPCPublicSubnet3RouteTableAssociation1786CB86"
+          }
+        ],
+        "/Feelwell-Networking-production/FeelwellVPC/PublicSubnet3/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FeelwellVPCPublicSubnet3DefaultRouteF228979B"
+          }
+        ],
+        "/Feelwell-Networking-production/FeelwellVPC/ApplicationSubnet1/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FeelwellVPCApplicationSubnet1Subnet8CCA40F3"
+          }
+        ],
+        "/Feelwell-Networking-production/FeelwellVPC/ApplicationSubnet1/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FeelwellVPCApplicationSubnet1RouteTable4BED7EEC"
+          }
+        ],
+        "/Feelwell-Networking-production/FeelwellVPC/ApplicationSubnet1/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FeelwellVPCApplicationSubnet1RouteTableAssociation721C8E40"
+          }
+        ],
+        "/Feelwell-Networking-production/FeelwellVPC/ApplicationSubnet1/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FeelwellVPCApplicationSubnet1DefaultRoute4A9E9E4F"
+          }
+        ],
+        "/Feelwell-Networking-production/FeelwellVPC/ApplicationSubnet2/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FeelwellVPCApplicationSubnet2SubnetDE84878C"
+          }
+        ],
+        "/Feelwell-Networking-production/FeelwellVPC/ApplicationSubnet2/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FeelwellVPCApplicationSubnet2RouteTable924F61B5"
+          }
+        ],
+        "/Feelwell-Networking-production/FeelwellVPC/ApplicationSubnet2/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FeelwellVPCApplicationSubnet2RouteTableAssociation3DD93DB0"
+          }
+        ],
+        "/Feelwell-Networking-production/FeelwellVPC/ApplicationSubnet2/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FeelwellVPCApplicationSubnet2DefaultRoute291E048F"
+          }
+        ],
+        "/Feelwell-Networking-production/FeelwellVPC/ApplicationSubnet3/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FeelwellVPCApplicationSubnet3Subnet5F00A0D3"
+          }
+        ],
+        "/Feelwell-Networking-production/FeelwellVPC/ApplicationSubnet3/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FeelwellVPCApplicationSubnet3RouteTableE8709BEC"
+          }
+        ],
+        "/Feelwell-Networking-production/FeelwellVPC/ApplicationSubnet3/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FeelwellVPCApplicationSubnet3RouteTableAssociationCE7AA94A"
+          }
+        ],
+        "/Feelwell-Networking-production/FeelwellVPC/ApplicationSubnet3/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FeelwellVPCApplicationSubnet3DefaultRouteD67FF4C5"
+          }
+        ],
+        "/Feelwell-Networking-production/FeelwellVPC/DatabaseSubnet1/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FeelwellVPCDatabaseSubnet1SubnetDB6EA0E2"
+          }
+        ],
+        "/Feelwell-Networking-production/FeelwellVPC/DatabaseSubnet1/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FeelwellVPCDatabaseSubnet1RouteTableFF6E52B2"
+          }
+        ],
+        "/Feelwell-Networking-production/FeelwellVPC/DatabaseSubnet1/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FeelwellVPCDatabaseSubnet1RouteTableAssociation322AEBE9"
+          }
+        ],
+        "/Feelwell-Networking-production/FeelwellVPC/DatabaseSubnet2/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FeelwellVPCDatabaseSubnet2Subnet0DA0458F"
+          }
+        ],
+        "/Feelwell-Networking-production/FeelwellVPC/DatabaseSubnet2/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FeelwellVPCDatabaseSubnet2RouteTableF75830CC"
+          }
+        ],
+        "/Feelwell-Networking-production/FeelwellVPC/DatabaseSubnet2/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FeelwellVPCDatabaseSubnet2RouteTableAssociation245449F5"
+          }
+        ],
+        "/Feelwell-Networking-production/FeelwellVPC/DatabaseSubnet3/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FeelwellVPCDatabaseSubnet3SubnetD1E4A121"
+          }
+        ],
+        "/Feelwell-Networking-production/FeelwellVPC/DatabaseSubnet3/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FeelwellVPCDatabaseSubnet3RouteTable76E65CB8"
+          }
+        ],
+        "/Feelwell-Networking-production/FeelwellVPC/DatabaseSubnet3/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FeelwellVPCDatabaseSubnet3RouteTableAssociationF9FC9050"
+          }
+        ],
+        "/Feelwell-Networking-production/FeelwellVPC/IGW": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FeelwellVPCIGW3E7FC001"
+          }
+        ],
+        "/Feelwell-Networking-production/FeelwellVPC/VPCGW": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FeelwellVPCVPCGWAC406830"
+          }
+        ],
+        "/Feelwell-Networking-production/FeelwellVPC/RestrictDefaultSecurityGroupCustomResource/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FeelwellVPCRestrictDefaultSecurityGroupCustomResourceCFF0997C"
+          }
+        ],
+        "/Feelwell-Networking-production/FeelwellVPC/FlowLogS3/Bucket/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FeelwellVPCFlowLogS3Bucket5334BFB0"
+          }
+        ],
+        "/Feelwell-Networking-production/FeelwellVPC/FlowLogS3/Bucket/Policy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FeelwellVPCFlowLogS3BucketPolicy785343AF"
+          }
+        ],
+        "/Feelwell-Networking-production/FeelwellVPC/FlowLogS3/FlowLog": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FeelwellVPCFlowLogS3FlowLog033BC1B8"
+          }
+        ],
+        "/Feelwell-Networking-production/Custom::VpcRestrictDefaultSGCustomResourceProvider/Role": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomVpcRestrictDefaultSGCustomResourceProviderRole26592FE0"
+          }
+        ],
+        "/Feelwell-Networking-production/Custom::VpcRestrictDefaultSGCustomResourceProvider/Handler": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomVpcRestrictDefaultSGCustomResourceProviderHandlerDC833E5E"
+          }
+        ],
+        "/Feelwell-Networking-production/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/Feelwell-Networking-production/Exports/Output{\"Ref\":\"FeelwellVPCDatabaseSubnet1SubnetDB6EA0E2\"}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputRefFeelwellVPCDatabaseSubnet1SubnetDB6EA0E280EAB23B"
+          }
+        ],
+        "/Feelwell-Networking-production/Exports/Output{\"Ref\":\"FeelwellVPCDatabaseSubnet2Subnet0DA0458F\"}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputRefFeelwellVPCDatabaseSubnet2Subnet0DA0458F75CF72B2"
+          }
+        ],
+        "/Feelwell-Networking-production/Exports/Output{\"Ref\":\"FeelwellVPCDatabaseSubnet3SubnetD1E4A121\"}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputRefFeelwellVPCDatabaseSubnet3SubnetD1E4A121E31FBF41"
+          }
+        ],
+        "/Feelwell-Networking-production/Exports/Output{\"Ref\":\"FeelwellVPC602A5B42\"}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputRefFeelwellVPC602A5B4265939C65"
+          }
+        ],
+        "/Feelwell-Networking-production/Exports/Output{\"Ref\":\"FeelwellVPCApplicationSubnet1Subnet8CCA40F3\"}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputRefFeelwellVPCApplicationSubnet1Subnet8CCA40F328748D30"
+          }
+        ],
+        "/Feelwell-Networking-production/Exports/Output{\"Ref\":\"FeelwellVPCApplicationSubnet2SubnetDE84878C\"}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputRefFeelwellVPCApplicationSubnet2SubnetDE84878C5F39F7E0"
+          }
+        ],
+        "/Feelwell-Networking-production/Exports/Output{\"Ref\":\"FeelwellVPCApplicationSubnet3Subnet5F00A0D3\"}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputRefFeelwellVPCApplicationSubnet3Subnet5F00A0D3C281D7E7"
+          }
+        ],
+        "/Feelwell-Networking-production/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/Feelwell-Networking-production/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "Feelwell-Networking-production"
+    },
+    "Feelwell-Security-production.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "Feelwell-Security-production.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "Feelwell-Security-production": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://618351925005/us-east-1",
+      "properties": {
+        "templateFile": "Feelwell-Security-production.template.json",
+        "terminationProtection": false,
+        "tags": {
+          "CostCenter": "Engineering",
+          "Environment": "production",
+          "ManagedBy": "CDK",
+          "Project": "Feelwell"
+        },
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::618351925005:role/cdk-hnb659fds-deploy-role-618351925005-us-east-1",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::618351925005:role/cdk-hnb659fds-cfn-exec-role-618351925005-us-east-1",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-618351925005-us-east-1/72233271146d26d95ac0cfd2da45868a20703a72989e4aa24da941ab0cd26666.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "Feelwell-Security-production.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::618351925005:role/cdk-hnb659fds-lookup-role-618351925005-us-east-1",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "Feelwell-Security-production.assets"
+      ],
+      "metadata": {
+        "/Feelwell-Security-production": [
+          {
+            "type": "aws:cdk:stack-tags",
+            "data": [
+              {
+                "Key": "CostCenter",
+                "Value": "Engineering"
+              },
+              {
+                "Key": "Environment",
+                "Value": "production"
+              },
+              {
+                "Key": "ManagedBy",
+                "Value": "CDK"
+              },
+              {
+                "Key": "Project",
+                "Value": "Feelwell"
+              }
+            ]
+          }
+        ],
+        "/Feelwell-Security-production/MasterKey/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MasterKey0175C9E2"
+          }
+        ],
+        "/Feelwell-Security-production/MasterKey/Alias/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MasterKeyAlias9C01E073"
+          }
+        ],
+        "/Feelwell-Security-production/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/Feelwell-Security-production/Exports/Output{\"Fn::GetAtt\":[\"MasterKey0175C9E2\",\"Arn\"]}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputFnGetAttMasterKey0175C9E2Arn2B8655C7"
+          }
+        ],
+        "/Feelwell-Security-production/Exports/Output{\"Ref\":\"MasterKey0175C9E2\"}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputRefMasterKey0175C9E20D9768D9"
+          }
+        ],
+        "/Feelwell-Security-production/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/Feelwell-Security-production/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "Feelwell-Security-production"
+    },
+    "Feelwell-Database-production.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "Feelwell-Database-production.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "Feelwell-Database-production": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://618351925005/us-east-1",
+      "properties": {
+        "templateFile": "Feelwell-Database-production.template.json",
+        "terminationProtection": false,
+        "tags": {
+          "CostCenter": "Engineering",
+          "Environment": "production",
+          "ManagedBy": "CDK",
+          "Project": "Feelwell"
+        },
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::618351925005:role/cdk-hnb659fds-deploy-role-618351925005-us-east-1",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::618351925005:role/cdk-hnb659fds-cfn-exec-role-618351925005-us-east-1",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-618351925005-us-east-1/ca0467ed72200c5ba078fb71240adf3d17be554991ff5e763c286df24e80b283.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "Feelwell-Database-production.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::618351925005:role/cdk-hnb659fds-lookup-role-618351925005-us-east-1",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "Feelwell-Networking-production",
+        "Feelwell-Security-production",
+        "Feelwell-Database-production.assets"
+      ],
+      "metadata": {
+        "/Feelwell-Database-production": [
+          {
+            "type": "aws:cdk:stack-tags",
+            "data": [
+              {
+                "Key": "CostCenter",
+                "Value": "Engineering"
+              },
+              {
+                "Key": "Environment",
+                "Value": "production"
+              },
+              {
+                "Key": "ManagedBy",
+                "Value": "CDK"
+              },
+              {
+                "Key": "Project",
+                "Value": "Feelwell"
+              }
+            ]
+          }
+        ],
+        "/Feelwell-Database-production/DocumentDBSecret/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "DocumentDBSecretFD0B88CB"
+          }
+        ],
+        "/Feelwell-Database-production/ConversationStore/Subnets": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ConversationStoreSubnets1ECD9E2C"
+          }
+        ],
+        "/Feelwell-Database-production/ConversationStore/SecurityGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ConversationStoreSecurityGroup0508A00C"
+          }
+        ],
+        "/Feelwell-Database-production/ConversationStore/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ConversationStore557298E2"
+          }
+        ],
+        "/Feelwell-Database-production/ConversationStore/Instance1": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ConversationStoreInstance14716E2DE"
+          }
+        ],
+        "/Feelwell-Database-production/ConversationStore/Instance2": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ConversationStoreInstance2AB376763"
+          }
+        ],
+        "/Feelwell-Database-production/ConversationStore/Instance3": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ConversationStoreInstance3BD47EF97"
+          }
+        ],
+        "/Feelwell-Database-production/ClinicalDataStore/SubnetGroup/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClinicalDataStoreSubnetGroupE4F1B354"
+          }
+        ],
+        "/Feelwell-Database-production/ClinicalDataStore/SecurityGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClinicalDataStoreSecurityGroupB09121E2"
+          }
+        ],
+        "/Feelwell-Database-production/ClinicalDataStore/Secret/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClinicalDataStoreSecret43C1F724"
+          }
+        ],
+        "/Feelwell-Database-production/ClinicalDataStore/Secret/Attachment/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClinicalDataStoreSecretAttachment0B10E522"
+          }
+        ],
+        "/Feelwell-Database-production/ClinicalDataStore/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClinicalDataStoreB43DCCE2"
+          }
+        ],
+        "/Feelwell-Database-production/RedisSubnetGroup": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RedisSubnetGroup"
+          }
+        ],
+        "/Feelwell-Database-production/RedisSG/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RedisSGEA80AC17"
+          }
+        ],
+        "/Feelwell-Database-production/SessionCache": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SessionCache"
+          }
+        ],
+        "/Feelwell-Database-production/RAGVectorStore/SecurityGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RAGVectorStoreSecurityGroup03774C1E"
+          }
+        ],
+        "/Feelwell-Database-production/RAGVectorStore/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RAGVectorStoreAEDE5AE4"
+          }
+        ],
+        "/Feelwell-Database-production/DocumentDBEndpoint": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "DocumentDBEndpoint"
+          }
+        ],
+        "/Feelwell-Database-production/PostgresEndpoint": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PostgresEndpoint"
+          }
+        ],
+        "/Feelwell-Database-production/OpenSearchEndpoint": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "OpenSearchEndpoint"
+          }
+        ],
+        "/Feelwell-Database-production/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/Feelwell-Database-production/Exports/Output{\"Fn::GetAtt\":[\"ConversationStore557298E2\",\"Endpoint\"]}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputFnGetAttConversationStore557298E2Endpoint2301EC84"
+          }
+        ],
+        "/Feelwell-Database-production/Exports/Output{\"Fn::GetAtt\":[\"ConversationStore557298E2\",\"Port\"]}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputFnGetAttConversationStore557298E2Port29252BC6"
+          }
+        ],
+        "/Feelwell-Database-production/Exports/Output{\"Fn::GetAtt\":[\"SessionCache\",\"RedisEndpoint.Address\"]}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputFnGetAttSessionCacheRedisEndpointAddress127E13B5"
+          }
+        ],
+        "/Feelwell-Database-production/Exports/Output{\"Fn::GetAtt\":[\"RAGVectorStoreAEDE5AE4\",\"DomainEndpoint\"]}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputFnGetAttRAGVectorStoreAEDE5AE4DomainEndpointFDEB69FB"
+          }
+        ],
+        "/Feelwell-Database-production/Exports/Output{\"Fn::GetAtt\":[\"ClinicalDataStoreB43DCCE2\",\"Endpoint.Address\"]}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputFnGetAttClinicalDataStoreB43DCCE2EndpointAddress583D4C70"
+          }
+        ],
+        "/Feelwell-Database-production/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/Feelwell-Database-production/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "Feelwell-Database-production"
+    },
+    "Feelwell-Compute-production.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "Feelwell-Compute-production.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "Feelwell-Compute-production": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://618351925005/us-east-1",
+      "properties": {
+        "templateFile": "Feelwell-Compute-production.template.json",
+        "terminationProtection": false,
+        "tags": {
+          "CostCenter": "Engineering",
+          "Environment": "production",
+          "ManagedBy": "CDK",
+          "Project": "Feelwell"
+        },
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::618351925005:role/cdk-hnb659fds-deploy-role-618351925005-us-east-1",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::618351925005:role/cdk-hnb659fds-cfn-exec-role-618351925005-us-east-1",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-618351925005-us-east-1/f012636907c456ca2c14f794b544bea0c1635dc493391ce109fdf73ef26debe9.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "Feelwell-Compute-production.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::618351925005:role/cdk-hnb659fds-lookup-role-618351925005-us-east-1",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "Feelwell-Database-production",
+        "Feelwell-Networking-production",
+        "Feelwell-Compute-production.assets"
+      ],
+      "metadata": {
+        "/Feelwell-Compute-production": [
+          {
+            "type": "aws:cdk:stack-tags",
+            "data": [
+              {
+                "Key": "CostCenter",
+                "Value": "Engineering"
+              },
+              {
+                "Key": "Environment",
+                "Value": "production"
+              },
+              {
+                "Key": "ManagedBy",
+                "Value": "CDK"
+              },
+              {
+                "Key": "Project",
+                "Value": "Feelwell"
+              }
+            ]
+          }
+        ],
+        "/Feelwell-Compute-production/FeelwellCluster/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FeelwellCluster25818ADD"
+          }
+        ],
+        "/Feelwell-Compute-production/BedrockApiKey/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BedrockApiKey0BF0102A"
+          }
+        ],
+        "/Feelwell-Compute-production/ChatService/TaskDef/TaskRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ChatServiceTaskDefTaskRoleC15ADC7C"
+          }
+        ],
+        "/Feelwell-Compute-production/ChatService/TaskDef/TaskRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ChatServiceTaskDefTaskRoleDefaultPolicy2B80E06E"
+          }
+        ],
+        "/Feelwell-Compute-production/ChatService/TaskDef/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ChatServiceTaskDef861B3D20"
+          }
+        ],
+        "/Feelwell-Compute-production/ChatService/TaskDef/AppContainer/LogGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ChatServiceTaskDefAppContainerLogGroup65A507C0"
+          }
+        ],
+        "/Feelwell-Compute-production/ChatService/TaskDef/ExecutionRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ChatServiceTaskDefExecutionRole6C55BC68"
+          }
+        ],
+        "/Feelwell-Compute-production/ChatService/TaskDef/ExecutionRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ChatServiceTaskDefExecutionRoleDefaultPolicyAC18EF77"
+          }
+        ],
+        "/Feelwell-Compute-production/ChatService/Service/Service": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ChatService018D98F5"
+          }
+        ],
+        "/Feelwell-Compute-production/ChatService/Service/SecurityGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ChatServiceSecurityGroup4C36C748"
+          }
+        ],
+        "/Feelwell-Compute-production/ChatService/Service/TaskCount/Target/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ChatServiceTaskCountTarget0E0B3973"
+          }
+        ],
+        "/Feelwell-Compute-production/ChatService/Service/TaskCount/Target/CpuScaling/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ChatServiceTaskCountTargetCpuScaling3F90CDBE"
+          }
+        ],
+        "/Feelwell-Compute-production/ChatService/HighCPU/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ChatServiceHighCPUD39034B1"
+          }
+        ],
+        "/Feelwell-Compute-production/ObserverService/TaskDef/TaskRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ObserverServiceTaskDefTaskRole3B7E74F3"
+          }
+        ],
+        "/Feelwell-Compute-production/ObserverService/TaskDef/TaskRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ObserverServiceTaskDefTaskRoleDefaultPolicy9EDEBCCE"
+          }
+        ],
+        "/Feelwell-Compute-production/ObserverService/TaskDef/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ObserverServiceTaskDef5FF19256"
+          }
+        ],
+        "/Feelwell-Compute-production/ObserverService/TaskDef/AppContainer/LogGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ObserverServiceTaskDefAppContainerLogGroup30D7B2E4"
+          }
+        ],
+        "/Feelwell-Compute-production/ObserverService/TaskDef/ExecutionRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ObserverServiceTaskDefExecutionRoleB7253ACA"
+          }
+        ],
+        "/Feelwell-Compute-production/ObserverService/TaskDef/ExecutionRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ObserverServiceTaskDefExecutionRoleDefaultPolicyD44CDFE3"
+          }
+        ],
+        "/Feelwell-Compute-production/ObserverService/Service/Service": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ObserverService891FF37A"
+          }
+        ],
+        "/Feelwell-Compute-production/ObserverService/Service/SecurityGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ObserverServiceSecurityGroup9BFB7A7D"
+          }
+        ],
+        "/Feelwell-Compute-production/ObserverService/Service/TaskCount/Target/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ObserverServiceTaskCountTargetC7FC0455"
+          }
+        ],
+        "/Feelwell-Compute-production/ObserverService/Service/TaskCount/Target/CpuScaling/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ObserverServiceTaskCountTargetCpuScaling3E603052"
+          }
+        ],
+        "/Feelwell-Compute-production/ObserverService/HighCPU/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ObserverServiceHighCPU399C2319"
+          }
+        ],
+        "/Feelwell-Compute-production/CrisisEngine/TaskDef/TaskRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CrisisEngineTaskDefTaskRoleD46A7E8E"
+          }
+        ],
+        "/Feelwell-Compute-production/CrisisEngine/TaskDef/TaskRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CrisisEngineTaskDefTaskRoleDefaultPolicyEECF17F0"
+          }
+        ],
+        "/Feelwell-Compute-production/CrisisEngine/TaskDef/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CrisisEngineTaskDef0CA5E3A7"
+          }
+        ],
+        "/Feelwell-Compute-production/CrisisEngine/TaskDef/AppContainer/LogGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CrisisEngineTaskDefAppContainerLogGroup55B275EF"
+          }
+        ],
+        "/Feelwell-Compute-production/CrisisEngine/TaskDef/ExecutionRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CrisisEngineTaskDefExecutionRole910C42F5"
+          }
+        ],
+        "/Feelwell-Compute-production/CrisisEngine/TaskDef/ExecutionRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CrisisEngineTaskDefExecutionRoleDefaultPolicy5A0B7BF4"
+          }
+        ],
+        "/Feelwell-Compute-production/CrisisEngine/Service/Service": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CrisisEngineService7CF2983F"
+          }
+        ],
+        "/Feelwell-Compute-production/CrisisEngine/Service/SecurityGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CrisisEngineServiceSecurityGroup53A11612"
+          }
+        ],
+        "/Feelwell-Compute-production/CrisisEngine/HighCPU/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CrisisEngineHighCPUD3FE3263"
+          }
+        ],
+        "/Feelwell-Compute-production/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/Feelwell-Compute-production/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/Feelwell-Compute-production/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "Feelwell-Compute-production"
+    },
+    "Feelwell-Compliance-production.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "Feelwell-Compliance-production.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "Feelwell-Compliance-production": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://618351925005/us-east-1",
+      "properties": {
+        "templateFile": "Feelwell-Compliance-production.template.json",
+        "terminationProtection": false,
+        "tags": {
+          "CostCenter": "Engineering",
+          "Environment": "production",
+          "ManagedBy": "CDK",
+          "Project": "Feelwell"
+        },
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::618351925005:role/cdk-hnb659fds-deploy-role-618351925005-us-east-1",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::618351925005:role/cdk-hnb659fds-cfn-exec-role-618351925005-us-east-1",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-618351925005-us-east-1/94a37b9022e14f28fd7ff58925553b85fe31a7718488f2d89e31b09b45601936.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "Feelwell-Compliance-production.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::618351925005:role/cdk-hnb659fds-lookup-role-618351925005-us-east-1",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "Feelwell-Compliance-production.assets"
+      ],
+      "metadata": {
+        "/Feelwell-Compliance-production": [
+          {
+            "type": "aws:cdk:stack-tags",
+            "data": [
+              {
+                "Key": "CostCenter",
+                "Value": "Engineering"
+              },
+              {
+                "Key": "Environment",
+                "Value": "production"
+              },
+              {
+                "Key": "ManagedBy",
+                "Value": "CDK"
+              },
+              {
+                "Key": "Project",
+                "Value": "Feelwell"
+              }
+            ]
+          }
+        ],
+        "/Feelwell-Compliance-production/AuditTrail": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuditTrail"
+          }
+        ],
+        "/Feelwell-Compliance-production/AuditArchive/Key/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuditArchiveKey780AE008"
+          }
+        ],
+        "/Feelwell-Compliance-production/AuditArchive/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuditArchive60EBC247"
+          }
+        ],
+        "/Feelwell-Compliance-production/AuditArchive/Policy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuditArchivePolicy043AB9F5"
+          }
+        ],
+        "/Feelwell-Compliance-production/S3BucketEncryptionRule/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "S3BucketEncryptionRule91B0C32F"
+          }
+        ],
+        "/Feelwell-Compliance-production/RDSEncryptionRule/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RDSEncryptionRule5323607C"
+          }
+        ],
+        "/Feelwell-Compliance-production/CloudTrailEnabledRule/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CloudTrailEnabledRule2040686E"
+          }
+        ],
+        "/Feelwell-Compliance-production/APIAuditTrail/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "APIAuditTrailACFA2BA6"
+          }
+        ],
+        "/Feelwell-Compliance-production/AuditLedgerName": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuditLedgerName"
+          }
+        ],
+        "/Feelwell-Compliance-production/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/Feelwell-Compliance-production/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/Feelwell-Compliance-production/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "Feelwell-Compliance-production"
+    },
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    }
+  }
+}

@@ -1,0 +1,348 @@
+{
+ "Resources": {
+  "AuditTrail": {
+   "Type": "AWS::QLDB::Ledger",
+   "Properties": {
+    "DeletionProtection": true,
+    "Name": "production-feelwell-audit",
+    "PermissionsMode": "STANDARD",
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "production"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     },
+     {
+      "Key": "Purpose",
+      "Value": "Immutable audit trail for FERPA/HIPAA compliance"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Compliance-production/AuditTrail"
+   }
+  },
+  "AuditArchiveKey780AE008": {
+   "Type": "AWS::KMS::Key",
+   "Properties": {
+    "Description": "Created by Feelwell-Compliance-production/AuditArchive",
+    "KeyPolicy": {
+     "Statement": [
+      {
+       "Action": "kms:*",
+       "Effect": "Allow",
+       "Principal": {
+        "AWS": {
+         "Fn::Join": [
+          "",
+          [
+           "arn:",
+           {
+            "Ref": "AWS::Partition"
+           },
+           ":iam::618351925005:root"
+          ]
+         ]
+        }
+       },
+       "Resource": "*"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "production"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Compliance-production/AuditArchive/Key/Resource"
+   }
+  },
+  "AuditArchive60EBC247": {
+   "Type": "AWS::S3::Bucket",
+   "Properties": {
+    "BucketEncryption": {
+     "ServerSideEncryptionConfiguration": [
+      {
+       "ServerSideEncryptionByDefault": {
+        "KMSMasterKeyID": {
+         "Fn::GetAtt": [
+          "AuditArchiveKey780AE008",
+          "Arn"
+         ]
+        },
+        "SSEAlgorithm": "aws:kms"
+       }
+      }
+     ]
+    },
+    "BucketName": "production-feelwell-audit-archive-618351925005-us-east-1",
+    "LifecycleConfiguration": {
+     "Rules": [
+      {
+       "Id": "TransitionToGlacier",
+       "Status": "Enabled",
+       "Transitions": [
+        {
+         "StorageClass": "GLACIER",
+         "TransitionInDays": 365
+        },
+        {
+         "StorageClass": "DEEP_ARCHIVE",
+         "TransitionInDays": 2555
+        }
+       ]
+      }
+     ]
+    },
+    "PublicAccessBlockConfiguration": {
+     "BlockPublicAcls": true,
+     "BlockPublicPolicy": true,
+     "IgnorePublicAcls": true,
+     "RestrictPublicBuckets": true
+    },
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "production"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     }
+    ],
+    "VersioningConfiguration": {
+     "Status": "Enabled"
+    }
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Compliance-production/AuditArchive/Resource"
+   }
+  },
+  "AuditArchivePolicy043AB9F5": {
+   "Type": "AWS::S3::BucketPolicy",
+   "Properties": {
+    "Bucket": {
+     "Ref": "AuditArchive60EBC247"
+    },
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "s3:GetBucketAcl",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "cloudtrail.amazonaws.com"
+       },
+       "Resource": {
+        "Fn::GetAtt": [
+         "AuditArchive60EBC247",
+         "Arn"
+        ]
+       }
+      },
+      {
+       "Action": "s3:PutObject",
+       "Condition": {
+        "StringEquals": {
+         "s3:x-amz-acl": "bucket-owner-full-control"
+        }
+       },
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "cloudtrail.amazonaws.com"
+       },
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          {
+           "Fn::GetAtt": [
+            "AuditArchive60EBC247",
+            "Arn"
+           ]
+          },
+          "/AWSLogs/618351925005/*"
+         ]
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Compliance-production/AuditArchive/Policy/Resource"
+   }
+  },
+  "S3BucketEncryptionRule91B0C32F": {
+   "Type": "AWS::Config::ConfigRule",
+   "Properties": {
+    "Description": "Ensure all S3 buckets have encryption enabled (FERPA requirement)",
+    "Source": {
+     "Owner": "AWS",
+     "SourceIdentifier": "S3_BUCKET_SERVER_SIDE_ENCRYPTION_ENABLED"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Compliance-production/S3BucketEncryptionRule/Resource"
+   }
+  },
+  "RDSEncryptionRule5323607C": {
+   "Type": "AWS::Config::ConfigRule",
+   "Properties": {
+    "Description": "Ensure all RDS instances are encrypted (COPPA requirement)",
+    "Source": {
+     "Owner": "AWS",
+     "SourceIdentifier": "RDS_STORAGE_ENCRYPTED"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Compliance-production/RDSEncryptionRule/Resource"
+   }
+  },
+  "CloudTrailEnabledRule2040686E": {
+   "Type": "AWS::Config::ConfigRule",
+   "Properties": {
+    "Description": "Ensure CloudTrail is enabled (SOC 2 requirement)",
+    "Source": {
+     "Owner": "AWS",
+     "SourceIdentifier": "CLOUD_TRAIL_ENABLED"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Compliance-production/CloudTrailEnabledRule/Resource"
+   }
+  },
+  "APIAuditTrailACFA2BA6": {
+   "Type": "AWS::CloudTrail::Trail",
+   "Properties": {
+    "EnableLogFileValidation": true,
+    "EventSelectors": [
+     {
+      "IncludeManagementEvents": true,
+      "ReadWriteType": "All"
+     }
+    ],
+    "IncludeGlobalServiceEvents": true,
+    "IsLogging": true,
+    "IsMultiRegionTrail": true,
+    "S3BucketName": {
+     "Ref": "AuditArchive60EBC247"
+    },
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "production"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     }
+    ]
+   },
+   "DependsOn": [
+    "AuditArchivePolicy043AB9F5"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Compliance-production/APIAuditTrail/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/0WPwQ7CIBBEv8U7XbX1C+xRjaZ6NxS2DYWCFtAY0n8XqImnmX0zm+yWsK1K2Kzo2xaMy0KJFsLVUSZJRPfwVLyFutNH5D1OxFYQ9p5JdCTCn1vkYpRgnz9e5pnI0UI4YE6izIQZ3Ykewolq2iNvvMKU1RmnKVaU8dxNVCgItySpkM08J3v27uHzCQ1a4ycWd7ThCINdv8odpI8GK0Qxee3EiNAs+gVC6tUc7gAAAA=="
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Compliance-production/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "AuditLedgerName": {
+   "Value": "production-feelwell-audit",
+   "Export": {
+    "Name": "production-AuditLedgerName"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

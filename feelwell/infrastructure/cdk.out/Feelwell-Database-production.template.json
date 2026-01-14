@@ -1,0 +1,920 @@
+{
+ "Resources": {
+  "DocumentDBSecretFD0B88CB": {
+   "Type": "AWS::SecretsManager::Secret",
+   "Properties": {
+    "GenerateSecretString": {
+     "ExcludePunctuation": true,
+     "GenerateStringKey": "password",
+     "PasswordLength": 32,
+     "SecretStringTemplate": "{\"username\":\"admin\"}"
+    },
+    "KmsKeyId": {
+     "Fn::ImportValue": "Feelwell-Security-production:ExportsOutputFnGetAttMasterKey0175C9E2Arn2B8655C7"
+    },
+    "Name": "production/feelwell/docdb",
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "production"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Database-production/DocumentDBSecret/Resource"
+   }
+  },
+  "ConversationStoreSubnets1ECD9E2C": {
+   "Type": "AWS::DocDB::DBSubnetGroup",
+   "Properties": {
+    "DBSubnetGroupDescription": "Subnets for ConversationStore database",
+    "SubnetIds": [
+     {
+      "Fn::ImportValue": "Feelwell-Networking-production:ExportsOutputRefFeelwellVPCDatabaseSubnet1SubnetDB6EA0E280EAB23B"
+     },
+     {
+      "Fn::ImportValue": "Feelwell-Networking-production:ExportsOutputRefFeelwellVPCDatabaseSubnet2Subnet0DA0458F75CF72B2"
+     },
+     {
+      "Fn::ImportValue": "Feelwell-Networking-production:ExportsOutputRefFeelwellVPCDatabaseSubnet3SubnetD1E4A121E31FBF41"
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Compliance",
+      "Value": "FERPA-COPPA-SOC2"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DataClassification",
+      "Value": "HighlySensitive"
+     },
+     {
+      "Key": "Environment",
+      "Value": "production"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Database-production/ConversationStore/Subnets"
+   }
+  },
+  "ConversationStoreSecurityGroup0508A00C": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "DocumentDB security group",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Compliance",
+      "Value": "FERPA-COPPA-SOC2"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DataClassification",
+      "Value": "HighlySensitive"
+     },
+     {
+      "Key": "Environment",
+      "Value": "production"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     }
+    ],
+    "VpcId": {
+     "Fn::ImportValue": "Feelwell-Networking-production:ExportsOutputRefFeelwellVPC602A5B4265939C65"
+    }
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Database-production/ConversationStore/SecurityGroup/Resource"
+   }
+  },
+  "ConversationStore557298E2": {
+   "Type": "AWS::DocDB::DBCluster",
+   "Properties": {
+    "BackupRetentionPeriod": 7,
+    "DBSubnetGroupName": {
+     "Ref": "ConversationStoreSubnets1ECD9E2C"
+    },
+    "KmsKeyId": {
+     "Fn::ImportValue": "Feelwell-Security-production:ExportsOutputFnGetAttMasterKey0175C9E2Arn2B8655C7"
+    },
+    "MasterUserPassword": {
+     "Fn::Join": [
+      "",
+      [
+       "{{resolve:secretsmanager:",
+       {
+        "Ref": "DocumentDBSecretFD0B88CB"
+       },
+       ":SecretString:password::}}"
+      ]
+     ]
+    },
+    "MasterUsername": {
+     "Fn::Join": [
+      "",
+      [
+       "{{resolve:secretsmanager:",
+       {
+        "Ref": "DocumentDBSecretFD0B88CB"
+       },
+       ":SecretString:username::}}"
+      ]
+     ]
+    },
+    "PreferredBackupWindow": "03:00-04:00",
+    "StorageEncrypted": true,
+    "Tags": [
+     {
+      "Key": "Compliance",
+      "Value": "FERPA-COPPA-SOC2"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DataClassification",
+      "Value": "HighlySensitive"
+     },
+     {
+      "Key": "Environment",
+      "Value": "production"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     }
+    ],
+    "VpcSecurityGroupIds": [
+     {
+      "Fn::GetAtt": [
+       "ConversationStoreSecurityGroup0508A00C",
+       "GroupId"
+      ]
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Snapshot",
+   "DeletionPolicy": "Snapshot",
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Database-production/ConversationStore/Resource"
+   }
+  },
+  "ConversationStoreInstance14716E2DE": {
+   "Type": "AWS::DocDB::DBInstance",
+   "Properties": {
+    "DBClusterIdentifier": {
+     "Ref": "ConversationStore557298E2"
+    },
+    "DBInstanceClass": "db.t3.medium",
+    "Tags": [
+     {
+      "Key": "Compliance",
+      "Value": "FERPA-COPPA-SOC2"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DataClassification",
+      "Value": "HighlySensitive"
+     },
+     {
+      "Key": "Environment",
+      "Value": "production"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Database-production/ConversationStore/Instance1"
+   }
+  },
+  "ConversationStoreInstance2AB376763": {
+   "Type": "AWS::DocDB::DBInstance",
+   "Properties": {
+    "DBClusterIdentifier": {
+     "Ref": "ConversationStore557298E2"
+    },
+    "DBInstanceClass": "db.t3.medium",
+    "Tags": [
+     {
+      "Key": "Compliance",
+      "Value": "FERPA-COPPA-SOC2"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DataClassification",
+      "Value": "HighlySensitive"
+     },
+     {
+      "Key": "Environment",
+      "Value": "production"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Database-production/ConversationStore/Instance2"
+   }
+  },
+  "ConversationStoreInstance3BD47EF97": {
+   "Type": "AWS::DocDB::DBInstance",
+   "Properties": {
+    "DBClusterIdentifier": {
+     "Ref": "ConversationStore557298E2"
+    },
+    "DBInstanceClass": "db.t3.medium",
+    "Tags": [
+     {
+      "Key": "Compliance",
+      "Value": "FERPA-COPPA-SOC2"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "DataClassification",
+      "Value": "HighlySensitive"
+     },
+     {
+      "Key": "Environment",
+      "Value": "production"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Database-production/ConversationStore/Instance3"
+   }
+  },
+  "ClinicalDataStoreSubnetGroupE4F1B354": {
+   "Type": "AWS::RDS::DBSubnetGroup",
+   "Properties": {
+    "DBSubnetGroupDescription": "Subnet group for ClinicalDataStore database",
+    "SubnetIds": [
+     {
+      "Fn::ImportValue": "Feelwell-Networking-production:ExportsOutputRefFeelwellVPCDatabaseSubnet1SubnetDB6EA0E280EAB23B"
+     },
+     {
+      "Fn::ImportValue": "Feelwell-Networking-production:ExportsOutputRefFeelwellVPCDatabaseSubnet2Subnet0DA0458F75CF72B2"
+     },
+     {
+      "Fn::ImportValue": "Feelwell-Networking-production:ExportsOutputRefFeelwellVPCDatabaseSubnet3SubnetD1E4A121E31FBF41"
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "production"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Database-production/ClinicalDataStore/SubnetGroup/Default"
+   }
+  },
+  "ClinicalDataStoreSecurityGroupB09121E2": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "Security group for ClinicalDataStore database",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "production"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     }
+    ],
+    "VpcId": {
+     "Fn::ImportValue": "Feelwell-Networking-production:ExportsOutputRefFeelwellVPC602A5B4265939C65"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Database-production/ClinicalDataStore/SecurityGroup/Resource"
+   }
+  },
+  "ClinicalDataStoreSecret43C1F724": {
+   "Type": "AWS::SecretsManager::Secret",
+   "Properties": {
+    "Description": {
+     "Fn::Join": [
+      "",
+      [
+       "Generated by the CDK for stack: ",
+       {
+        "Ref": "AWS::StackName"
+       }
+      ]
+     ]
+    },
+    "GenerateSecretString": {
+     "ExcludeCharacters": " %+~`#$&*()|[]{}:;<>?!'/@\"\\",
+     "GenerateStringKey": "password",
+     "PasswordLength": 30,
+     "SecretStringTemplate": "{\"username\":\"postgres\"}"
+    },
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "production"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Database-production/ClinicalDataStore/Secret/Resource"
+   }
+  },
+  "ClinicalDataStoreSecretAttachment0B10E522": {
+   "Type": "AWS::SecretsManager::SecretTargetAttachment",
+   "Properties": {
+    "SecretId": {
+     "Ref": "ClinicalDataStoreSecret43C1F724"
+    },
+    "TargetId": {
+     "Ref": "ClinicalDataStoreB43DCCE2"
+    },
+    "TargetType": "AWS::RDS::DBInstance"
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Database-production/ClinicalDataStore/Secret/Attachment/Resource"
+   }
+  },
+  "ClinicalDataStoreB43DCCE2": {
+   "Type": "AWS::RDS::DBInstance",
+   "Properties": {
+    "AllocatedStorage": "100",
+    "BackupRetentionPeriod": 7,
+    "CopyTagsToSnapshot": true,
+    "DBInstanceClass": "db.t3.medium",
+    "DBSubnetGroupName": {
+     "Ref": "ClinicalDataStoreSubnetGroupE4F1B354"
+    },
+    "DeletionProtection": true,
+    "Engine": "postgres",
+    "EngineVersion": "15",
+    "KmsKeyId": {
+     "Fn::ImportValue": "Feelwell-Security-production:ExportsOutputFnGetAttMasterKey0175C9E2Arn2B8655C7"
+    },
+    "MasterUserPassword": {
+     "Fn::Join": [
+      "",
+      [
+       "{{resolve:secretsmanager:",
+       {
+        "Ref": "ClinicalDataStoreSecret43C1F724"
+       },
+       ":SecretString:password::}}"
+      ]
+     ]
+    },
+    "MasterUsername": {
+     "Fn::Join": [
+      "",
+      [
+       "{{resolve:secretsmanager:",
+       {
+        "Ref": "ClinicalDataStoreSecret43C1F724"
+       },
+       ":SecretString:username::}}"
+      ]
+     ]
+    },
+    "MultiAZ": true,
+    "PubliclyAccessible": false,
+    "StorageEncrypted": true,
+    "StorageType": "gp2",
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "production"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     }
+    ],
+    "VPCSecurityGroups": [
+     {
+      "Fn::GetAtt": [
+       "ClinicalDataStoreSecurityGroupB09121E2",
+       "GroupId"
+      ]
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Snapshot",
+   "DeletionPolicy": "Snapshot",
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Database-production/ClinicalDataStore/Resource"
+   }
+  },
+  "RedisSubnetGroup": {
+   "Type": "AWS::ElastiCache::SubnetGroup",
+   "Properties": {
+    "Description": "Feelwell Redis subnet group",
+    "SubnetIds": [
+     {
+      "Fn::ImportValue": "Feelwell-Networking-production:ExportsOutputRefFeelwellVPCDatabaseSubnet1SubnetDB6EA0E280EAB23B"
+     },
+     {
+      "Fn::ImportValue": "Feelwell-Networking-production:ExportsOutputRefFeelwellVPCDatabaseSubnet2Subnet0DA0458F75CF72B2"
+     },
+     {
+      "Fn::ImportValue": "Feelwell-Networking-production:ExportsOutputRefFeelwellVPCDatabaseSubnet3SubnetD1E4A121E31FBF41"
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "production"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Database-production/RedisSubnetGroup"
+   }
+  },
+  "RedisSGEA80AC17": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "Access to Redis",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "production"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     }
+    ],
+    "VpcId": {
+     "Fn::ImportValue": "Feelwell-Networking-production:ExportsOutputRefFeelwellVPC602A5B4265939C65"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Database-production/RedisSG/Resource"
+   }
+  },
+  "SessionCache": {
+   "Type": "AWS::ElastiCache::CacheCluster",
+   "Properties": {
+    "CacheNodeType": "cache.t3.medium",
+    "CacheSubnetGroupName": {
+     "Ref": "RedisSubnetGroup"
+    },
+    "Engine": "redis",
+    "NumCacheNodes": 1,
+    "PreferredMaintenanceWindow": "sun:05:00-sun:06:00",
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "production"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     }
+    ],
+    "VpcSecurityGroupIds": [
+     {
+      "Fn::GetAtt": [
+       "RedisSGEA80AC17",
+       "GroupId"
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Database-production/SessionCache"
+   }
+  },
+  "RAGVectorStoreSecurityGroup03774C1E": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "Security group for domain RAGVectorStore",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "production"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     }
+    ],
+    "VpcId": {
+     "Fn::ImportValue": "Feelwell-Networking-production:ExportsOutputRefFeelwellVPC602A5B4265939C65"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Database-production/RAGVectorStore/SecurityGroup/Resource"
+   }
+  },
+  "RAGVectorStoreAEDE5AE4": {
+   "Type": "AWS::OpenSearchService::Domain",
+   "Properties": {
+    "ClusterConfig": {
+     "DedicatedMasterEnabled": false,
+     "InstanceCount": 3,
+     "InstanceType": "r5.large.search",
+     "MultiAZWithStandbyEnabled": true,
+     "ZoneAwarenessEnabled": false
+    },
+    "DomainEndpointOptions": {
+     "EnforceHTTPS": true,
+     "TLSSecurityPolicy": "Policy-Min-TLS-1-0-2019-07"
+    },
+    "EBSOptions": {
+     "EBSEnabled": true,
+     "VolumeSize": 500,
+     "VolumeType": "gp3"
+    },
+    "EncryptionAtRestOptions": {
+     "Enabled": true,
+     "KmsKeyId": {
+      "Fn::ImportValue": "Feelwell-Security-production:ExportsOutputRefMasterKey0175C9E20D9768D9"
+     }
+    },
+    "EngineVersion": "OpenSearch_2.11",
+    "LogPublishingOptions": {},
+    "NodeToNodeEncryptionOptions": {
+     "Enabled": true
+    },
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "production"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     }
+    ],
+    "VPCOptions": {
+     "SecurityGroupIds": [
+      {
+       "Fn::GetAtt": [
+        "RAGVectorStoreSecurityGroup03774C1E",
+        "GroupId"
+       ]
+      }
+     ],
+     "SubnetIds": [
+      {
+       "Fn::ImportValue": "Feelwell-Networking-production:ExportsOutputRefFeelwellVPCDatabaseSubnet1SubnetDB6EA0E280EAB23B"
+      },
+      {
+       "Fn::ImportValue": "Feelwell-Networking-production:ExportsOutputRefFeelwellVPCDatabaseSubnet2Subnet0DA0458F75CF72B2"
+      },
+      {
+       "Fn::ImportValue": "Feelwell-Networking-production:ExportsOutputRefFeelwellVPCDatabaseSubnet3SubnetD1E4A121E31FBF41"
+      }
+     ]
+    }
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Database-production/RAGVectorStore/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/2VR0U7DMAz8Ft7TAIUfgFZCPCFtvE9uarZsbVLZziZU5d9J2o2t8OTLnc9nK6V+fCr1wx2cuDDtoehso8e1gDmoRG1GRkMo3IODLVKSpreqvtwZzeUTaIvyIsm469HdNPxVomq9aVNIDQINMFZdYEHKjvp1HRqH8kY+DDOxUN8dCziDUaEpp10CWfn+bV8QUVHL15iLV/2LuCUu3dczF6kdsFiTLkE95rzlqCoL54Wj8gM6RiCzY6SjNclS+x6sm6ZOKMaMP4IMYcpaIftAOcn5FvWe74/ls87fs2drCwpObI96NdcflpKMtrsBAAA="
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Database-production/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "DocumentDBEndpoint": {
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      {
+       "Fn::GetAtt": [
+        "ConversationStore557298E2",
+        "Endpoint"
+       ]
+      },
+      ":",
+      {
+       "Fn::GetAtt": [
+        "ConversationStore557298E2",
+        "Port"
+       ]
+      }
+     ]
+    ]
+   },
+   "Export": {
+    "Name": "production-DocumentDBEndpoint"
+   }
+  },
+  "PostgresEndpoint": {
+   "Value": {
+    "Fn::GetAtt": [
+     "ClinicalDataStoreB43DCCE2",
+     "Endpoint.Address"
+    ]
+   },
+   "Export": {
+    "Name": "production-PostgresEndpoint"
+   }
+  },
+  "OpenSearchEndpoint": {
+   "Value": {
+    "Fn::GetAtt": [
+     "RAGVectorStoreAEDE5AE4",
+     "DomainEndpoint"
+    ]
+   },
+   "Export": {
+    "Name": "production-OpenSearchEndpoint"
+   }
+  },
+  "ExportsOutputFnGetAttConversationStore557298E2Endpoint2301EC84": {
+   "Value": {
+    "Fn::GetAtt": [
+     "ConversationStore557298E2",
+     "Endpoint"
+    ]
+   },
+   "Export": {
+    "Name": "Feelwell-Database-production:ExportsOutputFnGetAttConversationStore557298E2Endpoint2301EC84"
+   }
+  },
+  "ExportsOutputFnGetAttConversationStore557298E2Port29252BC6": {
+   "Value": {
+    "Fn::GetAtt": [
+     "ConversationStore557298E2",
+     "Port"
+    ]
+   },
+   "Export": {
+    "Name": "Feelwell-Database-production:ExportsOutputFnGetAttConversationStore557298E2Port29252BC6"
+   }
+  },
+  "ExportsOutputFnGetAttSessionCacheRedisEndpointAddress127E13B5": {
+   "Value": {
+    "Fn::GetAtt": [
+     "SessionCache",
+     "RedisEndpoint.Address"
+    ]
+   },
+   "Export": {
+    "Name": "Feelwell-Database-production:ExportsOutputFnGetAttSessionCacheRedisEndpointAddress127E13B5"
+   }
+  },
+  "ExportsOutputFnGetAttRAGVectorStoreAEDE5AE4DomainEndpointFDEB69FB": {
+   "Value": {
+    "Fn::GetAtt": [
+     "RAGVectorStoreAEDE5AE4",
+     "DomainEndpoint"
+    ]
+   },
+   "Export": {
+    "Name": "Feelwell-Database-production:ExportsOutputFnGetAttRAGVectorStoreAEDE5AE4DomainEndpointFDEB69FB"
+   }
+  },
+  "ExportsOutputFnGetAttClinicalDataStoreB43DCCE2EndpointAddress583D4C70": {
+   "Value": {
+    "Fn::GetAtt": [
+     "ClinicalDataStoreB43DCCE2",
+     "Endpoint.Address"
+    ]
+   },
+   "Export": {
+    "Name": "Feelwell-Database-production:ExportsOutputFnGetAttClinicalDataStoreB43DCCE2EndpointAddress583D4C70"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

@@ -1,0 +1,1533 @@
+{
+ "Resources": {
+  "FeelwellVPC602A5B42": {
+   "Type": "AWS::EC2::VPC",
+   "Properties": {
+    "CidrBlock": "10.0.0.0/16",
+    "EnableDnsHostnames": true,
+    "EnableDnsSupport": true,
+    "InstanceTenancy": "default",
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "production"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "Feelwell-Networking-production/FeelwellVPC"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Networking-production/FeelwellVPC/Resource"
+   }
+  },
+  "FeelwellVPCPublicSubnet1SubnetED8F6B0A": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": "us-east-1a",
+    "CidrBlock": "10.0.0.0/24",
+    "MapPublicIpOnLaunch": true,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Public"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Public"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "production"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "Feelwell-Networking-production/FeelwellVPC/PublicSubnet1"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     }
+    ],
+    "VpcId": {
+     "Ref": "FeelwellVPC602A5B42"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Networking-production/FeelwellVPC/PublicSubnet1/Subnet"
+   }
+  },
+  "FeelwellVPCPublicSubnet1RouteTableF7E06C58": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "production"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "Feelwell-Networking-production/FeelwellVPC/PublicSubnet1"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     }
+    ],
+    "VpcId": {
+     "Ref": "FeelwellVPC602A5B42"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Networking-production/FeelwellVPC/PublicSubnet1/RouteTable"
+   }
+  },
+  "FeelwellVPCPublicSubnet1RouteTableAssociation2789073C": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "FeelwellVPCPublicSubnet1RouteTableF7E06C58"
+    },
+    "SubnetId": {
+     "Ref": "FeelwellVPCPublicSubnet1SubnetED8F6B0A"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Networking-production/FeelwellVPC/PublicSubnet1/RouteTableAssociation"
+   }
+  },
+  "FeelwellVPCPublicSubnet1DefaultRoute8814A721": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "GatewayId": {
+     "Ref": "FeelwellVPCIGW3E7FC001"
+    },
+    "RouteTableId": {
+     "Ref": "FeelwellVPCPublicSubnet1RouteTableF7E06C58"
+    }
+   },
+   "DependsOn": [
+    "FeelwellVPCVPCGWAC406830"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Networking-production/FeelwellVPC/PublicSubnet1/DefaultRoute"
+   }
+  },
+  "FeelwellVPCPublicSubnet1EIPAC25F26E": {
+   "Type": "AWS::EC2::EIP",
+   "Properties": {
+    "Domain": "vpc",
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "production"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "Feelwell-Networking-production/FeelwellVPC/PublicSubnet1"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Networking-production/FeelwellVPC/PublicSubnet1/EIP"
+   }
+  },
+  "FeelwellVPCPublicSubnet1NATGatewayD17C7C9E": {
+   "Type": "AWS::EC2::NatGateway",
+   "Properties": {
+    "AllocationId": {
+     "Fn::GetAtt": [
+      "FeelwellVPCPublicSubnet1EIPAC25F26E",
+      "AllocationId"
+     ]
+    },
+    "SubnetId": {
+     "Ref": "FeelwellVPCPublicSubnet1SubnetED8F6B0A"
+    },
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "production"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "Feelwell-Networking-production/FeelwellVPC/PublicSubnet1"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     }
+    ]
+   },
+   "DependsOn": [
+    "FeelwellVPCPublicSubnet1DefaultRoute8814A721",
+    "FeelwellVPCPublicSubnet1RouteTableAssociation2789073C"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Networking-production/FeelwellVPC/PublicSubnet1/NATGateway"
+   }
+  },
+  "FeelwellVPCPublicSubnet2Subnet5172D5EE": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": "us-east-1b",
+    "CidrBlock": "10.0.1.0/24",
+    "MapPublicIpOnLaunch": true,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Public"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Public"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "production"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "Feelwell-Networking-production/FeelwellVPC/PublicSubnet2"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     }
+    ],
+    "VpcId": {
+     "Ref": "FeelwellVPC602A5B42"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Networking-production/FeelwellVPC/PublicSubnet2/Subnet"
+   }
+  },
+  "FeelwellVPCPublicSubnet2RouteTableEC19B497": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "production"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "Feelwell-Networking-production/FeelwellVPC/PublicSubnet2"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     }
+    ],
+    "VpcId": {
+     "Ref": "FeelwellVPC602A5B42"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Networking-production/FeelwellVPC/PublicSubnet2/RouteTable"
+   }
+  },
+  "FeelwellVPCPublicSubnet2RouteTableAssociation077D1865": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "FeelwellVPCPublicSubnet2RouteTableEC19B497"
+    },
+    "SubnetId": {
+     "Ref": "FeelwellVPCPublicSubnet2Subnet5172D5EE"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Networking-production/FeelwellVPC/PublicSubnet2/RouteTableAssociation"
+   }
+  },
+  "FeelwellVPCPublicSubnet2DefaultRoute550C1ACB": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "GatewayId": {
+     "Ref": "FeelwellVPCIGW3E7FC001"
+    },
+    "RouteTableId": {
+     "Ref": "FeelwellVPCPublicSubnet2RouteTableEC19B497"
+    }
+   },
+   "DependsOn": [
+    "FeelwellVPCVPCGWAC406830"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Networking-production/FeelwellVPC/PublicSubnet2/DefaultRoute"
+   }
+  },
+  "FeelwellVPCPublicSubnet2EIPF1D39BEA": {
+   "Type": "AWS::EC2::EIP",
+   "Properties": {
+    "Domain": "vpc",
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "production"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "Feelwell-Networking-production/FeelwellVPC/PublicSubnet2"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Networking-production/FeelwellVPC/PublicSubnet2/EIP"
+   }
+  },
+  "FeelwellVPCPublicSubnet2NATGateway51F1E8DF": {
+   "Type": "AWS::EC2::NatGateway",
+   "Properties": {
+    "AllocationId": {
+     "Fn::GetAtt": [
+      "FeelwellVPCPublicSubnet2EIPF1D39BEA",
+      "AllocationId"
+     ]
+    },
+    "SubnetId": {
+     "Ref": "FeelwellVPCPublicSubnet2Subnet5172D5EE"
+    },
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "production"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "Feelwell-Networking-production/FeelwellVPC/PublicSubnet2"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     }
+    ]
+   },
+   "DependsOn": [
+    "FeelwellVPCPublicSubnet2DefaultRoute550C1ACB",
+    "FeelwellVPCPublicSubnet2RouteTableAssociation077D1865"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Networking-production/FeelwellVPC/PublicSubnet2/NATGateway"
+   }
+  },
+  "FeelwellVPCPublicSubnet3SubnetFCCDC8AE": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": "us-east-1c",
+    "CidrBlock": "10.0.2.0/24",
+    "MapPublicIpOnLaunch": true,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Public"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Public"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "production"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "Feelwell-Networking-production/FeelwellVPC/PublicSubnet3"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     }
+    ],
+    "VpcId": {
+     "Ref": "FeelwellVPC602A5B42"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Networking-production/FeelwellVPC/PublicSubnet3/Subnet"
+   }
+  },
+  "FeelwellVPCPublicSubnet3RouteTable4A06591C": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "production"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "Feelwell-Networking-production/FeelwellVPC/PublicSubnet3"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     }
+    ],
+    "VpcId": {
+     "Ref": "FeelwellVPC602A5B42"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Networking-production/FeelwellVPC/PublicSubnet3/RouteTable"
+   }
+  },
+  "FeelwellVPCPublicSubnet3RouteTableAssociation1786CB86": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "FeelwellVPCPublicSubnet3RouteTable4A06591C"
+    },
+    "SubnetId": {
+     "Ref": "FeelwellVPCPublicSubnet3SubnetFCCDC8AE"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Networking-production/FeelwellVPC/PublicSubnet3/RouteTableAssociation"
+   }
+  },
+  "FeelwellVPCPublicSubnet3DefaultRouteF228979B": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "GatewayId": {
+     "Ref": "FeelwellVPCIGW3E7FC001"
+    },
+    "RouteTableId": {
+     "Ref": "FeelwellVPCPublicSubnet3RouteTable4A06591C"
+    }
+   },
+   "DependsOn": [
+    "FeelwellVPCVPCGWAC406830"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Networking-production/FeelwellVPC/PublicSubnet3/DefaultRoute"
+   }
+  },
+  "FeelwellVPCApplicationSubnet1Subnet8CCA40F3": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": "us-east-1a",
+    "CidrBlock": "10.0.3.0/24",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Application"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Private"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "production"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "Feelwell-Networking-production/FeelwellVPC/ApplicationSubnet1"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     }
+    ],
+    "VpcId": {
+     "Ref": "FeelwellVPC602A5B42"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Networking-production/FeelwellVPC/ApplicationSubnet1/Subnet"
+   }
+  },
+  "FeelwellVPCApplicationSubnet1RouteTable4BED7EEC": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "production"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "Feelwell-Networking-production/FeelwellVPC/ApplicationSubnet1"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     }
+    ],
+    "VpcId": {
+     "Ref": "FeelwellVPC602A5B42"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Networking-production/FeelwellVPC/ApplicationSubnet1/RouteTable"
+   }
+  },
+  "FeelwellVPCApplicationSubnet1RouteTableAssociation721C8E40": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "FeelwellVPCApplicationSubnet1RouteTable4BED7EEC"
+    },
+    "SubnetId": {
+     "Ref": "FeelwellVPCApplicationSubnet1Subnet8CCA40F3"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Networking-production/FeelwellVPC/ApplicationSubnet1/RouteTableAssociation"
+   }
+  },
+  "FeelwellVPCApplicationSubnet1DefaultRoute4A9E9E4F": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "NatGatewayId": {
+     "Ref": "FeelwellVPCPublicSubnet1NATGatewayD17C7C9E"
+    },
+    "RouteTableId": {
+     "Ref": "FeelwellVPCApplicationSubnet1RouteTable4BED7EEC"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Networking-production/FeelwellVPC/ApplicationSubnet1/DefaultRoute"
+   }
+  },
+  "FeelwellVPCApplicationSubnet2SubnetDE84878C": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": "us-east-1b",
+    "CidrBlock": "10.0.4.0/24",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Application"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Private"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "production"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "Feelwell-Networking-production/FeelwellVPC/ApplicationSubnet2"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     }
+    ],
+    "VpcId": {
+     "Ref": "FeelwellVPC602A5B42"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Networking-production/FeelwellVPC/ApplicationSubnet2/Subnet"
+   }
+  },
+  "FeelwellVPCApplicationSubnet2RouteTable924F61B5": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "production"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "Feelwell-Networking-production/FeelwellVPC/ApplicationSubnet2"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     }
+    ],
+    "VpcId": {
+     "Ref": "FeelwellVPC602A5B42"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Networking-production/FeelwellVPC/ApplicationSubnet2/RouteTable"
+   }
+  },
+  "FeelwellVPCApplicationSubnet2RouteTableAssociation3DD93DB0": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "FeelwellVPCApplicationSubnet2RouteTable924F61B5"
+    },
+    "SubnetId": {
+     "Ref": "FeelwellVPCApplicationSubnet2SubnetDE84878C"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Networking-production/FeelwellVPC/ApplicationSubnet2/RouteTableAssociation"
+   }
+  },
+  "FeelwellVPCApplicationSubnet2DefaultRoute291E048F": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "NatGatewayId": {
+     "Ref": "FeelwellVPCPublicSubnet2NATGateway51F1E8DF"
+    },
+    "RouteTableId": {
+     "Ref": "FeelwellVPCApplicationSubnet2RouteTable924F61B5"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Networking-production/FeelwellVPC/ApplicationSubnet2/DefaultRoute"
+   }
+  },
+  "FeelwellVPCApplicationSubnet3Subnet5F00A0D3": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": "us-east-1c",
+    "CidrBlock": "10.0.5.0/24",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Application"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Private"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "production"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "Feelwell-Networking-production/FeelwellVPC/ApplicationSubnet3"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     }
+    ],
+    "VpcId": {
+     "Ref": "FeelwellVPC602A5B42"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Networking-production/FeelwellVPC/ApplicationSubnet3/Subnet"
+   }
+  },
+  "FeelwellVPCApplicationSubnet3RouteTableE8709BEC": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "production"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "Feelwell-Networking-production/FeelwellVPC/ApplicationSubnet3"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     }
+    ],
+    "VpcId": {
+     "Ref": "FeelwellVPC602A5B42"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Networking-production/FeelwellVPC/ApplicationSubnet3/RouteTable"
+   }
+  },
+  "FeelwellVPCApplicationSubnet3RouteTableAssociationCE7AA94A": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "FeelwellVPCApplicationSubnet3RouteTableE8709BEC"
+    },
+    "SubnetId": {
+     "Ref": "FeelwellVPCApplicationSubnet3Subnet5F00A0D3"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Networking-production/FeelwellVPC/ApplicationSubnet3/RouteTableAssociation"
+   }
+  },
+  "FeelwellVPCApplicationSubnet3DefaultRouteD67FF4C5": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "NatGatewayId": {
+     "Ref": "FeelwellVPCPublicSubnet1NATGatewayD17C7C9E"
+    },
+    "RouteTableId": {
+     "Ref": "FeelwellVPCApplicationSubnet3RouteTableE8709BEC"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Networking-production/FeelwellVPC/ApplicationSubnet3/DefaultRoute"
+   }
+  },
+  "FeelwellVPCDatabaseSubnet1SubnetDB6EA0E2": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": "us-east-1a",
+    "CidrBlock": "10.0.6.0/28",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Database"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Isolated"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "production"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "Feelwell-Networking-production/FeelwellVPC/DatabaseSubnet1"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     }
+    ],
+    "VpcId": {
+     "Ref": "FeelwellVPC602A5B42"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Networking-production/FeelwellVPC/DatabaseSubnet1/Subnet"
+   }
+  },
+  "FeelwellVPCDatabaseSubnet1RouteTableFF6E52B2": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "production"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "Feelwell-Networking-production/FeelwellVPC/DatabaseSubnet1"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     }
+    ],
+    "VpcId": {
+     "Ref": "FeelwellVPC602A5B42"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Networking-production/FeelwellVPC/DatabaseSubnet1/RouteTable"
+   }
+  },
+  "FeelwellVPCDatabaseSubnet1RouteTableAssociation322AEBE9": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "FeelwellVPCDatabaseSubnet1RouteTableFF6E52B2"
+    },
+    "SubnetId": {
+     "Ref": "FeelwellVPCDatabaseSubnet1SubnetDB6EA0E2"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Networking-production/FeelwellVPC/DatabaseSubnet1/RouteTableAssociation"
+   }
+  },
+  "FeelwellVPCDatabaseSubnet2Subnet0DA0458F": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": "us-east-1b",
+    "CidrBlock": "10.0.6.16/28",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Database"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Isolated"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "production"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "Feelwell-Networking-production/FeelwellVPC/DatabaseSubnet2"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     }
+    ],
+    "VpcId": {
+     "Ref": "FeelwellVPC602A5B42"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Networking-production/FeelwellVPC/DatabaseSubnet2/Subnet"
+   }
+  },
+  "FeelwellVPCDatabaseSubnet2RouteTableF75830CC": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "production"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "Feelwell-Networking-production/FeelwellVPC/DatabaseSubnet2"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     }
+    ],
+    "VpcId": {
+     "Ref": "FeelwellVPC602A5B42"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Networking-production/FeelwellVPC/DatabaseSubnet2/RouteTable"
+   }
+  },
+  "FeelwellVPCDatabaseSubnet2RouteTableAssociation245449F5": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "FeelwellVPCDatabaseSubnet2RouteTableF75830CC"
+    },
+    "SubnetId": {
+     "Ref": "FeelwellVPCDatabaseSubnet2Subnet0DA0458F"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Networking-production/FeelwellVPC/DatabaseSubnet2/RouteTableAssociation"
+   }
+  },
+  "FeelwellVPCDatabaseSubnet3SubnetD1E4A121": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": "us-east-1c",
+    "CidrBlock": "10.0.6.32/28",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Database"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Isolated"
+     },
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "production"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "Feelwell-Networking-production/FeelwellVPC/DatabaseSubnet3"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     }
+    ],
+    "VpcId": {
+     "Ref": "FeelwellVPC602A5B42"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Networking-production/FeelwellVPC/DatabaseSubnet3/Subnet"
+   }
+  },
+  "FeelwellVPCDatabaseSubnet3RouteTable76E65CB8": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "production"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "Feelwell-Networking-production/FeelwellVPC/DatabaseSubnet3"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     }
+    ],
+    "VpcId": {
+     "Ref": "FeelwellVPC602A5B42"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Networking-production/FeelwellVPC/DatabaseSubnet3/RouteTable"
+   }
+  },
+  "FeelwellVPCDatabaseSubnet3RouteTableAssociationF9FC9050": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "FeelwellVPCDatabaseSubnet3RouteTable76E65CB8"
+    },
+    "SubnetId": {
+     "Ref": "FeelwellVPCDatabaseSubnet3SubnetD1E4A121"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Networking-production/FeelwellVPC/DatabaseSubnet3/RouteTableAssociation"
+   }
+  },
+  "FeelwellVPCIGW3E7FC001": {
+   "Type": "AWS::EC2::InternetGateway",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "production"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "Feelwell-Networking-production/FeelwellVPC"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Networking-production/FeelwellVPC/IGW"
+   }
+  },
+  "FeelwellVPCVPCGWAC406830": {
+   "Type": "AWS::EC2::VPCGatewayAttachment",
+   "Properties": {
+    "InternetGatewayId": {
+     "Ref": "FeelwellVPCIGW3E7FC001"
+    },
+    "VpcId": {
+     "Ref": "FeelwellVPC602A5B42"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Networking-production/FeelwellVPC/VPCGW"
+   }
+  },
+  "FeelwellVPCRestrictDefaultSecurityGroupCustomResourceCFF0997C": {
+   "Type": "Custom::VpcRestrictDefaultSG",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "CustomVpcRestrictDefaultSGCustomResourceProviderHandlerDC833E5E",
+      "Arn"
+     ]
+    },
+    "DefaultSecurityGroupId": {
+     "Fn::GetAtt": [
+      "FeelwellVPC602A5B42",
+      "DefaultSecurityGroup"
+     ]
+    },
+    "Account": "618351925005"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Networking-production/FeelwellVPC/RestrictDefaultSecurityGroupCustomResource/Default"
+   }
+  },
+  "FeelwellVPCFlowLogS3Bucket5334BFB0": {
+   "Type": "AWS::S3::Bucket",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "production"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "Feelwell-Networking-production/FeelwellVPC/FlowLogS3"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Networking-production/FeelwellVPC/FlowLogS3/Bucket/Resource"
+   }
+  },
+  "FeelwellVPCFlowLogS3BucketPolicy785343AF": {
+   "Type": "AWS::S3::BucketPolicy",
+   "Properties": {
+    "Bucket": {
+     "Ref": "FeelwellVPCFlowLogS3Bucket5334BFB0"
+    },
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "s3:PutObject",
+       "Condition": {
+        "StringEquals": {
+         "s3:x-amz-acl": "bucket-owner-full-control",
+         "aws:SourceAccount": "618351925005"
+        },
+        "ArnLike": {
+         "aws:SourceArn": {
+          "Fn::Join": [
+           "",
+           [
+            "arn:",
+            {
+             "Ref": "AWS::Partition"
+            },
+            ":logs:us-east-1:618351925005:*"
+           ]
+          ]
+         }
+        }
+       },
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "delivery.logs.amazonaws.com"
+       },
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          {
+           "Fn::GetAtt": [
+            "FeelwellVPCFlowLogS3Bucket5334BFB0",
+            "Arn"
+           ]
+          },
+          "/AWSLogs/618351925005/*"
+         ]
+        ]
+       }
+      },
+      {
+       "Action": [
+        "s3:GetBucketAcl",
+        "s3:ListBucket"
+       ],
+       "Condition": {
+        "StringEquals": {
+         "aws:SourceAccount": "618351925005"
+        },
+        "ArnLike": {
+         "aws:SourceArn": {
+          "Fn::Join": [
+           "",
+           [
+            "arn:",
+            {
+             "Ref": "AWS::Partition"
+            },
+            ":logs:us-east-1:618351925005:*"
+           ]
+          ]
+         }
+        }
+       },
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "delivery.logs.amazonaws.com"
+       },
+       "Resource": {
+        "Fn::GetAtt": [
+         "FeelwellVPCFlowLogS3Bucket5334BFB0",
+         "Arn"
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Networking-production/FeelwellVPC/FlowLogS3/Bucket/Policy/Resource"
+   }
+  },
+  "FeelwellVPCFlowLogS3FlowLog033BC1B8": {
+   "Type": "AWS::EC2::FlowLog",
+   "Properties": {
+    "LogDestination": {
+     "Fn::GetAtt": [
+      "FeelwellVPCFlowLogS3Bucket5334BFB0",
+      "Arn"
+     ]
+    },
+    "LogDestinationType": "s3",
+    "ResourceId": {
+     "Ref": "FeelwellVPC602A5B42"
+    },
+    "ResourceType": "VPC",
+    "Tags": [
+     {
+      "Key": "CostCenter",
+      "Value": "Engineering"
+     },
+     {
+      "Key": "Environment",
+      "Value": "production"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Name",
+      "Value": "Feelwell-Networking-production/FeelwellVPC/FlowLogS3"
+     },
+     {
+      "Key": "Project",
+      "Value": "Feelwell"
+     }
+    ],
+    "TrafficType": "ALL"
+   },
+   "DependsOn": [
+    "FeelwellVPCFlowLogS3BucketPolicy785343AF"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Networking-production/FeelwellVPC/FlowLogS3/FlowLog"
+   }
+  },
+  "CustomVpcRestrictDefaultSGCustomResourceProviderRole26592FE0": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Version": "2012-10-17",
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ]
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Sub": "arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+     }
+    ],
+    "Policies": [
+     {
+      "PolicyName": "Inline",
+      "PolicyDocument": {
+       "Version": "2012-10-17",
+       "Statement": [
+        {
+         "Effect": "Allow",
+         "Action": [
+          "ec2:AuthorizeSecurityGroupIngress",
+          "ec2:AuthorizeSecurityGroupEgress",
+          "ec2:RevokeSecurityGroupIngress",
+          "ec2:RevokeSecurityGroupEgress"
+         ],
+         "Resource": [
+          {
+           "Fn::Join": [
+            "",
+            [
+             "arn:",
+             {
+              "Ref": "AWS::Partition"
+             },
+             ":ec2:us-east-1:618351925005:security-group/",
+             {
+              "Fn::GetAtt": [
+               "FeelwellVPC602A5B42",
+               "DefaultSecurityGroup"
+              ]
+             }
+            ]
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Networking-production/Custom::VpcRestrictDefaultSGCustomResourceProvider/Role"
+   }
+  },
+  "CustomVpcRestrictDefaultSGCustomResourceProviderHandlerDC833E5E": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-618351925005-us-east-1",
+     "S3Key": "ee7de53d64cc9d6248fa6aa550f92358f6c907b5efd6f3298aeab1b5e7ea358a.zip"
+    },
+    "Timeout": 900,
+    "MemorySize": 128,
+    "Handler": "__entrypoint__.handler",
+    "Role": {
+     "Fn::GetAtt": [
+      "CustomVpcRestrictDefaultSGCustomResourceProviderRole26592FE0",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs18.x",
+    "Description": "Lambda function for removing all inbound/outbound rules from the VPC default security group"
+   },
+   "DependsOn": [
+    "CustomVpcRestrictDefaultSGCustomResourceProviderRole26592FE0"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Networking-production/Custom::VpcRestrictDefaultSGCustomResourceProvider/Handler",
+    "aws:asset:path": "asset.ee7de53d64cc9d6248fa6aa550f92358f6c907b5efd6f3298aeab1b5e7ea358a",
+    "aws:asset:property": "Code"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/22Q0U7DMAxFv4X3NEDHD2wToEkIRR3aK0pTs3ltY5Q4raaq/06qFPLC0z2+tqxrl/JxU8qHOz36wjRt0WEtpyNr04pofU5gSjmdvo3Yf9mT2gsV6g7NMdQWePEyVRQYPnTdQfazt/WeDGpGsn/DCzwf1CLvml81w6hvQjkcIubFB8vgIv8OpCRrteWY9dKDZfHS0fhG56W/4iz8Rk67YNq0aaUkiuIht2ynep5FBZ6CMzFe8Ex9LmPs/1vK0YANuJ32IOKlwPGDZ7QxgKUG5NXfD+WTXP589YiFC5axB1kl/QFa8qZ4hAEAAA=="
+   },
+   "Metadata": {
+    "aws:cdk:path": "Feelwell-Networking-production/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "ExportsOutputRefFeelwellVPCDatabaseSubnet1SubnetDB6EA0E280EAB23B": {
+   "Value": {
+    "Ref": "FeelwellVPCDatabaseSubnet1SubnetDB6EA0E2"
+   },
+   "Export": {
+    "Name": "Feelwell-Networking-production:ExportsOutputRefFeelwellVPCDatabaseSubnet1SubnetDB6EA0E280EAB23B"
+   }
+  },
+  "ExportsOutputRefFeelwellVPCDatabaseSubnet2Subnet0DA0458F75CF72B2": {
+   "Value": {
+    "Ref": "FeelwellVPCDatabaseSubnet2Subnet0DA0458F"
+   },
+   "Export": {
+    "Name": "Feelwell-Networking-production:ExportsOutputRefFeelwellVPCDatabaseSubnet2Subnet0DA0458F75CF72B2"
+   }
+  },
+  "ExportsOutputRefFeelwellVPCDatabaseSubnet3SubnetD1E4A121E31FBF41": {
+   "Value": {
+    "Ref": "FeelwellVPCDatabaseSubnet3SubnetD1E4A121"
+   },
+   "Export": {
+    "Name": "Feelwell-Networking-production:ExportsOutputRefFeelwellVPCDatabaseSubnet3SubnetD1E4A121E31FBF41"
+   }
+  },
+  "ExportsOutputRefFeelwellVPC602A5B4265939C65": {
+   "Value": {
+    "Ref": "FeelwellVPC602A5B42"
+   },
+   "Export": {
+    "Name": "Feelwell-Networking-production:ExportsOutputRefFeelwellVPC602A5B4265939C65"
+   }
+  },
+  "ExportsOutputRefFeelwellVPCApplicationSubnet1Subnet8CCA40F328748D30": {
+   "Value": {
+    "Ref": "FeelwellVPCApplicationSubnet1Subnet8CCA40F3"
+   },
+   "Export": {
+    "Name": "Feelwell-Networking-production:ExportsOutputRefFeelwellVPCApplicationSubnet1Subnet8CCA40F328748D30"
+   }
+  },
+  "ExportsOutputRefFeelwellVPCApplicationSubnet2SubnetDE84878C5F39F7E0": {
+   "Value": {
+    "Ref": "FeelwellVPCApplicationSubnet2SubnetDE84878C"
+   },
+   "Export": {
+    "Name": "Feelwell-Networking-production:ExportsOutputRefFeelwellVPCApplicationSubnet2SubnetDE84878C5F39F7E0"
+   }
+  },
+  "ExportsOutputRefFeelwellVPCApplicationSubnet3Subnet5F00A0D3C281D7E7": {
+   "Value": {
+    "Ref": "FeelwellVPCApplicationSubnet3Subnet5F00A0D3"
+   },
+   "Export": {
+    "Name": "Feelwell-Networking-production:ExportsOutputRefFeelwellVPCApplicationSubnet3Subnet5F00A0D3C281D7E7"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

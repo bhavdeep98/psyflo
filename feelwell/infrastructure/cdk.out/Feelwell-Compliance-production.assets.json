@@ -1,0 +1,20 @@
+{
+  "version": "36.0.0",
+  "files": {
+    "94a37b9022e14f28fd7ff58925553b85fe31a7718488f2d89e31b09b45601936": {
+      "source": {
+        "path": "Feelwell-Compliance-production.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "618351925005-us-east-1": {
+          "bucketName": "cdk-hnb659fds-assets-618351925005-us-east-1",
+          "objectKey": "94a37b9022e14f28fd7ff58925553b85fe31a7718488f2d89e31b09b45601936.json",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::618351925005:role/cdk-hnb659fds-file-publishing-role-618351925005-us-east-1"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}
