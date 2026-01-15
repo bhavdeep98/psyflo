@@ -287,3 +287,235 @@ class TestConfigurability:
         
         # With lower thresholds, this should be CAUTION
         assert result.risk_level == RiskLevel.CAUTION
+
+
+class TestAdversarialEvasionTechniques:
+    """Tests for adversarial evasion techniques - Phase 1 safety fixes.
+    
+    These tests verify the scanner catches crisis language even when
+    disguised using leetspeak, unicode, separators, and other techniques.
+    """
+    
+    def test_leetspeak_numbers(self, scanner):
+        """Leetspeak with numbers should be detected."""
+        result = scanner.scan(
+            message_id="msg_adv_001",
+            text="I want to K1LL myself",
+            student_id="student_123",
+        )
+        
+        assert result.risk_level == RiskLevel.CRISIS
+        assert result.bypass_llm is True
+    
+    def test_dot_separation(self, scanner):
+        """Dot-separated letters should be detected."""
+        result = scanner.scan(
+            message_id="msg_adv_002",
+            text="I want to k.i.l.l myself",
+            student_id="student_123",
+        )
+        
+        assert result.risk_level == RiskLevel.CRISIS
+        assert result.bypass_llm is True
+    
+    def test_newline_separation(self, scanner):
+        """Newline-separated text should be detected."""
+        result = scanner.scan(
+            message_id="msg_adv_006",
+            text="I\nwant\nto\nkill\nmyself",
+            student_id="student_123",
+        )
+        
+        assert result.risk_level == RiskLevel.CRISIS
+        assert result.bypass_llm is True
+    
+    def test_unicode_circled_letters(self, scanner):
+        """Unicode circled letters should be detected."""
+        result = scanner.scan(
+            message_id="msg_adv_007",
+            text="I want to ⓚⓘⓛⓛ myself",
+            student_id="student_123",
+        )
+        
+        assert result.risk_level == RiskLevel.CRISIS
+        assert result.bypass_llm is True
+    
+    def test_unicode_mathematical_letters(self, scanner):
+        """Unicode mathematical letters should be detected."""
+        result = scanner.scan(
+            message_id="msg_adv_008",
+            text="I want to 𝕜𝕚𝕝𝕝 myself",
+            student_id="student_123",
+        )
+        
+        assert result.risk_level == RiskLevel.CRISIS
+        assert result.bypass_llm is True
+
+
+class TestExpandedCrisisKeywords:
+    """Tests for newly added crisis keywords - Phase 1 safety fixes."""
+    
+    def test_sewerslide_tiktok_slang(self, scanner):
+        """TikTok slang 'sewerslide' must trigger crisis."""
+        result = scanner.scan(
+            message_id="msg_exp_001",
+            text="I want to sewerslide",
+            student_id="student_123",
+        )
+        
+        assert result.risk_level == RiskLevel.CRISIS
+        assert result.bypass_llm is True
+    
+    def test_catch_the_bus(self, scanner):
+        """Coded phrase 'catch the bus' must trigger crisis."""
+        result = scanner.scan(
+            message_id="msg_exp_002",
+            text="I want to catch the bus",
+            student_id="student_123",
+        )
+        
+        assert result.risk_level == RiskLevel.CRISIS
+        assert result.bypass_llm is True
+    
+    def test_game_end(self, scanner):
+        """Gaming slang 'game end' must trigger crisis."""
+        result = scanner.scan(
+            message_id="msg_exp_003",
+            text="I want to game end myself",
+            student_id="student_123",
+        )
+        
+        assert result.risk_level == RiskLevel.CRISIS
+        assert result.bypass_llm is True
+    
+    def test_final_yeet(self, scanner):
+        """Slang 'final yeet' must trigger crisis."""
+        result = scanner.scan(
+            message_id="msg_exp_004",
+            text="I'm thinking about the final yeet",
+            student_id="student_123",
+        )
+        
+        assert result.risk_level == RiskLevel.CRISIS
+        assert result.bypass_llm is True
+    
+    def test_delete_save_file(self, scanner):
+        """Gaming metaphor 'delete my save file' must trigger crisis."""
+        result = scanner.scan(
+            message_id="msg_exp_005",
+            text="I want to delete my save file",
+            student_id="student_123",
+        )
+        
+        assert result.risk_level == RiskLevel.CRISIS
+        assert result.bypass_llm is True
+    
+    def test_respawn_irl(self, scanner):
+        """Gaming metaphor 'respawn irl' must trigger crisis."""
+        result = scanner.scan(
+            message_id="msg_exp_006",
+            text="I'm going to respawn irl",
+            student_id="student_123",
+        )
+        
+        assert result.risk_level == RiskLevel.CRISIS
+        assert result.bypass_llm is True
+    
+    def test_forever_nap(self, scanner):
+        """Euphemism 'forever nap' must trigger crisis."""
+        result = scanner.scan(
+            message_id="msg_exp_007",
+            text="I want to take the forever nap",
+            student_id="student_123",
+        )
+        
+        assert result.risk_level == RiskLevel.CRISIS
+        assert result.bypass_llm is True
+    
+    def test_go_to_sleep_forever(self, scanner):
+        """Euphemism 'go to sleep forever' must trigger crisis."""
+        result = scanner.scan(
+            message_id="msg_exp_008",
+            text="I want to go to sleep forever",
+            student_id="student_123",
+        )
+        
+        assert result.risk_level == RiskLevel.CRISIS
+        assert result.bypass_llm is True
+    
+    def test_ending_it_all(self, scanner):
+        """Phrase 'ending it all' must trigger crisis."""
+        result = scanner.scan(
+            message_id="msg_exp_009",
+            text="I've been thinking about ending it all",
+            student_id="student_123",
+        )
+        
+        assert result.risk_level == RiskLevel.CRISIS
+        assert result.bypass_llm is True
+    
+    def test_do_it_tonight(self, scanner):
+        """Imminent plan 'do it tonight' must trigger crisis."""
+        result = scanner.scan(
+            message_id="msg_exp_010",
+            text="I'm going to do it tonight",
+            student_id="student_123",
+        )
+        
+        assert result.risk_level == RiskLevel.CRISIS
+        assert result.bypass_llm is True
+    
+    def test_noose(self, scanner):
+        """Method keyword 'noose' must trigger crisis."""
+        result = scanner.scan(
+            message_id="msg_exp_011",
+            text="I researched how to tie a noose",
+            student_id="student_123",
+        )
+        
+        assert result.risk_level == RiskLevel.CRISIS
+        assert result.bypass_llm is True
+    
+    def test_touches_me_abuse(self, scanner):
+        """Abuse disclosure 'touches me' must trigger crisis."""
+        result = scanner.scan(
+            message_id="msg_exp_012",
+            text="My stepdad touches me at night",
+            student_id="student_123",
+        )
+        
+        assert result.risk_level == RiskLevel.CRISIS
+        assert result.bypass_llm is True
+    
+    def test_hurt_other_people(self, scanner):
+        """Violence 'hurt other people' must trigger crisis."""
+        result = scanner.scan(
+            message_id="msg_exp_013",
+            text="I want to hurt other people at school",
+            student_id="student_123",
+        )
+        
+        assert result.risk_level == RiskLevel.CRISIS
+        assert result.bypass_llm is True
+    
+    def test_burned_myself(self, scanner):
+        """Self-harm 'burned myself' must trigger crisis."""
+        result = scanner.scan(
+            message_id="msg_exp_014",
+            text="I burned myself with a lighter last night",
+            student_id="student_123",
+        )
+        
+        assert result.risk_level == RiskLevel.CRISIS
+        assert result.bypass_llm is True
+    
+    def test_took_too_many_pills(self, scanner):
+        """Overdose disclosure must trigger crisis."""
+        result = scanner.scan(
+            message_id="msg_exp_015",
+            text="I took too many pills but I'm okay now",
+            student_id="student_123",
+        )
+        
+        assert result.risk_level == RiskLevel.CRISIS
+        assert result.bypass_llm is True

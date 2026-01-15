@@ -6,6 +6,7 @@ import EvaluationResults from './pages/EvaluationResults'
 import TestSuites from './pages/TestSuites'
 import ServiceStatus from './pages/ServiceStatus'
 import PatternEditor from './pages/PatternEditor'
+import LLMEvaluation from './pages/LLMEvaluation'
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
               <nav className="flex gap-1">
                 <NavItem to="/">Dashboard</NavItem>
                 <NavItem to="/chat">Chat Tester</NavItem>
+                <NavItem to="/llm">LLM Evaluation</NavItem>
                 <NavItem to="/benchmarks">Benchmarks</NavItem>
                 <NavItem to="/results">Benchmark Results</NavItem>
                 <NavItem to="/suites">Pipeline Tests</NavItem>
@@ -41,6 +43,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/chat" element={<ChatTester />} />
+            <Route path="/llm" element={<LLMEvaluation />} />
             <Route path="/benchmarks" element={<BenchmarkRunner />} />
             <Route path="/results" element={<EvaluationResults />} />
             <Route path="/suites" element={<TestSuites />} />

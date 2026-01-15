@@ -16,8 +16,8 @@ from datetime import datetime
 from typing import Any, Dict, List, Optional
 from enum import Enum
 
-from feelwell.shared.utils import hash_pii, configure_pii_salt
-from feelwell.shared.models import RiskLevel
+from shared.utils import hash_pii, configure_pii_salt
+from shared.models import RiskLevel
 
 logger = logging.getLogger(__name__)
 

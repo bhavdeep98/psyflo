@@ -24,6 +24,7 @@ from .config import (
     SafetyConfig,
 )
 from .semantic_analyzer import SemanticAnalyzer, SemanticAnalysisResult
+from .text_normalizer import TextNormalizer
 
 logger = logging.getLogger(__name__)
 
@@ -108,6 +109,9 @@ class SafetyScanner:
         self._crisis_patterns = self._compile_patterns(CRISIS_KEYWORDS)
         self._caution_patterns = self._compile_patterns(CAUTION_KEYWORDS)
         
+        # Initialize text normalizer for adversarial evasion detection
+        self._text_normalizer = TextNormalizer()
+        
         # Initialize semantic analyzer
         self._semantic_analyzer: Optional[SemanticAnalyzer] = None
         if enable_semantic:
@@ -120,6 +124,7 @@ class SafetyScanner:
                 "crisis_pattern_count": len(CRISIS_KEYWORDS),
                 "caution_pattern_count": len(CAUTION_KEYWORDS),
                 "semantic_enabled": enable_semantic,
+                "text_normalization_enabled": True,
             }
         )
     
@@ -177,11 +182,19 @@ class SafetyScanner:
             }
         )
         
-        # Normalize text for matching
+        # Normalize text for matching - handles evasion techniques
+        # Step 1: Basic normalization (lowercase, strip)
         normalized_text = text.lower().strip()
         
-        # Layer 1: Crisis keyword scan (highest priority - immediate bypass)
+        # Step 2: Advanced normalization (leetspeak, unicode, separators)
+        # This catches adversarial attempts like K1LL, k.i.l.l, ⓚⓘⓛⓛ
+        adversarial_normalized = self._text_normalizer.normalize(text)
+        
+        # Layer 1: Crisis keyword scan on BOTH normalizations (highest priority)
         crisis_matches = self._scan_patterns(normalized_text, self._crisis_patterns)
+        if not crisis_matches:
+            # Try adversarial-normalized text if basic didn't match
+            crisis_matches = self._scan_patterns(adversarial_normalized, self._crisis_patterns)
         if crisis_matches:
             return self._create_crisis_result(
                 message_id=message_id,
@@ -191,8 +204,10 @@ class SafetyScanner:
                 text=normalized_text,
             )
         
-        # Layer 1 continued: Caution keyword scan
+        # Layer 1 continued: Caution keyword scan (both normalizations)
         caution_matches = self._scan_patterns(normalized_text, self._caution_patterns)
+        if not caution_matches:
+            caution_matches = self._scan_patterns(adversarial_normalized, self._caution_patterns)
         keyword_risk_score = self._calculate_keyword_risk_score(caution_matches)
         
         # Layer 2: Semantic analysis (clinical markers)

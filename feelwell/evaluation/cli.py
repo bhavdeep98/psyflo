@@ -1,234 +1,210 @@
 #!/usr/bin/env python3
-"""Command-line interface for running evaluations.
+"""CLI for running evaluations through the Feelwell Test Console.
 
-Usage:
-    python -m feelwell.evaluation.cli --help
-    python -m feelwell.evaluation.cli run --all
-    python -m feelwell.evaluation.cli run --benchmarks --datasets mentalchat16k phq9
-    python -m feelwell.evaluation.cli download --dataset mentalchat16k
-    python -m feelwell.evaluation.cli report --run-id eval_abc123
+This provides a command-line interface to trigger evaluations
+and monitor their progress through the API.
 """
+
 import argparse
-import logging
+import asyncio
+import os
 import sys
+import time
 from pathlib import Path
 
-# Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-)
-logger = logging.getLogger(__name__)
+try:
+    import aiohttp
+    AIOHTTP_AVAILABLE = True
+except ImportError:
+    AIOHTTP_AVAILABLE = False
+    print("Error: aiohttp not installed. Run: pip install aiohttp")
+    sys.exit(1)
 
 
-def setup_parser() -> argparse.ArgumentParser:
-    """Set up argument parser."""
+class EvaluationCLI:
+    """CLI for running evaluations."""
+    
+    def __init__(self, api_url: str = "http://localhost:8000"):
+        self.api_url = api_url
+    
+    async def run_baseline_eval(
+        self,
+        test_cases: int = 50,
+        model_name: str = "feelwell-baseline",
+        api_key: str = None
+    ):
+        """Run baseline LLM evaluation."""
+        
+        # Get API key
+        if not api_key:
+            api_key = os.environ.get("OPENAI_API_KEY")
+        
+        if not api_key:
+            print("❌ Error: OpenAI API key required")
+            print("\nProvide via --api-key argument or OPENAI_API_KEY environment variable:")
+            print("  export OPENAI_API_KEY='your-key-here'")
+            return 1
+        
+        print("\n" + "="*60)
+        print("Feelwell Baseline Evaluation (via Test Console)")
+        print("="*60)
+        print(f"API URL: {self.api_url}")
+        print(f"Model: {model_name}")
+        print(f"Test Cases: {test_cases}")
+        print(f"Estimated Time: ~{test_cases * 0.3:.0f} minutes")
+        print("="*60 + "\n")
+        
+        async with aiohttp.ClientSession() as session:
+            # Start evaluation
+            print("🚀 Starting evaluation...")
+            async with session.post(
+                f"{self.api_url}/api/llm/baseline-eval",
+                json={
+                    "test_cases": test_cases,
+                    "model_name": model_name,
+                    "api_key": api_key
+                }
+            ) as resp:
+                if resp.status != 200:
+                    error = await resp.text()
+                    print(f"❌ Failed to start evaluation: {error}")
+                    return 1
+                
+                data = await resp.json()
+                run_id = data["run_id"]
+                print(f"✅ Evaluation started: {run_id}\n")
+            
+            # Poll for progress
+            last_progress = 0
+            last_step = ""
+            
+            while True:
+                await asyncio.sleep(2)  # Poll every 2 seconds
+                
+                async with session.get(
+                    f"{self.api_url}/api/llm/baseline-eval/{run_id}"
+                ) as resp:
+                    if resp.status != 200:
+                        print(f"❌ Failed to get status")
+                        return 1
+                    
+                    status = await resp.json()
+                    
+                    # Update progress
+                    progress = status["progress"]
+                    current_step = status.get("current_step", "")
+                    
+                    if progress != last_progress or current_step != last_step:
+                        self._print_progress(progress, current_step, status.get("metrics", {}))
+                        last_progress = progress
+                        last_step = current_step
+                    
+                    # Check if completed
+                    if status["status"] == "completed":
+                        print("\n✅ Evaluation completed successfully!\n")
+                        self._print_results(status["results"])
+                        return 0
+                    
+                    elif status["status"] == "error":
+                        print(f"\n❌ Evaluation failed: {status.get('error')}")
+                        return 1
+    
+    def _print_progress(self, progress: float, step: str, metrics: dict):
+        """Print progress bar."""
+        bar_length = 40
+        filled = int(bar_length * progress)
+        bar = "█" * filled + "░" * (bar_length - filled)
+        
+        percent = progress * 100
+        
+        # Build status line
+        status_parts = [f"{percent:5.1f}%", bar, step]
+        
+        if metrics.get("completed_cases"):
+            status_parts.append(
+                f"({metrics['completed_cases']}/{metrics.get('total_cases', '?')} cases)"
+            )
+        
+        if metrics.get("current_average_score"):
+            status_parts.append(f"Score: {metrics['current_average_score']:.2f}/10")
+        
+        print(f"\r{' '.join(status_parts)}", end="", flush=True)
+    
+    def _print_results(self, results: dict):
+        """Print final results."""
+        print("📊 Final Results:")
+        print(f"  Overall Score: {results['overall_score']:.2f}/10")
+        print(f"  Pass Rate: {results['pass_rate']:.1f}%")
+        print(f"  Total Cases: {results['total_cases']}")
+        
+        print(f"\n📈 Metric Breakdown:")
+        for metric, score in results.get("metric_scores", {}).items():
+            metric_name = metric.replace("_", " ").title()
+            print(f"  {metric_name}: {score:.2f}/10")
+        
+        print(f"\n📁 Results saved to: {results.get('output_file', 'N/A')}")
+        
+        # Check threshold
+        if results['overall_score'] >= 7.5:
+            print("\n✅ Meets minimum quality threshold (7.5/10)")
+        else:
+            gap = 7.5 - results['overall_score']
+            print(f"\n⚠️  Below minimum quality threshold (7.5/10) - Gap: {gap:.2f} points")
+
+
+async def main():
+    """Main CLI entry point."""
     parser = argparse.ArgumentParser(
-        description="Feelwell Evaluation Platform CLI",
-        formatter_class=argparse.RawDescriptionHelpFormatter,
+        description="Feelwell Evaluation CLI"
+    )
+    parser.add_argument(
+        "--api-url",
+        default="http://localhost:8000",
+        help="Test Console API URL"
     )
     
-    subparsers = parser.add_subparsers(dest="command", help="Commands")
+    subparsers = parser.add_subparsers(dest="command", help="Command to run")
     
-    # Run command
-    run_parser = subparsers.add_parser("run", help="Run evaluation")
-    run_parser.add_argument(
-        "--all", action="store_true",
-        help="Run all evaluations"
+    # Baseline evaluation command
+    baseline_parser = subparsers.add_parser(
+        "baseline",
+        help="Run baseline LLM evaluation"
     )
-    run_parser.add_argument(
-        "--benchmarks", action="store_true",
-        help="Run internal benchmarks"
+    baseline_parser.add_argument(
+        "--test-cases",
+        type=int,
+        default=50,
+        choices=[50, 100, 200],
+        help="Number of test cases (50, 100, or 200)"
     )
-    run_parser.add_argument(
-        "--datasets", nargs="+",
-        choices=["mentalchat16k", "phq9_depression", "clinical_decisions"],
-        help="External datasets to evaluate"
+    baseline_parser.add_argument(
+        "--model-name",
+        default="feelwell-baseline",
+        help="Name for this evaluation run"
     )
-    run_parser.add_argument(
-        "--triage", action="store_true",
-        help="Run triage evaluation"
-    )
-    run_parser.add_argument(
-        "--suites", action="store_true",
-        help="Run test suites (E2E, Integration, Canary)"
-    )
-    run_parser.add_argument(
-        "--max-samples", type=int,
-        help="Maximum samples per dataset"
-    )
-    run_parser.add_argument(
-        "--output-dir", type=str,
-        default="feelwell/evaluation/results",
-        help="Output directory for results"
+    baseline_parser.add_argument(
+        "--api-key",
+        help="OpenAI API key (or set OPENAI_API_KEY env var)"
     )
     
-    # Download command
-    download_parser = subparsers.add_parser("download", help="Download datasets")
-    download_parser.add_argument(
-        "--dataset", required=True,
-        choices=["mentalchat16k", "phq9_depression", "clinical_decisions", "all"],
-        help="Dataset to download"
-    )
-    
-    # Report command
-    report_parser = subparsers.add_parser("report", help="Generate report")
-    report_parser.add_argument(
-        "--run-id", required=True,
-        help="Run ID to generate report for"
-    )
-    
-    # List command
-    list_parser = subparsers.add_parser("list", help="List available resources")
-    list_parser.add_argument(
-        "--datasets", action="store_true",
-        help="List available datasets"
-    )
-    list_parser.add_argument(
-        "--benchmarks", action="store_true",
-        help="List available benchmarks"
-    )
-    list_parser.add_argument(
-        "--results", action="store_true",
-        help="List previous evaluation results"
-    )
-    
-    return parser
-
-
-def cmd_run(args) -> int:
-    """Run evaluation command."""
-    from .runner import EvaluationRunner, EvaluationConfig
-    
-    # Build config
-    config = EvaluationConfig(
-        run_internal_benchmarks=args.all or args.benchmarks,
-        run_external_datasets=args.all or bool(args.datasets),
-        run_triage_evaluation=args.all or args.triage,
-        run_test_suites=args.all or args.suites,
-        output_dir=Path(args.output_dir),
-    )
-    
-    if args.datasets:
-        config.datasets_to_include = args.datasets
-    
-    if args.max_samples:
-        config.max_samples_per_dataset = args.max_samples
-    
-    # Initialize scanner if available
-    scanner = None
-    try:
-        from feelwell.services.safety_service.scanner import SafetyScanner
-        from feelwell.shared.utils import configure_pii_salt
-        configure_pii_salt("evaluation_salt_32_characters_long!")
-        scanner = SafetyScanner()
-        logger.info("SafetyScanner initialized")
-    except ImportError:
-        logger.warning("SafetyScanner not available, running with mocks")
-    
-    # Run evaluation
-    runner = EvaluationRunner(config=config, scanner=scanner)
-    result = runner.run()
-    
-    # Print summary
-    print("\n" + "=" * 60)
-    print("EVALUATION COMPLETE")
-    print("=" * 60)
-    print(f"Run ID: {result.run_id}")
-    print(f"Total Samples: {result.total_samples_evaluated:,}")
-    print(f"Overall Accuracy: {result.overall_accuracy:.2%}")
-    print(f"Crisis Recall: {result.crisis_recall:.2%}")
-    print(f"Passes Safety: {'✅ YES' if result.passes_safety_threshold else '❌ NO'}")
-    
-    if result.safety_issues:
-        print("\n⚠️ Safety Issues:")
-        for issue in result.safety_issues:
-            print(f"  - {issue}")
-    
-    print(f"\nResults saved to: {config.output_dir}")
-    print("=" * 60)
-    
-    return 0 if result.passes_safety_threshold else 1
-
-
-def cmd_download(args) -> int:
-    """Download datasets command."""
-    from .datasets import MentalChat16KLoader, PHQ9DatasetLoader, ClinicalDecisionLoader
-    
-    loaders = {
-        "mentalchat16k": MentalChat16KLoader,
-        "phq9_depression": PHQ9DatasetLoader,
-        "clinical_decisions": ClinicalDecisionLoader,
-    }
-    
-    datasets = list(loaders.keys()) if args.dataset == "all" else [args.dataset]
-    
-    for name in datasets:
-        print(f"Downloading {name}...")
-        loader = loaders[name]()
-        success = loader.download()
-        if success:
-            print(f"  ✅ {name} downloaded successfully")
-        else:
-            print(f"  ❌ {name} download failed")
-    
-    return 0
-
-
-def cmd_list(args) -> int:
-    """List resources command."""
-    if args.datasets:
-        print("\nAvailable Datasets:")
-        print("-" * 40)
-        datasets = [
-            ("mentalchat16k", "MentalChat16K - Conversational counseling benchmark"),
-            ("phq9_depression", "PHQ-9 - Depression severity assessment"),
-            ("clinical_decisions", "Clinical Decision Tasks - Triage reasoning"),
-        ]
-        for name, desc in datasets:
-            print(f"  {name}: {desc}")
-    
-    if args.benchmarks:
-        print("\nAvailable Benchmarks:")
-        print("-" * 40)
-        benchmarks = [
-            ("crisis_detection", "Crisis keyword detection (20 cases)"),
-            ("adversarial_cases", "Bypass attempt detection (20 cases)"),
-            ("false_positives", "False positive prevention (25 cases)"),
-            ("caution_cases", "Caution level detection (20 cases)"),
-            ("session_progression", "Session trajectory analysis (10 cases)"),
-        ]
-        for name, desc in benchmarks:
-            print(f"  {name}: {desc}")
-    
-    if args.results:
-        results_dir = Path("feelwell/evaluation/results")
-        if results_dir.exists():
-            print("\nPrevious Evaluation Results:")
-            print("-" * 40)
-            for f in sorted(results_dir.glob("*_results.json"), reverse=True)[:10]:
-                print(f"  {f.stem}")
-        else:
-            print("\nNo previous results found.")
-    
-    return 0
-
-
-def main() -> int:
-    """Main entry point."""
-    parser = setup_parser()
     args = parser.parse_args()
     
-    if args.command == "run":
-        return cmd_run(args)
-    elif args.command == "download":
-        return cmd_download(args)
-    elif args.command == "list":
-        return cmd_list(args)
-    else:
+    if not args.command:
         parser.print_help()
-        return 0
+        return 1
+    
+    cli = EvaluationCLI(api_url=args.api_url)
+    
+    if args.command == "baseline":
+        return await cli.run_baseline_eval(
+            test_cases=args.test_cases,
+            model_name=args.model_name,
+            api_key=args.api_key
+        )
+    
+    return 0
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    exit_code = asyncio.run(main())
+    sys.exit(exit_code)

@@ -1,0 +1,28 @@
+# LLM Service Requirements for Feelwell
+# Install with: pip install -r requirements-llm.txt
+
+# Core LLM libraries
+openai>=1.12.0
+datasets>=2.16.0
+transformers>=4.37.0
+torch>=2.1.0
+
+# Async support
+aiohttp>=3.9.0
+asyncio>=3.4.3
+
+# Data processing
+numpy>=1.24.0
+pandas>=2.0.0
+
+# Evaluation
+scikit-learn>=1.3.0
+
+# Utilities
+python-dotenv>=1.0.0
+pydantic>=2.5.0
+
+# Optional: For local model inference
+# accelerate>=0.25.0
+# bitsandbytes>=0.41.0
+# sentencepiece>=0.1.99

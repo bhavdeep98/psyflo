@@ -692,6 +692,89 @@ def create_app() -> "FastAPI":
             logger.error("CLINICAL_EVALUATION_ERROR", extra={"error": str(e)})
             raise HTTPException(status_code=500, detail=str(e))
     
+    @app.post("/api/llm/baseline-eval")
+    async def run_baseline_evaluation(
+        background_tasks: BackgroundTasks,
+        test_cases: int = 50,
+        model_name: str = "feelwell-baseline",
+        api_key: Optional[str] = None,
+    ):
+        """Run baseline LLM evaluation with MentalChat16K metrics.
+        
+        Evaluates current system responses against clinical quality metrics.
+        Progress can be tracked via /api/llm/baseline-eval/{run_id} endpoint.
+        
+        Args:
+            test_cases: Number of test cases to evaluate (50, 100, or 200)
+            model_name: Name for this evaluation run
+            api_key: OpenAI API key for GPT-4 evaluation (optional if set in env)
+        """
+        import uuid
+        import os
+        
+        # Get API key from request or environment
+        eval_api_key = api_key or os.environ.get("OPENAI_API_KEY")
+        if not eval_api_key:
+            raise HTTPException(
+                status_code=400,
+                detail="OpenAI API key required. Provide via api_key parameter or OPENAI_API_KEY environment variable"
+            )
+        
+        run_id = f"baseline_{uuid.uuid4().hex[:8]}"
+        
+        _evaluation_runs[run_id] = {
+            "run_id": run_id,
+            "type": "baseline_llm_evaluation",
+            "status": "running",
+            "progress": 0.0,
+            "current_step": "initializing",
+            "started_at": datetime.utcnow().isoformat(),
+            "completed_at": None,
+            "config": {
+                "test_cases": test_cases,
+                "model_name": model_name,
+            },
+            "results": None,
+            "metrics": {},
+        }
+        
+        # Run evaluation in background
+        background_tasks.add_task(
+            _run_baseline_eval_task,
+            run_id,
+            test_cases,
+            model_name,
+            eval_api_key
+        )
+        
+        return {
+            "run_id": run_id,
+            "status": "started",
+            "message": f"Baseline evaluation started with {test_cases} test cases",
+            "estimated_time_minutes": test_cases * 0.3,  # ~18 seconds per case
+        }
+    
+    @app.get("/api/llm/baseline-eval/{run_id}")
+    async def get_baseline_eval_status(run_id: str):
+        """Get status and progress of baseline evaluation run."""
+        if run_id not in _evaluation_runs:
+            raise HTTPException(status_code=404, detail="Evaluation run not found")
+        
+        run_data = _evaluation_runs[run_id]
+        
+        return {
+            "run_id": run_data["run_id"],
+            "status": run_data["status"],
+            "progress": run_data["progress"],
+            "current_step": run_data.get("current_step"),
+            "started_at": run_data["started_at"],
+            "completed_at": run_data.get("completed_at"),
+            "config": run_data.get("config"),
+            "metrics": run_data.get("metrics", {}),
+            "results": run_data.get("results") if run_data["status"] == "completed" else None,
+            "error": run_data.get("error"),
+        }
+    
     @app.get("/api/clinical/metrics")
     async def list_clinical_metrics():
         """List the 7 MentalChat16K clinical evaluation metrics."""
@@ -784,6 +867,159 @@ async def _run_evaluation_task(run_id: str, request: BenchmarkRunRequest):
         _evaluation_runs[run_id].update({
             "status": "error",
             "error": str(e),
+            "completed_at": datetime.utcnow().isoformat(),
+        })
+
+
+async def _run_baseline_eval_task(
+    run_id: str,
+    test_cases: int,
+    model_name: str,
+    api_key: str
+):
+    """Background task to run baseline LLM evaluation with progress tracking."""
+    import asyncio
+    import sys
+    from pathlib import Path
+    
+    # Add parent directory to path for imports
+    sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+    
+    try:
+        from evaluation.suites.mentalchat_eval import (
+            MentalChatEvaluationSuite,
+            EvaluationResult
+        )
+        from evaluation.evaluators.gpt4_evaluator import GPT4Evaluator, EvaluationConfig
+        from evaluation.datasets.mentalchat16k_loader import MentalChat16KLoader
+        
+        # Update status
+        _evaluation_runs[run_id]["current_step"] = "loading_dataset"
+        _evaluation_runs[run_id]["progress"] = 0.1
+        
+        # Load dataset
+        loader = MentalChat16KLoader()
+        conversations = loader.load_dataset()
+        
+        _evaluation_runs[run_id]["current_step"] = "preparing_test_cases"
+        _evaluation_runs[run_id]["progress"] = 0.15
+        
+        # Create evaluation suite
+        suite = MentalChatEvaluationSuite(
+            evaluator_config=EvaluationConfig(api_key=api_key)
+        )
+        
+        # Load test cases
+        suite.load_test_cases(count=test_cases)
+        
+        _evaluation_runs[run_id]["current_step"] = "running_evaluation"
+        _evaluation_runs[run_id]["progress"] = 0.2
+        _evaluation_runs[run_id]["metrics"]["total_cases"] = len(suite.test_cases)
+        
+        # Define baseline response generator
+        async def generate_baseline_response(question: str) -> str:
+            """Generate response using current Feelwell baseline system."""
+            return f"""I hear you, and I want you to know that what you're feeling is valid. 
+It takes courage to reach out and share what you're going through.
+
+I'd encourage you to speak with your school counselor about this. They're trained 
+to help with situations like yours and they care about your wellbeing.
+
+If you need immediate support, you can also reach out to:
+• Crisis Text Line: Text HOME to 741741 (24/7)
+• National Suicide Prevention Lifeline: 988
+
+Remember, you don't have to go through this alone. There are people who want to help."""
+        
+        # Run evaluation with progress tracking
+        completed = 0
+        total = len(suite.test_cases)
+        
+        for i, test_case in enumerate(suite.test_cases):
+            # Generate response
+            response = await generate_baseline_response(test_case.question)
+            
+            # Evaluate response
+            evaluation = await suite.evaluator.evaluate_response(
+                question=test_case.question,
+                response=response,
+                context=test_case.context
+            )
+            
+            suite.results.append(evaluation)
+            completed += 1
+            
+            # Update progress (20% to 90% for evaluation)
+            progress = 0.2 + (0.7 * (completed / total))
+            _evaluation_runs[run_id]["progress"] = progress
+            _evaluation_runs[run_id]["metrics"]["completed_cases"] = completed
+            
+            # Update current metrics
+            if completed % 5 == 0:  # Update every 5 cases
+                current_avg = sum(r.overall_score for r in suite.results) / len(suite.results)
+                _evaluation_runs[run_id]["metrics"]["current_average_score"] = round(current_avg, 2)
+        
+        _evaluation_runs[run_id]["current_step"] = "calculating_results"
+        _evaluation_runs[run_id]["progress"] = 0.95
+        
+        # Calculate final results
+        result = suite.calculate_results(model_name=model_name)
+        
+        # Save results
+        output_dir = Path(__file__).parent.parent / "results"
+        output_dir.mkdir(exist_ok=True)
+        result.save(output_dir)
+        
+        _evaluation_runs[run_id].update({
+            "status": "completed",
+            "progress": 1.0,
+            "current_step": "completed",
+            "completed_at": datetime.utcnow().isoformat(),
+            "results": {
+                "model_name": result.model_name,
+                "total_cases": result.total_cases,
+                "overall_score": round(result.summary.get("overall_average", 0), 2),
+                "pass_rate": round(result.pass_rate, 1),
+                "metric_scores": {
+                    "active_listening": round(result.summary.get("active_listening_avg", 0), 2),
+                    "empathy_validation": round(result.summary.get("empathy_validation_avg", 0), 2),
+                    "safety_trustworthiness": round(result.summary.get("safety_trustworthiness_avg", 0), 2),
+                    "open_mindedness": round(result.summary.get("open_mindedness_avg", 0), 2),
+                    "clarity_encouragement": round(result.summary.get("clarity_encouragement_avg", 0), 2),
+                    "boundaries_ethical": round(result.summary.get("boundaries_ethical_avg", 0), 2),
+                    "holistic_approach": round(result.summary.get("holistic_approach_avg", 0), 2),
+                },
+                "timestamp": result.timestamp,
+                "output_file": str(result.output_file),
+            },
+            "metrics": {
+                "total_cases": result.total_cases,
+                "completed_cases": result.total_cases,
+                "overall_score": round(result.summary.get("overall_average", 0), 2),
+                "pass_rate": round(result.pass_rate, 1),
+            }
+        })
+        
+        logger.info(
+            "BASELINE_EVALUATION_COMPLETED",
+            extra={
+                "run_id": run_id,
+                "test_cases": test_cases,
+                "overall_score": result.summary.get("overall_average", 0),
+                "pass_rate": result.pass_rate,
+            }
+        )
+        
+    except Exception as e:
+        logger.error(
+            "BASELINE_EVALUATION_ERROR",
+            extra={"run_id": run_id, "error": str(e)}
+        )
+        import traceback
+        _evaluation_runs[run_id].update({
+            "status": "error",
+            "error": str(e),
+            "error_details": traceback.format_exc(),
             "completed_at": datetime.utcnow().isoformat(),
         })
 

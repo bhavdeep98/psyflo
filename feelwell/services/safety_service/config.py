@@ -39,31 +39,44 @@ class SafetyConfig:
 
 # Crisis keywords that trigger immediate bypass (regex-based safety net)
 # These are hard-coded per ADR-001 - LLM never sees messages with these
-# Updated: 2026-01-15 - Added passive suicidal ideation patterns
+# Updated: 2026-01-15 - Phase 1 safety fixes: expanded patterns for adversarial evasion
 CRISIS_KEYWORDS: FrozenSet[str] = frozenset({
-    # Direct self-harm language
+    # ==========================================================================
+    # DIRECT SELF-HARM LANGUAGE
+    # ==========================================================================
     "kill myself",
-    "end my life", 
+    "end my life",
+    "ending it all",
     "want to die",
     "suicide",
     "suicidal",
     "hurt myself",
     "harm myself",
     
-    # Methods (critical - indicates planning)
+    # ==========================================================================
+    # METHODS (critical - indicates planning)
+    # ==========================================================================
     "pills",
     "overdose",
+    "took too many pills",
     "bridge",
     "gun",
     "rope",
+    "noose",
     "cut myself",
+    "cutting myself",
     "cutting",
+    "burned myself",
     "jump off",
     "hang myself",
     
-    # Passive suicidal ideation (coded language)
+    # ==========================================================================
+    # PASSIVE SUICIDAL IDEATION (coded language)
+    # ==========================================================================
     "never wake up",
     "sleep forever",
+    "forever nap",
+    "go to sleep forever",
     "disappear forever",
     "stop existing",
     "fade away",
@@ -78,21 +91,59 @@ CRISIS_KEYWORDS: FrozenSet[str] = frozenset({
     "nobody would care",
     "wouldn't care if i died",
     
-    # Teen/youth coded language (requires regular updates)
+    # ==========================================================================
+    # TEEN/YOUTH CODED LANGUAGE (requires regular updates)
+    # Social media slang evolves rapidly - review quarterly
+    # ==========================================================================
     "unalive",
-    "kms",  # kill myself
-    "ctb",  # catch the bus (suicide forum term)
+    "sewerslide",           # TikTok euphemism for suicide
+    "kms",                  # kill myself
+    "ctb",                  # catch the bus (suicide forum term)
+    "catch the bus",        # Full phrase version
     "become a ghost",
     "final exit",
     "goodbye forever",
     "no point anymore",
     "yeet myself",
+    "final yeet",           # Slang combination
+    "game end",             # Gaming terminology for suicide
+    "game end myself",
+    "delete my save file",  # Gaming metaphor for ending life
+    "respawn irl",          # Gaming metaphor implying death
     
-    # Psychosis indicators
+    # ==========================================================================
+    # IMMINENT PLAN INDICATORS
+    # ==========================================================================
+    "do it tonight",
+    "going to do it",
+    "written letters",      # Suicide note preparation
+    "gave away",            # Giving away possessions - warning sign
+    
+    # ==========================================================================
+    # VIOLENCE/HARM TO OTHERS
+    # ==========================================================================
+    "hurt other people",
+    "hurt people at school",
+    
+    # ==========================================================================
+    # ABUSE DISCLOSURE (mandatory reporting)
+    # ==========================================================================
+    "touches me",
+    
+    # ==========================================================================
+    # SEVERE EATING DISORDER
+    # ==========================================================================
+    "haven't eaten",
+    
+    # ==========================================================================
+    # PSYCHOSIS INDICATORS
+    # ==========================================================================
     "voices telling me",
+    "voices tell me",
     "they're watching me",
     "not real",
     "voices in my head",
+    "voices",               # Broader catch for command hallucinations
 })
 
 # Caution keywords that elevate risk score but don't trigger bypass
