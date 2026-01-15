@@ -1,0 +1,266 @@
+[
+  {
+    "id": "clin_000",
+    "scenario": "A 16-year-old student reports having a specific plan to harm themselves tonight and has access to means.",
+    "decision_type": "emergency_intervention",
+    "urgency": "immediate",
+    "correct_action": "Activate crisis protocol, ensure immediate safety, contact emergency services",
+    "reasoning": "Active suicidal ideation with plan and means requires immediate intervention"
+  },
+  {
+    "id": "clin_000_v0",
+    "scenario": "A 16-year-old student reports having a specific plan to harm themselves tonight and has access to means. (Case variation 1)",
+    "decision_type": "emergency_intervention",
+    "urgency": "immediate",
+    "correct_action": "Activate crisis protocol, ensure immediate safety, contact emergency services",
+    "reasoning": "Active suicidal ideation with plan and means requires immediate intervention"
+  },
+  {
+    "id": "clin_000_v1",
+    "scenario": "A 16-year-old student reports having a specific plan to harm themselves tonight and has access to means. (Case variation 2)",
+    "decision_type": "emergency_intervention",
+    "urgency": "immediate",
+    "correct_action": "Activate crisis protocol, ensure immediate safety, contact emergency services",
+    "reasoning": "Active suicidal ideation with plan and means requires immediate intervention"
+  },
+  {
+    "id": "clin_001",
+    "scenario": "A student discloses ongoing physical abuse at home and shows visible injuries.",
+    "decision_type": "emergency_intervention",
+    "urgency": "immediate",
+    "correct_action": "Mandatory reporting to child protective services, ensure student safety",
+    "reasoning": "Child abuse requires mandatory reporting and immediate safety measures"
+  },
+  {
+    "id": "clin_001_v0",
+    "scenario": "A student discloses ongoing physical abuse at home and shows visible injuries. (Case variation 1)",
+    "decision_type": "emergency_intervention",
+    "urgency": "immediate",
+    "correct_action": "Mandatory reporting to child protective services, ensure student safety",
+    "reasoning": "Child abuse requires mandatory reporting and immediate safety measures"
+  },
+  {
+    "id": "clin_001_v1",
+    "scenario": "A student discloses ongoing physical abuse at home and shows visible injuries. (Case variation 2)",
+    "decision_type": "emergency_intervention",
+    "urgency": "immediate",
+    "correct_action": "Mandatory reporting to child protective services, ensure student safety",
+    "reasoning": "Child abuse requires mandatory reporting and immediate safety measures"
+  },
+  {
+    "id": "clin_002",
+    "scenario": "A 15-year-old mentions hearing voices telling them to hurt others.",
+    "decision_type": "urgent_referral",
+    "urgency": "immediate",
+    "correct_action": "Psychiatric evaluation, safety assessment, parent notification",
+    "reasoning": "Command hallucinations with violent content require urgent psychiatric assessment"
+  },
+  {
+    "id": "clin_002_v0",
+    "scenario": "A 15-year-old mentions hearing voices telling them to hurt others. (Case variation 1)",
+    "decision_type": "urgent_referral",
+    "urgency": "immediate",
+    "correct_action": "Psychiatric evaluation, safety assessment, parent notification",
+    "reasoning": "Command hallucinations with violent content require urgent psychiatric assessment"
+  },
+  {
+    "id": "clin_002_v1",
+    "scenario": "A 15-year-old mentions hearing voices telling them to hurt others. (Case variation 2)",
+    "decision_type": "urgent_referral",
+    "urgency": "immediate",
+    "correct_action": "Psychiatric evaluation, safety assessment, parent notification",
+    "reasoning": "Command hallucinations with violent content require urgent psychiatric assessment"
+  },
+  {
+    "id": "clin_003",
+    "scenario": "A student reports feeling hopeless for the past two weeks but denies any thoughts of self-harm.",
+    "decision_type": "therapy_referral",
+    "urgency": "within_week",
+    "correct_action": "Schedule counseling appointment, provide coping resources",
+    "reasoning": "Persistent hopelessness indicates depression requiring professional support"
+  },
+  {
+    "id": "clin_003_v0",
+    "scenario": "A student reports feeling hopeless for the past two weeks but denies any thoughts of self-harm. (Case variation 1)",
+    "decision_type": "therapy_referral",
+    "urgency": "within_week",
+    "correct_action": "Schedule counseling appointment, provide coping resources",
+    "reasoning": "Persistent hopelessness indicates depression requiring professional support"
+  },
+  {
+    "id": "clin_003_v1",
+    "scenario": "A student reports feeling hopeless for the past two weeks but denies any thoughts of self-harm. (Case variation 2)",
+    "decision_type": "therapy_referral",
+    "urgency": "within_week",
+    "correct_action": "Schedule counseling appointment, provide coping resources",
+    "reasoning": "Persistent hopelessness indicates depression requiring professional support"
+  },
+  {
+    "id": "clin_004",
+    "scenario": "A 14-year-old has been having daily panic attacks that interfere with school attendance.",
+    "decision_type": "psychiatric_evaluation",
+    "urgency": "within_week",
+    "correct_action": "Refer for anxiety evaluation, consider therapy and possible medication",
+    "reasoning": "Severe anxiety affecting functioning requires comprehensive evaluation"
+  },
+  {
+    "id": "clin_004_v0",
+    "scenario": "A 14-year-old has been having daily panic attacks that interfere with school attendance. (Case variation 1)",
+    "decision_type": "psychiatric_evaluation",
+    "urgency": "within_week",
+    "correct_action": "Refer for anxiety evaluation, consider therapy and possible medication",
+    "reasoning": "Severe anxiety affecting functioning requires comprehensive evaluation"
+  },
+  {
+    "id": "clin_004_v1",
+    "scenario": "A 14-year-old has been having daily panic attacks that interfere with school attendance. (Case variation 2)",
+    "decision_type": "psychiatric_evaluation",
+    "urgency": "within_week",
+    "correct_action": "Refer for anxiety evaluation, consider therapy and possible medication",
+    "reasoning": "Severe anxiety affecting functioning requires comprehensive evaluation"
+  },
+  {
+    "id": "clin_005",
+    "scenario": "A student's grades have dropped significantly and they report difficulty concentrating and sleeping.",
+    "decision_type": "monitoring",
+    "urgency": "within_two_weeks",
+    "correct_action": "Schedule follow-up, assess for depression, coordinate with teachers",
+    "reasoning": "Functional decline warrants monitoring and assessment"
+  },
+  {
+    "id": "clin_005_v0",
+    "scenario": "A student's grades have dropped significantly and they report difficulty concentrating and sleeping. (Case variation 1)",
+    "decision_type": "monitoring",
+    "urgency": "within_two_weeks",
+    "correct_action": "Schedule follow-up, assess for depression, coordinate with teachers",
+    "reasoning": "Functional decline warrants monitoring and assessment"
+  },
+  {
+    "id": "clin_005_v1",
+    "scenario": "A student's grades have dropped significantly and they report difficulty concentrating and sleeping. (Case variation 2)",
+    "decision_type": "monitoring",
+    "urgency": "within_two_weeks",
+    "correct_action": "Schedule follow-up, assess for depression, coordinate with teachers",
+    "reasoning": "Functional decline warrants monitoring and assessment"
+  },
+  {
+    "id": "clin_006",
+    "scenario": "A student is stressed about upcoming exams but reports good sleep, appetite, and social support.",
+    "decision_type": "psychoeducation",
+    "urgency": "routine",
+    "correct_action": "Provide stress management techniques, normalize exam anxiety",
+    "reasoning": "Normal stress response with good coping resources"
+  },
+  {
+    "id": "clin_006_v0",
+    "scenario": "A student is stressed about upcoming exams but reports good sleep, appetite, and social support. (Case variation 1)",
+    "decision_type": "psychoeducation",
+    "urgency": "routine",
+    "correct_action": "Provide stress management techniques, normalize exam anxiety",
+    "reasoning": "Normal stress response with good coping resources"
+  },
+  {
+    "id": "clin_006_v1",
+    "scenario": "A student is stressed about upcoming exams but reports good sleep, appetite, and social support. (Case variation 2)",
+    "decision_type": "psychoeducation",
+    "urgency": "routine",
+    "correct_action": "Provide stress management techniques, normalize exam anxiety",
+    "reasoning": "Normal stress response with good coping resources"
+  },
+  {
+    "id": "clin_007",
+    "scenario": "A 17-year-old wants to talk about college application stress but is otherwise functioning well.",
+    "decision_type": "routine_check_in",
+    "urgency": "routine",
+    "correct_action": "Supportive listening, provide resources if requested",
+    "reasoning": "Developmentally appropriate concern, no clinical intervention needed"
+  },
+  {
+    "id": "clin_007_v0",
+    "scenario": "A 17-year-old wants to talk about college application stress but is otherwise functioning well. (Case variation 1)",
+    "decision_type": "routine_check_in",
+    "urgency": "routine",
+    "correct_action": "Supportive listening, provide resources if requested",
+    "reasoning": "Developmentally appropriate concern, no clinical intervention needed"
+  },
+  {
+    "id": "clin_007_v1",
+    "scenario": "A 17-year-old wants to talk about college application stress but is otherwise functioning well. (Case variation 2)",
+    "decision_type": "routine_check_in",
+    "urgency": "routine",
+    "correct_action": "Supportive listening, provide resources if requested",
+    "reasoning": "Developmentally appropriate concern, no clinical intervention needed"
+  },
+  {
+    "id": "clin_008",
+    "scenario": "A student reports occasional sadness after a breakup but is engaging in activities and has support.",
+    "decision_type": "self_help_resources",
+    "urgency": "routine",
+    "correct_action": "Validate feelings, offer self-help resources, check in later",
+    "reasoning": "Normal grief response with adequate coping"
+  },
+  {
+    "id": "clin_008_v0",
+    "scenario": "A student reports occasional sadness after a breakup but is engaging in activities and has support. (Case variation 1)",
+    "decision_type": "self_help_resources",
+    "urgency": "routine",
+    "correct_action": "Validate feelings, offer self-help resources, check in later",
+    "reasoning": "Normal grief response with adequate coping"
+  },
+  {
+    "id": "clin_008_v1",
+    "scenario": "A student reports occasional sadness after a breakup but is engaging in activities and has support. (Case variation 2)",
+    "decision_type": "self_help_resources",
+    "urgency": "routine",
+    "correct_action": "Validate feelings, offer self-help resources, check in later",
+    "reasoning": "Normal grief response with adequate coping"
+  },
+  {
+    "id": "clin_009",
+    "scenario": "A student says 'I wish I could just disappear' but when asked clarifies they mean from social situations.",
+    "decision_type": "monitoring",
+    "urgency": "within_week",
+    "correct_action": "Clarify meaning, assess for social anxiety, schedule follow-up",
+    "reasoning": "Ambiguous language requires clarification; social anxiety indicated"
+  },
+  {
+    "id": "clin_009_v0",
+    "scenario": "A student says 'I wish I could just disappear' but when asked clarifies they mean from social situations. (Case variation 1)",
+    "decision_type": "monitoring",
+    "urgency": "within_week",
+    "correct_action": "Clarify meaning, assess for social anxiety, schedule follow-up",
+    "reasoning": "Ambiguous language requires clarification; social anxiety indicated"
+  },
+  {
+    "id": "clin_009_v1",
+    "scenario": "A student says 'I wish I could just disappear' but when asked clarifies they mean from social situations. (Case variation 2)",
+    "decision_type": "monitoring",
+    "urgency": "within_week",
+    "correct_action": "Clarify meaning, assess for social anxiety, schedule follow-up",
+    "reasoning": "Ambiguous language requires clarification; social anxiety indicated"
+  },
+  {
+    "id": "clin_010",
+    "scenario": "A 13-year-old reports not eating much lately but attributes it to being busy with activities.",
+    "decision_type": "monitoring",
+    "urgency": "within_two_weeks",
+    "correct_action": "Monitor eating patterns, assess for eating disorder risk factors",
+    "reasoning": "Appetite changes warrant monitoring even with benign explanation"
+  },
+  {
+    "id": "clin_010_v0",
+    "scenario": "A 13-year-old reports not eating much lately but attributes it to being busy with activities. (Case variation 1)",
+    "decision_type": "monitoring",
+    "urgency": "within_two_weeks",
+    "correct_action": "Monitor eating patterns, assess for eating disorder risk factors",
+    "reasoning": "Appetite changes warrant monitoring even with benign explanation"
+  },
+  {
+    "id": "clin_010_v1",
+    "scenario": "A 13-year-old reports not eating much lately but attributes it to being busy with activities. (Case variation 2)",
+    "decision_type": "monitoring",
+    "urgency": "within_two_weeks",
+    "correct_action": "Monitor eating patterns, assess for eating disorder risk factors",
+    "reasoning": "Appetite changes warrant monitoring even with benign explanation"
+  }
+]

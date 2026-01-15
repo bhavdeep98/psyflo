@@ -1,0 +1,52 @@
+{
+  "run_id": "eval_8b4bf00c",
+  "started_at": "2026-01-15T14:21:18.132521",
+  "completed_at": "2026-01-15T14:21:18.147071",
+  "duration_seconds": 0.01455,
+  "total_samples_evaluated": 0,
+  "overall_accuracy": 0.0,
+  "crisis_recall": 1.0,
+  "crisis_precision": 1.0,
+  "false_negative_count": 0,
+  "passes_safety_threshold": true,
+  "safety_issues": [],
+  "avg_latency_ms": 0.0,
+  "p99_latency_ms": 0.0,
+  "metrics_by_category": {},
+  "metrics_by_dataset": {},
+  "e2e_results": {
+    "suite_id": "e2e_b55cce52",
+    "started_at": "2026-01-15T14:21:18.138326",
+    "completed_at": "2026-01-15T14:21:18.139507",
+    "total_tests": 10,
+    "passed": 8,
+    "failed": 2,
+    "errors": 0,
+    "skipped": 0,
+    "pass_rate": 0.8,
+    "avg_latency_ms": 0.09,
+    "failed_test_ids": [
+      "E2E-007",
+      "E2E-008"
+    ]
+  },
+  "integration_results": {
+    "suite_id": "int_3f60f8b9",
+    "started_at": "2026-01-15T14:21:18.139579",
+    "completed_at": "2026-01-15T14:21:18.139643",
+    "total_tests": 9,
+    "passed": 9,
+    "failed": 0,
+    "pass_rate": 1.0
+  },
+  "canary_results": {
+    "suite_id": "canary_00a2f1fc",
+    "started_at": "2026-01-15T14:21:18.139708",
+    "completed_at": "2026-01-15T14:21:18.147026",
+    "total_scenarios": 10,
+    "passed": 2,
+    "failed": 8,
+    "pass_rate": 0.2,
+    "avg_crisis_detection_latency_ms": 0.09
+  }
+}

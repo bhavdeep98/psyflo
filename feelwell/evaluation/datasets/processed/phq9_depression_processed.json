@@ -1,0 +1,157 @@
+{
+  "dataset": "phq9_depression",
+  "version": "1.0.0",
+  "processed_at": "2026-01-15T13:17:38.307327",
+  "samples": [
+    {
+      "sample_id": "phq9_moderately_severe_13",
+      "text": "I've noticed I'm not feeling quite like myself lately. Some days are harder than others.",
+      "category": "depression",
+      "triage_level": "caution",
+      "severity_score": 0.7037037037037037,
+      "source_dataset": "phq9_depression",
+      "phq9_score": 19,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "phq9_minimal_28",
+      "text": "I've been feeling okay lately. No major concerns.",
+      "category": "depression",
+      "triage_level": "safe",
+      "severity_score": 0.0,
+      "source_dataset": "phq9_depression",
+      "phq9_score": 0,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "phq9_minimal_6",
+      "text": "I've been feeling okay lately. No major concerns.",
+      "category": "depression",
+      "triage_level": "safe",
+      "severity_score": 0.037037037037037035,
+      "source_dataset": "phq9_depression",
+      "phq9_score": 1,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "phq9_moderately_severe_39",
+      "text": "I've noticed I'm not feeling quite like myself lately. Some days are harder than others.",
+      "category": "depression",
+      "triage_level": "caution",
+      "severity_score": 0.6296296296296297,
+      "source_dataset": "phq9_depression",
+      "phq9_score": 17,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "phq9_mild_20",
+      "text": "I've noticed I'm not feeling quite like myself lately. Some days are harder than others.",
+      "category": "depression",
+      "triage_level": "safe",
+      "severity_score": 0.18518518518518517,
+      "source_dataset": "phq9_depression",
+      "phq9_score": 5,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "phq9_mild_12",
+      "text": "I've noticed I'm not feeling quite like myself lately. Some days are harder than others.",
+      "category": "depression",
+      "triage_level": "safe",
+      "severity_score": 0.3333333333333333,
+      "source_dataset": "phq9_depression",
+      "phq9_score": 9,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "phq9_mild_7",
+      "text": "I've noticed I'm not feeling quite like myself lately. Some days are harder than others.",
+      "category": "depression",
+      "triage_level": "safe",
+      "severity_score": 0.2222222222222222,
+      "source_dataset": "phq9_depression",
+      "phq9_score": 6,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "phq9_minimal_35",
+      "text": "I've been feeling okay lately. No major concerns.",
+      "category": "depression",
+      "triage_level": "safe",
+      "severity_score": 0.14814814814814814,
+      "source_dataset": "phq9_depression",
+      "phq9_score": 4,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "phq9_moderately_severe_38",
+      "text": "I've noticed I'm not feeling quite like myself lately. Some days are harder than others.",
+      "category": "depression",
+      "triage_level": "caution",
+      "severity_score": 0.7037037037037037,
+      "source_dataset": "phq9_depression",
+      "phq9_score": 19,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "phq9_minimal_26",
+      "text": "I've been feeling okay lately. No major concerns.",
+      "category": "depression",
+      "triage_level": "safe",
+      "severity_score": 0.037037037037037035,
+      "source_dataset": "phq9_depression",
+      "phq9_score": 1,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "phq9_moderately_severe_23",
+      "text": "I've noticed I'm not feeling quite like myself lately. Some days are harder than others.",
+      "category": "depression",
+      "triage_level": "crisis",
+      "severity_score": 0.7407407407407407,
+      "source_dataset": "phq9_depression",
+      "phq9_score": 20,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "phq9_severe_28",
+      "text": "I've noticed I'm not feeling quite like myself lately. Some days are harder than others.",
+      "category": "depression",
+      "triage_level": "crisis",
+      "severity_score": 0.8518518518518519,
+      "source_dataset": "phq9_depression",
+      "phq9_score": 23,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "phq9_moderate_39",
+      "text": "I've noticed I'm not feeling quite like myself lately. Some days are harder than others.",
+      "category": "depression",
+      "triage_level": "caution",
+      "severity_score": 0.37037037037037035,
+      "source_dataset": "phq9_depression",
+      "phq9_score": 10,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "phq9_minimal_22",
+      "text": "I've been feeling okay lately. No major concerns.",
+      "category": "depression",
+      "triage_level": "safe",
+      "severity_score": 0.0,
+      "source_dataset": "phq9_depression",
+      "phq9_score": 0,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "phq9_moderately_severe_1",
+      "text": "I've noticed I'm not feeling quite like myself lately. Some days are harder than others.",
+      "category": "depression",
+      "triage_level": "caution",
+      "severity_score": 0.6666666666666666,
+      "source_dataset": "phq9_depression",
+      "phq9_score": 18,
+      "gad7_score": null
+    }
+  ]
+}

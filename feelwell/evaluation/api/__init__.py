@@ -1,0 +1,7 @@
+"""API module for the evaluation platform.
+
+Provides REST endpoints for the webapp to interact with the evaluation framework.
+"""
+from .server import create_app, run_server
+
+__all__ = ["create_app", "run_server"]

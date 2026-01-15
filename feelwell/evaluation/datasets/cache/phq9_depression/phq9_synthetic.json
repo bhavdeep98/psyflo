@@ -1,0 +1,4002 @@
+[
+  {
+    "id": "phq9_minimal_0",
+    "item_scores": {
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 0,
+    "severity": "minimal"
+  },
+  {
+    "id": "phq9_minimal_1",
+    "item_scores": {
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 0,
+    "severity": "minimal"
+  },
+  {
+    "id": "phq9_minimal_2",
+    "item_scores": {
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 2,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 2,
+    "severity": "minimal"
+  },
+  {
+    "id": "phq9_minimal_3",
+    "item_scores": {
+      "1": 0,
+      "2": 1,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 1,
+    "severity": "minimal"
+  },
+  {
+    "id": "phq9_minimal_4",
+    "item_scores": {
+      "1": 2,
+      "2": 1,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 1,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 4,
+    "severity": "minimal"
+  },
+  {
+    "id": "phq9_minimal_5",
+    "item_scores": {
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 0,
+    "severity": "minimal"
+  },
+  {
+    "id": "phq9_minimal_6",
+    "item_scores": {
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 1,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 1,
+    "severity": "minimal"
+  },
+  {
+    "id": "phq9_minimal_7",
+    "item_scores": {
+      "1": 1,
+      "2": 0,
+      "3": 0,
+      "4": 2,
+      "5": 0,
+      "6": 0,
+      "7": 1,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 4,
+    "severity": "minimal"
+  },
+  {
+    "id": "phq9_minimal_8",
+    "item_scores": {
+      "1": 1,
+      "2": 0,
+      "3": 1,
+      "4": 0,
+      "5": 1,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 3,
+    "severity": "minimal"
+  },
+  {
+    "id": "phq9_minimal_9",
+    "item_scores": {
+      "1": 0,
+      "2": 0,
+      "3": 1,
+      "4": 0,
+      "5": 1,
+      "6": 1,
+      "7": 0,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 3,
+    "severity": "minimal"
+  },
+  {
+    "id": "phq9_minimal_10",
+    "item_scores": {
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 1,
+      "7": 0,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 1,
+    "severity": "minimal"
+  },
+  {
+    "id": "phq9_minimal_11",
+    "item_scores": {
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 0,
+    "severity": "minimal"
+  },
+  {
+    "id": "phq9_minimal_12",
+    "item_scores": {
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 0,
+    "severity": "minimal"
+  },
+  {
+    "id": "phq9_minimal_13",
+    "item_scores": {
+      "1": 0,
+      "2": 1,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 2,
+      "7": 0,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 3,
+    "severity": "minimal"
+  },
+  {
+    "id": "phq9_minimal_14",
+    "item_scores": {
+      "1": 1,
+      "2": 1,
+      "3": 0,
+      "4": 0,
+      "5": 1,
+      "6": 0,
+      "7": 0,
+      "8": 1,
+      "9": 0
+    },
+    "total_score": 4,
+    "severity": "minimal"
+  },
+  {
+    "id": "phq9_minimal_15",
+    "item_scores": {
+      "1": 0,
+      "2": 1,
+      "3": 0,
+      "4": 0,
+      "5": 1,
+      "6": 1,
+      "7": 0,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 3,
+    "severity": "minimal"
+  },
+  {
+    "id": "phq9_minimal_16",
+    "item_scores": {
+      "1": 1,
+      "2": 1,
+      "3": 0,
+      "4": 2,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 4,
+    "severity": "minimal"
+  },
+  {
+    "id": "phq9_minimal_17",
+    "item_scores": {
+      "1": 0,
+      "2": 1,
+      "3": 0,
+      "4": 1,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 2,
+    "severity": "minimal"
+  },
+  {
+    "id": "phq9_minimal_18",
+    "item_scores": {
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 0,
+    "severity": "minimal"
+  },
+  {
+    "id": "phq9_minimal_19",
+    "item_scores": {
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 1,
+      "6": 1,
+      "7": 0,
+      "8": 1,
+      "9": 0
+    },
+    "total_score": 3,
+    "severity": "minimal"
+  },
+  {
+    "id": "phq9_minimal_20",
+    "item_scores": {
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 1,
+      "7": 0,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 1,
+    "severity": "minimal"
+  },
+  {
+    "id": "phq9_minimal_21",
+    "item_scores": {
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 1,
+      "5": 1,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 2,
+    "severity": "minimal"
+  },
+  {
+    "id": "phq9_minimal_22",
+    "item_scores": {
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 0,
+    "severity": "minimal"
+  },
+  {
+    "id": "phq9_minimal_23",
+    "item_scores": {
+      "1": 0,
+      "2": 0,
+      "3": 2,
+      "4": 1,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 1,
+      "9": 0
+    },
+    "total_score": 4,
+    "severity": "minimal"
+  },
+  {
+    "id": "phq9_minimal_24",
+    "item_scores": {
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 1,
+      "5": 1,
+      "6": 1,
+      "7": 0,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 3,
+    "severity": "minimal"
+  },
+  {
+    "id": "phq9_minimal_25",
+    "item_scores": {
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 0,
+    "severity": "minimal"
+  },
+  {
+    "id": "phq9_minimal_26",
+    "item_scores": {
+      "1": 1,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 1,
+    "severity": "minimal"
+  },
+  {
+    "id": "phq9_minimal_27",
+    "item_scores": {
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 1,
+      "6": 0,
+      "7": 1,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 2,
+    "severity": "minimal"
+  },
+  {
+    "id": "phq9_minimal_28",
+    "item_scores": {
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 0,
+    "severity": "minimal"
+  },
+  {
+    "id": "phq9_minimal_29",
+    "item_scores": {
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 1,
+      "7": 0,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 1,
+    "severity": "minimal"
+  },
+  {
+    "id": "phq9_minimal_30",
+    "item_scores": {
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 1,
+      "9": 0
+    },
+    "total_score": 1,
+    "severity": "minimal"
+  },
+  {
+    "id": "phq9_minimal_31",
+    "item_scores": {
+      "1": 0,
+      "2": 0,
+      "3": 1,
+      "4": 0,
+      "5": 1,
+      "6": 0,
+      "7": 0,
+      "8": 1,
+      "9": 0
+    },
+    "total_score": 3,
+    "severity": "minimal"
+  },
+  {
+    "id": "phq9_minimal_32",
+    "item_scores": {
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 1,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 1,
+    "severity": "minimal"
+  },
+  {
+    "id": "phq9_minimal_33",
+    "item_scores": {
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 1,
+      "6": 1,
+      "7": 2,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 4,
+    "severity": "minimal"
+  },
+  {
+    "id": "phq9_minimal_34",
+    "item_scores": {
+      "1": 0,
+      "2": 0,
+      "3": 1,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 1,
+    "severity": "minimal"
+  },
+  {
+    "id": "phq9_minimal_35",
+    "item_scores": {
+      "1": 1,
+      "2": 2,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 1,
+      "9": 0
+    },
+    "total_score": 4,
+    "severity": "minimal"
+  },
+  {
+    "id": "phq9_minimal_36",
+    "item_scores": {
+      "1": 0,
+      "2": 0,
+      "3": 1,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 1,
+    "severity": "minimal"
+  },
+  {
+    "id": "phq9_minimal_37",
+    "item_scores": {
+      "1": 0,
+      "2": 1,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 2,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 3,
+    "severity": "minimal"
+  },
+  {
+    "id": "phq9_minimal_38",
+    "item_scores": {
+      "1": 1,
+      "2": 1,
+      "3": 0,
+      "4": 0,
+      "5": 1,
+      "6": 0,
+      "7": 0,
+      "8": 1,
+      "9": 0
+    },
+    "total_score": 4,
+    "severity": "minimal"
+  },
+  {
+    "id": "phq9_minimal_39",
+    "item_scores": {
+      "1": 0,
+      "2": 1,
+      "3": 0,
+      "4": 0,
+      "5": 2,
+      "6": 1,
+      "7": 0,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 4,
+    "severity": "minimal"
+  },
+  {
+    "id": "phq9_minimal_40",
+    "item_scores": {
+      "1": 1,
+      "2": 0,
+      "3": 1,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 1,
+      "9": 0
+    },
+    "total_score": 3,
+    "severity": "minimal"
+  },
+  {
+    "id": "phq9_minimal_41",
+    "item_scores": {
+      "1": 0,
+      "2": 1,
+      "3": 1,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 2,
+    "severity": "minimal"
+  },
+  {
+    "id": "phq9_minimal_42",
+    "item_scores": {
+      "1": 0,
+      "2": 0,
+      "3": 1,
+      "4": 1,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 2,
+    "severity": "minimal"
+  },
+  {
+    "id": "phq9_minimal_43",
+    "item_scores": {
+      "1": 1,
+      "2": 0,
+      "3": 1,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 2,
+    "severity": "minimal"
+  },
+  {
+    "id": "phq9_minimal_44",
+    "item_scores": {
+      "1": 1,
+      "2": 1,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 1,
+      "7": 0,
+      "8": 1,
+      "9": 0
+    },
+    "total_score": 4,
+    "severity": "minimal"
+  },
+  {
+    "id": "phq9_minimal_45",
+    "item_scores": {
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 1,
+      "5": 1,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 2,
+    "severity": "minimal"
+  },
+  {
+    "id": "phq9_minimal_46",
+    "item_scores": {
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 0,
+    "severity": "minimal"
+  },
+  {
+    "id": "phq9_minimal_47",
+    "item_scores": {
+      "1": 0,
+      "2": 1,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 1,
+    "severity": "minimal"
+  },
+  {
+    "id": "phq9_minimal_48",
+    "item_scores": {
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 0,
+    "severity": "minimal"
+  },
+  {
+    "id": "phq9_minimal_49",
+    "item_scores": {
+      "1": 0,
+      "2": 1,
+      "3": 2,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 3,
+    "severity": "minimal"
+  },
+  {
+    "id": "phq9_mild_0",
+    "item_scores": {
+      "1": 0,
+      "2": 0,
+      "3": 1,
+      "4": 2,
+      "5": 2,
+      "6": 1,
+      "7": 2,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 8,
+    "severity": "mild"
+  },
+  {
+    "id": "phq9_mild_1",
+    "item_scores": {
+      "1": 1,
+      "2": 2,
+      "3": 0,
+      "4": 3,
+      "5": 0,
+      "6": 1,
+      "7": 0,
+      "8": 1,
+      "9": 0
+    },
+    "total_score": 8,
+    "severity": "mild"
+  },
+  {
+    "id": "phq9_mild_2",
+    "item_scores": {
+      "1": 3,
+      "2": 3,
+      "3": 0,
+      "4": 2,
+      "5": 0,
+      "6": 1,
+      "7": 0,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 9,
+    "severity": "mild"
+  },
+  {
+    "id": "phq9_mild_3",
+    "item_scores": {
+      "1": 0,
+      "2": 0,
+      "3": 1,
+      "4": 3,
+      "5": 1,
+      "6": 0,
+      "7": 1,
+      "8": 3,
+      "9": 0
+    },
+    "total_score": 9,
+    "severity": "mild"
+  },
+  {
+    "id": "phq9_mild_4",
+    "item_scores": {
+      "1": 0,
+      "2": 2,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 1,
+      "7": 3,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 6,
+    "severity": "mild"
+  },
+  {
+    "id": "phq9_mild_5",
+    "item_scores": {
+      "1": 2,
+      "2": 2,
+      "3": 0,
+      "4": 2,
+      "5": 0,
+      "6": 1,
+      "7": 1,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 8,
+    "severity": "mild"
+  },
+  {
+    "id": "phq9_mild_6",
+    "item_scores": {
+      "1": 0,
+      "2": 0,
+      "3": 2,
+      "4": 0,
+      "5": 1,
+      "6": 0,
+      "7": 1,
+      "8": 2,
+      "9": 0
+    },
+    "total_score": 6,
+    "severity": "mild"
+  },
+  {
+    "id": "phq9_mild_7",
+    "item_scores": {
+      "1": 2,
+      "2": 3,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 1,
+      "9": 0
+    },
+    "total_score": 6,
+    "severity": "mild"
+  },
+  {
+    "id": "phq9_mild_8",
+    "item_scores": {
+      "1": 0,
+      "2": 0,
+      "3": 1,
+      "4": 1,
+      "5": 0,
+      "6": 0,
+      "7": 2,
+      "8": 2,
+      "9": 0
+    },
+    "total_score": 6,
+    "severity": "mild"
+  },
+  {
+    "id": "phq9_mild_9",
+    "item_scores": {
+      "1": 1,
+      "2": 0,
+      "3": 1,
+      "4": 0,
+      "5": 1,
+      "6": 0,
+      "7": 2,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 5,
+    "severity": "mild"
+  },
+  {
+    "id": "phq9_mild_10",
+    "item_scores": {
+      "1": 1,
+      "2": 0,
+      "3": 1,
+      "4": 2,
+      "5": 2,
+      "6": 0,
+      "7": 1,
+      "8": 1,
+      "9": 0
+    },
+    "total_score": 8,
+    "severity": "mild"
+  },
+  {
+    "id": "phq9_mild_11",
+    "item_scores": {
+      "1": 3,
+      "2": 2,
+      "3": 2,
+      "4": 0,
+      "5": 0,
+      "6": 1,
+      "7": 0,
+      "8": 1,
+      "9": 0
+    },
+    "total_score": 9,
+    "severity": "mild"
+  },
+  {
+    "id": "phq9_mild_12",
+    "item_scores": {
+      "1": 1,
+      "2": 3,
+      "3": 0,
+      "4": 2,
+      "5": 0,
+      "6": 1,
+      "7": 2,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 9,
+    "severity": "mild"
+  },
+  {
+    "id": "phq9_mild_13",
+    "item_scores": {
+      "1": 0,
+      "2": 0,
+      "3": 1,
+      "4": 2,
+      "5": 2,
+      "6": 1,
+      "7": 1,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 7,
+    "severity": "mild"
+  },
+  {
+    "id": "phq9_mild_14",
+    "item_scores": {
+      "1": 1,
+      "2": 3,
+      "3": 0,
+      "4": 1,
+      "5": 1,
+      "6": 1,
+      "7": 0,
+      "8": 1,
+      "9": 0
+    },
+    "total_score": 8,
+    "severity": "mild"
+  },
+  {
+    "id": "phq9_mild_15",
+    "item_scores": {
+      "1": 0,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1,
+      "6": 2,
+      "7": 0,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 6,
+    "severity": "mild"
+  },
+  {
+    "id": "phq9_mild_16",
+    "item_scores": {
+      "1": 1,
+      "2": 3,
+      "3": 1,
+      "4": 0,
+      "5": 3,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 8,
+    "severity": "mild"
+  },
+  {
+    "id": "phq9_mild_17",
+    "item_scores": {
+      "1": 1,
+      "2": 0,
+      "3": 1,
+      "4": 2,
+      "5": 3,
+      "6": 1,
+      "7": 0,
+      "8": 1,
+      "9": 0
+    },
+    "total_score": 9,
+    "severity": "mild"
+  },
+  {
+    "id": "phq9_mild_18",
+    "item_scores": {
+      "1": 2,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 1,
+      "6": 1,
+      "7": 1,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 5,
+    "severity": "mild"
+  },
+  {
+    "id": "phq9_mild_19",
+    "item_scores": {
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 0,
+      "5": 1,
+      "6": 0,
+      "7": 1,
+      "8": 1,
+      "9": 0
+    },
+    "total_score": 6,
+    "severity": "mild"
+  },
+  {
+    "id": "phq9_mild_20",
+    "item_scores": {
+      "1": 1,
+      "2": 0,
+      "3": 2,
+      "4": 0,
+      "5": 0,
+      "6": 1,
+      "7": 1,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 5,
+    "severity": "mild"
+  },
+  {
+    "id": "phq9_mild_21",
+    "item_scores": {
+      "1": 2,
+      "2": 0,
+      "3": 0,
+      "4": 1,
+      "5": 1,
+      "6": 2,
+      "7": 0,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 6,
+    "severity": "mild"
+  },
+  {
+    "id": "phq9_mild_22",
+    "item_scores": {
+      "1": 0,
+      "2": 1,
+      "3": 2,
+      "4": 1,
+      "5": 0,
+      "6": 1,
+      "7": 1,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 6,
+    "severity": "mild"
+  },
+  {
+    "id": "phq9_mild_23",
+    "item_scores": {
+      "1": 1,
+      "2": 0,
+      "3": 1,
+      "4": 1,
+      "5": 0,
+      "6": 1,
+      "7": 2,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 6,
+    "severity": "mild"
+  },
+  {
+    "id": "phq9_mild_24",
+    "item_scores": {
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 2,
+      "5": 0,
+      "6": 0,
+      "7": 1,
+      "8": 1,
+      "9": 0
+    },
+    "total_score": 7,
+    "severity": "mild"
+  },
+  {
+    "id": "phq9_mild_25",
+    "item_scores": {
+      "1": 1,
+      "2": 0,
+      "3": 0,
+      "4": 3,
+      "5": 1,
+      "6": 2,
+      "7": 1,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 8,
+    "severity": "mild"
+  },
+  {
+    "id": "phq9_mild_26",
+    "item_scores": {
+      "1": 1,
+      "2": 2,
+      "3": 0,
+      "4": 0,
+      "5": 1,
+      "6": 2,
+      "7": 1,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 7,
+    "severity": "mild"
+  },
+  {
+    "id": "phq9_mild_27",
+    "item_scores": {
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 0,
+      "5": 1,
+      "6": 2,
+      "7": 1,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 7,
+    "severity": "mild"
+  },
+  {
+    "id": "phq9_mild_28",
+    "item_scores": {
+      "1": 2,
+      "2": 1,
+      "3": 0,
+      "4": 2,
+      "5": 1,
+      "6": 0,
+      "7": 2,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 8,
+    "severity": "mild"
+  },
+  {
+    "id": "phq9_mild_29",
+    "item_scores": {
+      "1": 0,
+      "2": 2,
+      "3": 0,
+      "4": 0,
+      "5": 2,
+      "6": 2,
+      "7": 1,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 7,
+    "severity": "mild"
+  },
+  {
+    "id": "phq9_mild_30",
+    "item_scores": {
+      "1": 0,
+      "2": 0,
+      "3": 2,
+      "4": 1,
+      "5": 1,
+      "6": 1,
+      "7": 3,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 8,
+    "severity": "mild"
+  },
+  {
+    "id": "phq9_mild_31",
+    "item_scores": {
+      "1": 1,
+      "2": 0,
+      "3": 0,
+      "4": 1,
+      "5": 3,
+      "6": 1,
+      "7": 2,
+      "8": 1,
+      "9": 0
+    },
+    "total_score": 9,
+    "severity": "mild"
+  },
+  {
+    "id": "phq9_mild_32",
+    "item_scores": {
+      "1": 0,
+      "2": 2,
+      "3": 1,
+      "4": 1,
+      "5": 1,
+      "6": 1,
+      "7": 0,
+      "8": 2,
+      "9": 0
+    },
+    "total_score": 8,
+    "severity": "mild"
+  },
+  {
+    "id": "phq9_mild_33",
+    "item_scores": {
+      "1": 2,
+      "2": 0,
+      "3": 1,
+      "4": 2,
+      "5": 1,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 6,
+    "severity": "mild"
+  },
+  {
+    "id": "phq9_mild_34",
+    "item_scores": {
+      "1": 0,
+      "2": 1,
+      "3": 0,
+      "4": 1,
+      "5": 0,
+      "6": 0,
+      "7": 2,
+      "8": 2,
+      "9": 0
+    },
+    "total_score": 6,
+    "severity": "mild"
+  },
+  {
+    "id": "phq9_mild_35",
+    "item_scores": {
+      "1": 1,
+      "2": 1,
+      "3": 2,
+      "4": 2,
+      "5": 0,
+      "6": 0,
+      "7": 2,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 8,
+    "severity": "mild"
+  },
+  {
+    "id": "phq9_mild_36",
+    "item_scores": {
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 0,
+      "6": 1,
+      "7": 1,
+      "8": 3,
+      "9": 0
+    },
+    "total_score": 9,
+    "severity": "mild"
+  },
+  {
+    "id": "phq9_mild_37",
+    "item_scores": {
+      "1": 0,
+      "2": 0,
+      "3": 1,
+      "4": 2,
+      "5": 3,
+      "6": 0,
+      "7": 0,
+      "8": 3,
+      "9": 0
+    },
+    "total_score": 9,
+    "severity": "mild"
+  },
+  {
+    "id": "phq9_mild_38",
+    "item_scores": {
+      "1": 0,
+      "2": 2,
+      "3": 1,
+      "4": 1,
+      "5": 2,
+      "6": 2,
+      "7": 0,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 8,
+    "severity": "mild"
+  },
+  {
+    "id": "phq9_mild_39",
+    "item_scores": {
+      "1": 0,
+      "2": 1,
+      "3": 1,
+      "4": 2,
+      "5": 0,
+      "6": 0,
+      "7": 2,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 6,
+    "severity": "mild"
+  },
+  {
+    "id": "phq9_mild_40",
+    "item_scores": {
+      "1": 2,
+      "2": 0,
+      "3": 0,
+      "4": 1,
+      "5": 0,
+      "6": 1,
+      "7": 3,
+      "8": 1,
+      "9": 0
+    },
+    "total_score": 8,
+    "severity": "mild"
+  },
+  {
+    "id": "phq9_mild_41",
+    "item_scores": {
+      "1": 1,
+      "2": 0,
+      "3": 0,
+      "4": 1,
+      "5": 1,
+      "6": 1,
+      "7": 3,
+      "8": 2,
+      "9": 0
+    },
+    "total_score": 9,
+    "severity": "mild"
+  },
+  {
+    "id": "phq9_mild_42",
+    "item_scores": {
+      "1": 1,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 1,
+      "6": 1,
+      "7": 2,
+      "8": 1,
+      "9": 0
+    },
+    "total_score": 6,
+    "severity": "mild"
+  },
+  {
+    "id": "phq9_mild_43",
+    "item_scores": {
+      "1": 2,
+      "2": 1,
+      "3": 2,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 2,
+      "8": 1,
+      "9": 0
+    },
+    "total_score": 8,
+    "severity": "mild"
+  },
+  {
+    "id": "phq9_mild_44",
+    "item_scores": {
+      "1": 1,
+      "2": 0,
+      "3": 1,
+      "4": 0,
+      "5": 1,
+      "6": 1,
+      "7": 1,
+      "8": 1,
+      "9": 0
+    },
+    "total_score": 6,
+    "severity": "mild"
+  },
+  {
+    "id": "phq9_mild_45",
+    "item_scores": {
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 1,
+      "6": 2,
+      "7": 2,
+      "8": 1,
+      "9": 0
+    },
+    "total_score": 6,
+    "severity": "mild"
+  },
+  {
+    "id": "phq9_mild_46",
+    "item_scores": {
+      "1": 2,
+      "2": 2,
+      "3": 0,
+      "4": 1,
+      "5": 0,
+      "6": 1,
+      "7": 0,
+      "8": 1,
+      "9": 0
+    },
+    "total_score": 7,
+    "severity": "mild"
+  },
+  {
+    "id": "phq9_mild_47",
+    "item_scores": {
+      "1": 2,
+      "2": 0,
+      "3": 1,
+      "4": 2,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 5,
+    "severity": "mild"
+  },
+  {
+    "id": "phq9_mild_48",
+    "item_scores": {
+      "1": 0,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1,
+      "6": 0,
+      "7": 0,
+      "8": 2,
+      "9": 0
+    },
+    "total_score": 6,
+    "severity": "mild"
+  },
+  {
+    "id": "phq9_mild_49",
+    "item_scores": {
+      "1": 1,
+      "2": 2,
+      "3": 2,
+      "4": 0,
+      "5": 2,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 7,
+    "severity": "mild"
+  },
+  {
+    "id": "phq9_moderate_0",
+    "item_scores": {
+      "1": 2,
+      "2": 3,
+      "3": 0,
+      "4": 2,
+      "5": 1,
+      "6": 3,
+      "7": 3,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 14,
+    "severity": "moderate"
+  },
+  {
+    "id": "phq9_moderate_1",
+    "item_scores": {
+      "1": 0,
+      "2": 1,
+      "3": 2,
+      "4": 0,
+      "5": 2,
+      "6": 2,
+      "7": 3,
+      "8": 3,
+      "9": 0
+    },
+    "total_score": 13,
+    "severity": "moderate"
+  },
+  {
+    "id": "phq9_moderate_2",
+    "item_scores": {
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1,
+      "6": 2,
+      "7": 1,
+      "8": 3,
+      "9": 0
+    },
+    "total_score": 11,
+    "severity": "moderate"
+  },
+  {
+    "id": "phq9_moderate_3",
+    "item_scores": {
+      "1": 1,
+      "2": 1,
+      "3": 0,
+      "4": 3,
+      "5": 3,
+      "6": 2,
+      "7": 1,
+      "8": 2,
+      "9": 0
+    },
+    "total_score": 13,
+    "severity": "moderate"
+  },
+  {
+    "id": "phq9_moderate_4",
+    "item_scores": {
+      "1": 1,
+      "2": 1,
+      "3": 0,
+      "4": 2,
+      "5": 2,
+      "6": 3,
+      "7": 2,
+      "8": 2,
+      "9": 0
+    },
+    "total_score": 13,
+    "severity": "moderate"
+  },
+  {
+    "id": "phq9_moderate_5",
+    "item_scores": {
+      "1": 0,
+      "2": 2,
+      "3": 1,
+      "4": 3,
+      "5": 3,
+      "6": 1,
+      "7": 0,
+      "8": 2,
+      "9": 0
+    },
+    "total_score": 12,
+    "severity": "moderate"
+  },
+  {
+    "id": "phq9_moderate_6",
+    "item_scores": {
+      "1": 3,
+      "2": 1,
+      "3": 2,
+      "4": 2,
+      "5": 3,
+      "6": 1,
+      "7": 0,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 12,
+    "severity": "moderate"
+  },
+  {
+    "id": "phq9_moderate_7",
+    "item_scores": {
+      "1": 2,
+      "2": 3,
+      "3": 2,
+      "4": 0,
+      "5": 3,
+      "6": 1,
+      "7": 0,
+      "8": 3,
+      "9": 0
+    },
+    "total_score": 14,
+    "severity": "moderate"
+  },
+  {
+    "id": "phq9_moderate_8",
+    "item_scores": {
+      "1": 1,
+      "2": 3,
+      "3": 2,
+      "4": 2,
+      "5": 1,
+      "6": 0,
+      "7": 2,
+      "8": 2,
+      "9": 0
+    },
+    "total_score": 13,
+    "severity": "moderate"
+  },
+  {
+    "id": "phq9_moderate_9",
+    "item_scores": {
+      "1": 1,
+      "2": 3,
+      "3": 2,
+      "4": 3,
+      "5": 3,
+      "6": 0,
+      "7": 1,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 13,
+    "severity": "moderate"
+  },
+  {
+    "id": "phq9_moderate_10",
+    "item_scores": {
+      "1": 2,
+      "2": 1,
+      "3": 0,
+      "4": 1,
+      "5": 3,
+      "6": 0,
+      "7": 1,
+      "8": 3,
+      "9": 0
+    },
+    "total_score": 11,
+    "severity": "moderate"
+  },
+  {
+    "id": "phq9_moderate_11",
+    "item_scores": {
+      "1": 1,
+      "2": 2,
+      "3": 3,
+      "4": 2,
+      "5": 2,
+      "6": 0,
+      "7": 1,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 11,
+    "severity": "moderate"
+  },
+  {
+    "id": "phq9_moderate_12",
+    "item_scores": {
+      "1": 1,
+      "2": 2,
+      "3": 0,
+      "4": 0,
+      "5": 3,
+      "6": 1,
+      "7": 2,
+      "8": 3,
+      "9": 0
+    },
+    "total_score": 12,
+    "severity": "moderate"
+  },
+  {
+    "id": "phq9_moderate_13",
+    "item_scores": {
+      "1": 3,
+      "2": 1,
+      "3": 2,
+      "4": 1,
+      "5": 3,
+      "6": 0,
+      "7": 1,
+      "8": 3,
+      "9": 0
+    },
+    "total_score": 14,
+    "severity": "moderate"
+  },
+  {
+    "id": "phq9_moderate_14",
+    "item_scores": {
+      "1": 0,
+      "2": 1,
+      "3": 1,
+      "4": 0,
+      "5": 1,
+      "6": 3,
+      "7": 2,
+      "8": 2,
+      "9": 0
+    },
+    "total_score": 10,
+    "severity": "moderate"
+  },
+  {
+    "id": "phq9_moderate_15",
+    "item_scores": {
+      "1": 3,
+      "2": 2,
+      "3": 0,
+      "4": 1,
+      "5": 1,
+      "6": 2,
+      "7": 2,
+      "8": 2,
+      "9": 0
+    },
+    "total_score": 13,
+    "severity": "moderate"
+  },
+  {
+    "id": "phq9_moderate_16",
+    "item_scores": {
+      "1": 2,
+      "2": 1,
+      "3": 2,
+      "4": 2,
+      "5": 3,
+      "6": 1,
+      "7": 0,
+      "8": 3,
+      "9": 0
+    },
+    "total_score": 14,
+    "severity": "moderate"
+  },
+  {
+    "id": "phq9_moderate_17",
+    "item_scores": {
+      "1": 1,
+      "2": 3,
+      "3": 1,
+      "4": 2,
+      "5": 2,
+      "6": 0,
+      "7": 2,
+      "8": 3,
+      "9": 0
+    },
+    "total_score": 14,
+    "severity": "moderate"
+  },
+  {
+    "id": "phq9_moderate_18",
+    "item_scores": {
+      "1": 1,
+      "2": 1,
+      "3": 3,
+      "4": 1,
+      "5": 3,
+      "6": 1,
+      "7": 2,
+      "8": 1,
+      "9": 0
+    },
+    "total_score": 13,
+    "severity": "moderate"
+  },
+  {
+    "id": "phq9_moderate_19",
+    "item_scores": {
+      "1": 1,
+      "2": 0,
+      "3": 0,
+      "4": 3,
+      "5": 0,
+      "6": 3,
+      "7": 3,
+      "8": 3,
+      "9": 0
+    },
+    "total_score": 13,
+    "severity": "moderate"
+  },
+  {
+    "id": "phq9_moderate_20",
+    "item_scores": {
+      "1": 2,
+      "2": 2,
+      "3": 3,
+      "4": 0,
+      "5": 0,
+      "6": 1,
+      "7": 2,
+      "8": 3,
+      "9": 0
+    },
+    "total_score": 13,
+    "severity": "moderate"
+  },
+  {
+    "id": "phq9_moderate_21",
+    "item_scores": {
+      "1": 1,
+      "2": 2,
+      "3": 0,
+      "4": 0,
+      "5": 1,
+      "6": 3,
+      "7": 2,
+      "8": 2,
+      "9": 0
+    },
+    "total_score": 11,
+    "severity": "moderate"
+  },
+  {
+    "id": "phq9_moderate_22",
+    "item_scores": {
+      "1": 3,
+      "2": 3,
+      "3": 1,
+      "4": 2,
+      "5": 2,
+      "6": 1,
+      "7": 1,
+      "8": 1,
+      "9": 0
+    },
+    "total_score": 14,
+    "severity": "moderate"
+  },
+  {
+    "id": "phq9_moderate_23",
+    "item_scores": {
+      "1": 0,
+      "2": 1,
+      "3": 3,
+      "4": 2,
+      "5": 0,
+      "6": 2,
+      "7": 3,
+      "8": 1,
+      "9": 0
+    },
+    "total_score": 12,
+    "severity": "moderate"
+  },
+  {
+    "id": "phq9_moderate_24",
+    "item_scores": {
+      "1": 1,
+      "2": 1,
+      "3": 2,
+      "4": 2,
+      "5": 3,
+      "6": 1,
+      "7": 1,
+      "8": 3,
+      "9": 0
+    },
+    "total_score": 14,
+    "severity": "moderate"
+  },
+  {
+    "id": "phq9_moderate_25",
+    "item_scores": {
+      "1": 3,
+      "2": 1,
+      "3": 0,
+      "4": 1,
+      "5": 3,
+      "6": 1,
+      "7": 2,
+      "8": 2,
+      "9": 0
+    },
+    "total_score": 13,
+    "severity": "moderate"
+  },
+  {
+    "id": "phq9_moderate_26",
+    "item_scores": {
+      "1": 2,
+      "2": 1,
+      "3": 1,
+      "4": 3,
+      "5": 2,
+      "6": 2,
+      "7": 0,
+      "8": 1,
+      "9": 0
+    },
+    "total_score": 12,
+    "severity": "moderate"
+  },
+  {
+    "id": "phq9_moderate_27",
+    "item_scores": {
+      "1": 0,
+      "2": 1,
+      "3": 3,
+      "4": 1,
+      "5": 3,
+      "6": 2,
+      "7": 1,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 11,
+    "severity": "moderate"
+  },
+  {
+    "id": "phq9_moderate_28",
+    "item_scores": {
+      "1": 1,
+      "2": 3,
+      "3": 1,
+      "4": 1,
+      "5": 2,
+      "6": 2,
+      "7": 2,
+      "8": 1,
+      "9": 0
+    },
+    "total_score": 13,
+    "severity": "moderate"
+  },
+  {
+    "id": "phq9_moderate_29",
+    "item_scores": {
+      "1": 1,
+      "2": 3,
+      "3": 0,
+      "4": 2,
+      "5": 1,
+      "6": 3,
+      "7": 1,
+      "8": 3,
+      "9": 0
+    },
+    "total_score": 14,
+    "severity": "moderate"
+  },
+  {
+    "id": "phq9_moderate_30",
+    "item_scores": {
+      "1": 2,
+      "2": 3,
+      "3": 2,
+      "4": 1,
+      "5": 1,
+      "6": 0,
+      "7": 2,
+      "8": 1,
+      "9": 0
+    },
+    "total_score": 12,
+    "severity": "moderate"
+  },
+  {
+    "id": "phq9_moderate_31",
+    "item_scores": {
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1,
+      "6": 2,
+      "7": 3,
+      "8": 3,
+      "9": 0
+    },
+    "total_score": 13,
+    "severity": "moderate"
+  },
+  {
+    "id": "phq9_moderate_32",
+    "item_scores": {
+      "1": 1,
+      "2": 3,
+      "3": 0,
+      "4": 1,
+      "5": 1,
+      "6": 3,
+      "7": 1,
+      "8": 1,
+      "9": 0
+    },
+    "total_score": 11,
+    "severity": "moderate"
+  },
+  {
+    "id": "phq9_moderate_33",
+    "item_scores": {
+      "1": 3,
+      "2": 1,
+      "3": 2,
+      "4": 3,
+      "5": 0,
+      "6": 2,
+      "7": 0,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 11,
+    "severity": "moderate"
+  },
+  {
+    "id": "phq9_moderate_34",
+    "item_scores": {
+      "1": 3,
+      "2": 1,
+      "3": 3,
+      "4": 1,
+      "5": 2,
+      "6": 2,
+      "7": 0,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 12,
+    "severity": "moderate"
+  },
+  {
+    "id": "phq9_moderate_35",
+    "item_scores": {
+      "1": 0,
+      "2": 3,
+      "3": 1,
+      "4": 1,
+      "5": 0,
+      "6": 1,
+      "7": 1,
+      "8": 3,
+      "9": 0
+    },
+    "total_score": 10,
+    "severity": "moderate"
+  },
+  {
+    "id": "phq9_moderate_36",
+    "item_scores": {
+      "1": 3,
+      "2": 3,
+      "3": 1,
+      "4": 0,
+      "5": 1,
+      "6": 1,
+      "7": 2,
+      "8": 3,
+      "9": 0
+    },
+    "total_score": 14,
+    "severity": "moderate"
+  },
+  {
+    "id": "phq9_moderate_37",
+    "item_scores": {
+      "1": 0,
+      "2": 2,
+      "3": 1,
+      "4": 1,
+      "5": 2,
+      "6": 1,
+      "7": 2,
+      "8": 1,
+      "9": 0
+    },
+    "total_score": 10,
+    "severity": "moderate"
+  },
+  {
+    "id": "phq9_moderate_38",
+    "item_scores": {
+      "1": 0,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1,
+      "6": 3,
+      "7": 3,
+      "8": 3,
+      "9": 0
+    },
+    "total_score": 13,
+    "severity": "moderate"
+  },
+  {
+    "id": "phq9_moderate_39",
+    "item_scores": {
+      "1": 1,
+      "2": 3,
+      "3": 1,
+      "4": 0,
+      "5": 0,
+      "6": 3,
+      "7": 2,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 10,
+    "severity": "moderate"
+  },
+  {
+    "id": "phq9_moderate_40",
+    "item_scores": {
+      "1": 1,
+      "2": 3,
+      "3": 1,
+      "4": 2,
+      "5": 2,
+      "6": 3,
+      "7": 0,
+      "8": 1,
+      "9": 0
+    },
+    "total_score": 13,
+    "severity": "moderate"
+  },
+  {
+    "id": "phq9_moderate_41",
+    "item_scores": {
+      "1": 3,
+      "2": 0,
+      "3": 2,
+      "4": 1,
+      "5": 3,
+      "6": 2,
+      "7": 1,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 12,
+    "severity": "moderate"
+  },
+  {
+    "id": "phq9_moderate_42",
+    "item_scores": {
+      "1": 1,
+      "2": 2,
+      "3": 2,
+      "4": 1,
+      "5": 0,
+      "6": 1,
+      "7": 3,
+      "8": 1,
+      "9": 0
+    },
+    "total_score": 11,
+    "severity": "moderate"
+  },
+  {
+    "id": "phq9_moderate_43",
+    "item_scores": {
+      "1": 2,
+      "2": 2,
+      "3": 2,
+      "4": 0,
+      "5": 2,
+      "6": 1,
+      "7": 1,
+      "8": 2,
+      "9": 0
+    },
+    "total_score": 12,
+    "severity": "moderate"
+  },
+  {
+    "id": "phq9_moderate_44",
+    "item_scores": {
+      "1": 1,
+      "2": 2,
+      "3": 0,
+      "4": 2,
+      "5": 3,
+      "6": 1,
+      "7": 3,
+      "8": 2,
+      "9": 0
+    },
+    "total_score": 14,
+    "severity": "moderate"
+  },
+  {
+    "id": "phq9_moderate_45",
+    "item_scores": {
+      "1": 3,
+      "2": 1,
+      "3": 2,
+      "4": 2,
+      "5": 3,
+      "6": 1,
+      "7": 1,
+      "8": 1,
+      "9": 0
+    },
+    "total_score": 14,
+    "severity": "moderate"
+  },
+  {
+    "id": "phq9_moderate_46",
+    "item_scores": {
+      "1": 2,
+      "2": 2,
+      "3": 0,
+      "4": 1,
+      "5": 0,
+      "6": 2,
+      "7": 3,
+      "8": 1,
+      "9": 0
+    },
+    "total_score": 11,
+    "severity": "moderate"
+  },
+  {
+    "id": "phq9_moderate_47",
+    "item_scores": {
+      "1": 1,
+      "2": 3,
+      "3": 1,
+      "4": 1,
+      "5": 2,
+      "6": 2,
+      "7": 3,
+      "8": 1,
+      "9": 0
+    },
+    "total_score": 14,
+    "severity": "moderate"
+  },
+  {
+    "id": "phq9_moderate_48",
+    "item_scores": {
+      "1": 0,
+      "2": 3,
+      "3": 3,
+      "4": 3,
+      "5": 0,
+      "6": 3,
+      "7": 0,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 12,
+    "severity": "moderate"
+  },
+  {
+    "id": "phq9_moderate_49",
+    "item_scores": {
+      "1": 0,
+      "2": 2,
+      "3": 3,
+      "4": 1,
+      "5": 1,
+      "6": 2,
+      "7": 0,
+      "8": 3,
+      "9": 0
+    },
+    "total_score": 12,
+    "severity": "moderate"
+  },
+  {
+    "id": "phq9_moderately_severe_0",
+    "item_scores": {
+      "1": 3,
+      "2": 3,
+      "3": 1,
+      "4": 1,
+      "5": 2,
+      "6": 3,
+      "7": 1,
+      "8": 3,
+      "9": 0
+    },
+    "total_score": 17,
+    "severity": "moderately_severe"
+  },
+  {
+    "id": "phq9_moderately_severe_1",
+    "item_scores": {
+      "1": 2,
+      "2": 3,
+      "3": 2,
+      "4": 1,
+      "5": 2,
+      "6": 3,
+      "7": 3,
+      "8": 2,
+      "9": 0
+    },
+    "total_score": 18,
+    "severity": "moderately_severe"
+  },
+  {
+    "id": "phq9_moderately_severe_2",
+    "item_scores": {
+      "1": 1,
+      "2": 3,
+      "3": 3,
+      "4": 2,
+      "5": 3,
+      "6": 3,
+      "7": 3,
+      "8": 1,
+      "9": 0
+    },
+    "total_score": 19,
+    "severity": "moderately_severe"
+  },
+  {
+    "id": "phq9_moderately_severe_3",
+    "item_scores": {
+      "1": 2,
+      "2": 2,
+      "3": 3,
+      "4": 1,
+      "5": 2,
+      "6": 2,
+      "7": 2,
+      "8": 2,
+      "9": 0
+    },
+    "total_score": 16,
+    "severity": "moderately_severe"
+  },
+  {
+    "id": "phq9_moderately_severe_4",
+    "item_scores": {
+      "1": 1,
+      "2": 2,
+      "3": 2,
+      "4": 3,
+      "5": 3,
+      "6": 2,
+      "7": 2,
+      "8": 3,
+      "9": 0
+    },
+    "total_score": 18,
+    "severity": "moderately_severe"
+  },
+  {
+    "id": "phq9_moderately_severe_5",
+    "item_scores": {
+      "1": 2,
+      "2": 2,
+      "3": 1,
+      "4": 2,
+      "5": 1,
+      "6": 3,
+      "7": 3,
+      "8": 2,
+      "9": 0
+    },
+    "total_score": 16,
+    "severity": "moderately_severe"
+  },
+  {
+    "id": "phq9_moderately_severe_6",
+    "item_scores": {
+      "1": 3,
+      "2": 3,
+      "3": 3,
+      "4": 1,
+      "5": 2,
+      "6": 1,
+      "7": 1,
+      "8": 3,
+      "9": 0
+    },
+    "total_score": 17,
+    "severity": "moderately_severe"
+  },
+  {
+    "id": "phq9_moderately_severe_7",
+    "item_scores": {
+      "1": 3,
+      "2": 3,
+      "3": 1,
+      "4": 2,
+      "5": 2,
+      "6": 1,
+      "7": 2,
+      "8": 2,
+      "9": 0
+    },
+    "total_score": 16,
+    "severity": "moderately_severe"
+  },
+  {
+    "id": "phq9_moderately_severe_8",
+    "item_scores": {
+      "1": 3,
+      "2": 3,
+      "3": 3,
+      "4": 1,
+      "5": 1,
+      "6": 3,
+      "7": 2,
+      "8": 2,
+      "9": 0
+    },
+    "total_score": 18,
+    "severity": "moderately_severe"
+  },
+  {
+    "id": "phq9_moderately_severe_9",
+    "item_scores": {
+      "1": 3,
+      "2": 1,
+      "3": 2,
+      "4": 3,
+      "5": 3,
+      "6": 3,
+      "7": 1,
+      "8": 2,
+      "9": 0
+    },
+    "total_score": 18,
+    "severity": "moderately_severe"
+  },
+  {
+    "id": "phq9_moderately_severe_10",
+    "item_scores": {
+      "1": 0,
+      "2": 3,
+      "3": 2,
+      "4": 0,
+      "5": 3,
+      "6": 3,
+      "7": 3,
+      "8": 3,
+      "9": 0
+    },
+    "total_score": 17,
+    "severity": "moderately_severe"
+  },
+  {
+    "id": "phq9_moderately_severe_11",
+    "item_scores": {
+      "1": 3,
+      "2": 2,
+      "3": 3,
+      "4": 1,
+      "5": 1,
+      "6": 3,
+      "7": 3,
+      "8": 3,
+      "9": 0
+    },
+    "total_score": 19,
+    "severity": "moderately_severe"
+  },
+  {
+    "id": "phq9_moderately_severe_12",
+    "item_scores": {
+      "1": 2,
+      "2": 2,
+      "3": 3,
+      "4": 1,
+      "5": 1,
+      "6": 3,
+      "7": 2,
+      "8": 3,
+      "9": 0
+    },
+    "total_score": 17,
+    "severity": "moderately_severe"
+  },
+  {
+    "id": "phq9_moderately_severe_13",
+    "item_scores": {
+      "1": 1,
+      "2": 3,
+      "3": 3,
+      "4": 3,
+      "5": 3,
+      "6": 3,
+      "7": 0,
+      "8": 3,
+      "9": 0
+    },
+    "total_score": 19,
+    "severity": "moderately_severe"
+  },
+  {
+    "id": "phq9_moderately_severe_14",
+    "item_scores": {
+      "1": 1,
+      "2": 3,
+      "3": 3,
+      "4": 1,
+      "5": 2,
+      "6": 3,
+      "7": 3,
+      "8": 3,
+      "9": 0
+    },
+    "total_score": 19,
+    "severity": "moderately_severe"
+  },
+  {
+    "id": "phq9_moderately_severe_15",
+    "item_scores": {
+      "1": 3,
+      "2": 3,
+      "3": 3,
+      "4": 3,
+      "5": 3,
+      "6": 1,
+      "7": 1,
+      "8": 2,
+      "9": 0
+    },
+    "total_score": 19,
+    "severity": "moderately_severe"
+  },
+  {
+    "id": "phq9_moderately_severe_16",
+    "item_scores": {
+      "1": 1,
+      "2": 3,
+      "3": 3,
+      "4": 2,
+      "5": 1,
+      "6": 3,
+      "7": 2,
+      "8": 3,
+      "9": 0
+    },
+    "total_score": 18,
+    "severity": "moderately_severe"
+  },
+  {
+    "id": "phq9_moderately_severe_17",
+    "item_scores": {
+      "1": 1,
+      "2": 1,
+      "3": 3,
+      "4": 2,
+      "5": 2,
+      "6": 2,
+      "7": 2,
+      "8": 3,
+      "9": 0
+    },
+    "total_score": 16,
+    "severity": "moderately_severe"
+  },
+  {
+    "id": "phq9_moderately_severe_18",
+    "item_scores": {
+      "1": 3,
+      "2": 1,
+      "3": 1,
+      "4": 2,
+      "5": 2,
+      "6": 1,
+      "7": 2,
+      "8": 3,
+      "9": 0
+    },
+    "total_score": 15,
+    "severity": "moderately_severe"
+  },
+  {
+    "id": "phq9_moderately_severe_19",
+    "item_scores": {
+      "1": 2,
+      "2": 3,
+      "3": 2,
+      "4": 1,
+      "5": 2,
+      "6": 3,
+      "7": 3,
+      "8": 1,
+      "9": 1
+    },
+    "total_score": 18,
+    "severity": "moderately_severe"
+  },
+  {
+    "id": "phq9_moderately_severe_20",
+    "item_scores": {
+      "1": 3,
+      "2": 1,
+      "3": 3,
+      "4": 0,
+      "5": 3,
+      "6": 3,
+      "7": 3,
+      "8": 3,
+      "9": 0
+    },
+    "total_score": 19,
+    "severity": "moderately_severe"
+  },
+  {
+    "id": "phq9_moderately_severe_21",
+    "item_scores": {
+      "1": 3,
+      "2": 1,
+      "3": 2,
+      "4": 3,
+      "5": 1,
+      "6": 1,
+      "7": 1,
+      "8": 3,
+      "9": 0
+    },
+    "total_score": 15,
+    "severity": "moderately_severe"
+  },
+  {
+    "id": "phq9_moderately_severe_22",
+    "item_scores": {
+      "1": 1,
+      "2": 1,
+      "3": 2,
+      "4": 3,
+      "5": 3,
+      "6": 3,
+      "7": 2,
+      "8": 3,
+      "9": 0
+    },
+    "total_score": 18,
+    "severity": "moderately_severe"
+  },
+  {
+    "id": "phq9_moderately_severe_23",
+    "item_scores": {
+      "1": 3,
+      "2": 2,
+      "3": 2,
+      "4": 3,
+      "5": 3,
+      "6": 2,
+      "7": 2,
+      "8": 2,
+      "9": 1
+    },
+    "total_score": 20,
+    "severity": "moderately_severe"
+  },
+  {
+    "id": "phq9_moderately_severe_24",
+    "item_scores": {
+      "1": 3,
+      "2": 2,
+      "3": 3,
+      "4": 2,
+      "5": 2,
+      "6": 1,
+      "7": 1,
+      "8": 3,
+      "9": 0
+    },
+    "total_score": 17,
+    "severity": "moderately_severe"
+  },
+  {
+    "id": "phq9_moderately_severe_25",
+    "item_scores": {
+      "1": 3,
+      "2": 2,
+      "3": 2,
+      "4": 1,
+      "5": 3,
+      "6": 1,
+      "7": 1,
+      "8": 3,
+      "9": 0
+    },
+    "total_score": 16,
+    "severity": "moderately_severe"
+  },
+  {
+    "id": "phq9_moderately_severe_26",
+    "item_scores": {
+      "1": 2,
+      "2": 2,
+      "3": 3,
+      "4": 2,
+      "5": 2,
+      "6": 3,
+      "7": 3,
+      "8": 1,
+      "9": 0
+    },
+    "total_score": 18,
+    "severity": "moderately_severe"
+  },
+  {
+    "id": "phq9_moderately_severe_27",
+    "item_scores": {
+      "1": 2,
+      "2": 2,
+      "3": 1,
+      "4": 2,
+      "5": 3,
+      "6": 3,
+      "7": 1,
+      "8": 2,
+      "9": 0
+    },
+    "total_score": 16,
+    "severity": "moderately_severe"
+  },
+  {
+    "id": "phq9_moderately_severe_28",
+    "item_scores": {
+      "1": 1,
+      "2": 3,
+      "3": 3,
+      "4": 3,
+      "5": 0,
+      "6": 2,
+      "7": 1,
+      "8": 3,
+      "9": 0
+    },
+    "total_score": 16,
+    "severity": "moderately_severe"
+  },
+  {
+    "id": "phq9_moderately_severe_29",
+    "item_scores": {
+      "1": 3,
+      "2": 3,
+      "3": 1,
+      "4": 2,
+      "5": 3,
+      "6": 1,
+      "7": 3,
+      "8": 3,
+      "9": 0
+    },
+    "total_score": 19,
+    "severity": "moderately_severe"
+  },
+  {
+    "id": "phq9_moderately_severe_30",
+    "item_scores": {
+      "1": 2,
+      "2": 2,
+      "3": 3,
+      "4": 1,
+      "5": 1,
+      "6": 2,
+      "7": 3,
+      "8": 2,
+      "9": 0
+    },
+    "total_score": 16,
+    "severity": "moderately_severe"
+  },
+  {
+    "id": "phq9_moderately_severe_31",
+    "item_scores": {
+      "1": 3,
+      "2": 3,
+      "3": 2,
+      "4": 3,
+      "5": 1,
+      "6": 1,
+      "7": 3,
+      "8": 3,
+      "9": 0
+    },
+    "total_score": 19,
+    "severity": "moderately_severe"
+  },
+  {
+    "id": "phq9_moderately_severe_32",
+    "item_scores": {
+      "1": 2,
+      "2": 0,
+      "3": 2,
+      "4": 3,
+      "5": 3,
+      "6": 3,
+      "7": 3,
+      "8": 1,
+      "9": 0
+    },
+    "total_score": 17,
+    "severity": "moderately_severe"
+  },
+  {
+    "id": "phq9_moderately_severe_33",
+    "item_scores": {
+      "1": 1,
+      "2": 1,
+      "3": 3,
+      "4": 3,
+      "5": 3,
+      "6": 1,
+      "7": 3,
+      "8": 2,
+      "9": 0
+    },
+    "total_score": 17,
+    "severity": "moderately_severe"
+  },
+  {
+    "id": "phq9_moderately_severe_34",
+    "item_scores": {
+      "1": 3,
+      "2": 3,
+      "3": 0,
+      "4": 3,
+      "5": 2,
+      "6": 2,
+      "7": 2,
+      "8": 2,
+      "9": 0
+    },
+    "total_score": 17,
+    "severity": "moderately_severe"
+  },
+  {
+    "id": "phq9_moderately_severe_35",
+    "item_scores": {
+      "1": 2,
+      "2": 1,
+      "3": 2,
+      "4": 2,
+      "5": 3,
+      "6": 3,
+      "7": 2,
+      "8": 3,
+      "9": 1
+    },
+    "total_score": 19,
+    "severity": "moderately_severe"
+  },
+  {
+    "id": "phq9_moderately_severe_36",
+    "item_scores": {
+      "1": 3,
+      "2": 1,
+      "3": 3,
+      "4": 1,
+      "5": 1,
+      "6": 2,
+      "7": 2,
+      "8": 3,
+      "9": 1
+    },
+    "total_score": 17,
+    "severity": "moderately_severe"
+  },
+  {
+    "id": "phq9_moderately_severe_37",
+    "item_scores": {
+      "1": 3,
+      "2": 2,
+      "3": 2,
+      "4": 1,
+      "5": 2,
+      "6": 1,
+      "7": 2,
+      "8": 3,
+      "9": 0
+    },
+    "total_score": 16,
+    "severity": "moderately_severe"
+  },
+  {
+    "id": "phq9_moderately_severe_38",
+    "item_scores": {
+      "1": 2,
+      "2": 3,
+      "3": 1,
+      "4": 3,
+      "5": 3,
+      "6": 2,
+      "7": 3,
+      "8": 2,
+      "9": 0
+    },
+    "total_score": 19,
+    "severity": "moderately_severe"
+  },
+  {
+    "id": "phq9_moderately_severe_39",
+    "item_scores": {
+      "1": 3,
+      "2": 3,
+      "3": 1,
+      "4": 2,
+      "5": 2,
+      "6": 2,
+      "7": 1,
+      "8": 2,
+      "9": 1
+    },
+    "total_score": 17,
+    "severity": "moderately_severe"
+  },
+  {
+    "id": "phq9_moderately_severe_40",
+    "item_scores": {
+      "1": 1,
+      "2": 3,
+      "3": 3,
+      "4": 2,
+      "5": 1,
+      "6": 3,
+      "7": 3,
+      "8": 0,
+      "9": 0
+    },
+    "total_score": 16,
+    "severity": "moderately_severe"
+  },
+  {
+    "id": "phq9_moderately_severe_41",
+    "item_scores": {
+      "1": 1,
+      "2": 3,
+      "3": 3,
+      "4": 2,
+      "5": 3,
+      "6": 2,
+      "7": 3,
+      "8": 2,
+      "9": 0
+    },
+    "total_score": 19,
+    "severity": "moderately_severe"
+  },
+  {
+    "id": "phq9_moderately_severe_42",
+    "item_scores": {
+      "1": 2,
+      "2": 3,
+      "3": 2,
+      "4": 0,
+      "5": 2,
+      "6": 3,
+      "7": 3,
+      "8": 2,
+      "9": 1
+    },
+    "total_score": 18,
+    "severity": "moderately_severe"
+  },
+  {
+    "id": "phq9_moderately_severe_43",
+    "item_scores": {
+      "1": 0,
+      "2": 3,
+      "3": 3,
+      "4": 2,
+      "5": 3,
+      "6": 1,
+      "7": 3,
+      "8": 3,
+      "9": 0
+    },
+    "total_score": 18,
+    "severity": "moderately_severe"
+  },
+  {
+    "id": "phq9_moderately_severe_44",
+    "item_scores": {
+      "1": 1,
+      "2": 1,
+      "3": 2,
+      "4": 1,
+      "5": 2,
+      "6": 3,
+      "7": 3,
+      "8": 3,
+      "9": 0
+    },
+    "total_score": 16,
+    "severity": "moderately_severe"
+  },
+  {
+    "id": "phq9_moderately_severe_45",
+    "item_scores": {
+      "1": 1,
+      "2": 2,
+      "3": 1,
+      "4": 3,
+      "5": 3,
+      "6": 3,
+      "7": 2,
+      "8": 3,
+      "9": 0
+    },
+    "total_score": 18,
+    "severity": "moderately_severe"
+  },
+  {
+    "id": "phq9_moderately_severe_46",
+    "item_scores": {
+      "1": 1,
+      "2": 3,
+      "3": 2,
+      "4": 2,
+      "5": 2,
+      "6": 2,
+      "7": 3,
+      "8": 3,
+      "9": 1
+    },
+    "total_score": 19,
+    "severity": "moderately_severe"
+  },
+  {
+    "id": "phq9_moderately_severe_47",
+    "item_scores": {
+      "1": 3,
+      "2": 3,
+      "3": 1,
+      "4": 2,
+      "5": 1,
+      "6": 3,
+      "7": 3,
+      "8": 3,
+      "9": 0
+    },
+    "total_score": 19,
+    "severity": "moderately_severe"
+  },
+  {
+    "id": "phq9_moderately_severe_48",
+    "item_scores": {
+      "1": 2,
+      "2": 3,
+      "3": 1,
+      "4": 1,
+      "5": 2,
+      "6": 3,
+      "7": 0,
+      "8": 3,
+      "9": 0
+    },
+    "total_score": 15,
+    "severity": "moderately_severe"
+  },
+  {
+    "id": "phq9_moderately_severe_49",
+    "item_scores": {
+      "1": 2,
+      "2": 0,
+      "3": 3,
+      "4": 3,
+      "5": 1,
+      "6": 1,
+      "7": 3,
+      "8": 2,
+      "9": 0
+    },
+    "total_score": 15,
+    "severity": "moderately_severe"
+  },
+  {
+    "id": "phq9_severe_0",
+    "item_scores": {
+      "1": 1,
+      "2": 3,
+      "3": 3,
+      "4": 2,
+      "5": 3,
+      "6": 3,
+      "7": 3,
+      "8": 3,
+      "9": 0
+    },
+    "total_score": 21,
+    "severity": "severe"
+  },
+  {
+    "id": "phq9_severe_1",
+    "item_scores": {
+      "1": 3,
+      "2": 3,
+      "3": 3,
+      "4": 3,
+      "5": 3,
+      "6": 3,
+      "7": 3,
+      "8": 3,
+      "9": 2
+    },
+    "total_score": 26,
+    "severity": "severe"
+  },
+  {
+    "id": "phq9_severe_2",
+    "item_scores": {
+      "1": 2,
+      "2": 3,
+      "3": 3,
+      "4": 2,
+      "5": 3,
+      "6": 2,
+      "7": 3,
+      "8": 2,
+      "9": 0
+    },
+    "total_score": 20,
+    "severity": "severe"
+  },
+  {
+    "id": "phq9_severe_3",
+    "item_scores": {
+      "1": 2,
+      "2": 3,
+      "3": 3,
+      "4": 3,
+      "5": 1,
+      "6": 3,
+      "7": 2,
+      "8": 3,
+      "9": 1
+    },
+    "total_score": 21,
+    "severity": "severe"
+  },
+  {
+    "id": "phq9_severe_4",
+    "item_scores": {
+      "1": 2,
+      "2": 3,
+      "3": 3,
+      "4": 3,
+      "5": 3,
+      "6": 3,
+      "7": 3,
+      "8": 2,
+      "9": 3
+    },
+    "total_score": 25,
+    "severity": "severe"
+  },
+  {
+    "id": "phq9_severe_5",
+    "item_scores": {
+      "1": 3,
+      "2": 3,
+      "3": 2,
+      "4": 3,
+      "5": 3,
+      "6": 3,
+      "7": 3,
+      "8": 3,
+      "9": 0
+    },
+    "total_score": 23,
+    "severity": "severe"
+  },
+  {
+    "id": "phq9_severe_6",
+    "item_scores": {
+      "1": 3,
+      "2": 3,
+      "3": 3,
+      "4": 3,
+      "5": 3,
+      "6": 3,
+      "7": 3,
+      "8": 3,
+      "9": 0
+    },
+    "total_score": 24,
+    "severity": "severe"
+  },
+  {
+    "id": "phq9_severe_7",
+    "item_scores": {
+      "1": 3,
+      "2": 3,
+      "3": 3,
+      "4": 3,
+      "5": 3,
+      "6": 3,
+      "7": 3,
+      "8": 2,
+      "9": 2
+    },
+    "total_score": 25,
+    "severity": "severe"
+  },
+  {
+    "id": "phq9_severe_8",
+    "item_scores": {
+      "1": 3,
+      "2": 3,
+      "3": 3,
+      "4": 3,
+      "5": 3,
+      "6": 3,
+      "7": 3,
+      "8": 3,
+      "9": 0
+    },
+    "total_score": 24,
+    "severity": "severe"
+  },
+  {
+    "id": "phq9_severe_9",
+    "item_scores": {
+      "1": 3,
+      "2": 3,
+      "3": 3,
+      "4": 3,
+      "5": 3,
+      "6": 3,
+      "7": 3,
+      "8": 3,
+      "9": 1
+    },
+    "total_score": 25,
+    "severity": "severe"
+  },
+  {
+    "id": "phq9_severe_10",
+    "item_scores": {
+      "1": 3,
+      "2": 3,
+      "3": 2,
+      "4": 1,
+      "5": 2,
+      "6": 3,
+      "7": 3,
+      "8": 3,
+      "9": 2
+    },
+    "total_score": 22,
+    "severity": "severe"
+  },
+  {
+    "id": "phq9_severe_11",
+    "item_scores": {
+      "1": 3,
+      "2": 3,
+      "3": 3,
+      "4": 3,
+      "5": 3,
+      "6": 2,
+      "7": 3,
+      "8": 2,
+      "9": 1
+    },
+    "total_score": 23,
+    "severity": "severe"
+  },
+  {
+    "id": "phq9_severe_12",
+    "item_scores": {
+      "1": 3,
+      "2": 3,
+      "3": 3,
+      "4": 3,
+      "5": 3,
+      "6": 3,
+      "7": 3,
+      "8": 3,
+      "9": 0
+    },
+    "total_score": 24,
+    "severity": "severe"
+  },
+  {
+    "id": "phq9_severe_13",
+    "item_scores": {
+      "1": 1,
+      "2": 3,
+      "3": 2,
+      "4": 3,
+      "5": 3,
+      "6": 3,
+      "7": 2,
+      "8": 3,
+      "9": 3
+    },
+    "total_score": 23,
+    "severity": "severe"
+  },
+  {
+    "id": "phq9_severe_14",
+    "item_scores": {
+      "1": 3,
+      "2": 3,
+      "3": 3,
+      "4": 3,
+      "5": 3,
+      "6": 3,
+      "7": 3,
+      "8": 3,
+      "9": 0
+    },
+    "total_score": 24,
+    "severity": "severe"
+  },
+  {
+    "id": "phq9_severe_15",
+    "item_scores": {
+      "1": 2,
+      "2": 3,
+      "3": 2,
+      "4": 3,
+      "5": 3,
+      "6": 3,
+      "7": 3,
+      "8": 3,
+      "9": 0
+    },
+    "total_score": 22,
+    "severity": "severe"
+  },
+  {
+    "id": "phq9_severe_16",
+    "item_scores": {
+      "1": 3,
+      "2": 3,
+      "3": 3,
+      "4": 3,
+      "5": 3,
+      "6": 3,
+      "7": 3,
+      "8": 3,
+      "9": 0
+    },
+    "total_score": 24,
+    "severity": "severe"
+  },
+  {
+    "id": "phq9_severe_17",
+    "item_scores": {
+      "1": 3,
+      "2": 3,
+      "3": 2,
+      "4": 3,
+      "5": 3,
+      "6": 3,
+      "7": 0,
+      "8": 3,
+      "9": 1
+    },
+    "total_score": 21,
+    "severity": "severe"
+  },
+  {
+    "id": "phq9_severe_18",
+    "item_scores": {
+      "1": 3,
+      "2": 3,
+      "3": 3,
+      "4": 0,
+      "5": 3,
+      "6": 3,
+      "7": 3,
+      "8": 3,
+      "9": 1
+    },
+    "total_score": 22,
+    "severity": "severe"
+  },
+  {
+    "id": "phq9_severe_19",
+    "item_scores": {
+      "1": 3,
+      "2": 3,
+      "3": 3,
+      "4": 3,
+      "5": 2,
+      "6": 3,
+      "7": 3,
+      "8": 3,
+      "9": 0
+    },
+    "total_score": 23,
+    "severity": "severe"
+  },
+  {
+    "id": "phq9_severe_20",
+    "item_scores": {
+      "1": 3,
+      "2": 3,
+      "3": 3,
+      "4": 3,
+      "5": 3,
+      "6": 3,
+      "7": 3,
+      "8": 3,
+      "9": 3
+    },
+    "total_score": 27,
+    "severity": "severe"
+  },
+  {
+    "id": "phq9_severe_21",
+    "item_scores": {
+      "1": 3,
+      "2": 3,
+      "3": 3,
+      "4": 3,
+      "5": 3,
+      "6": 3,
+      "7": 3,
+      "8": 3,
+      "9": 0
+    },
+    "total_score": 24,
+    "severity": "severe"
+  },
+  {
+    "id": "phq9_severe_22",
+    "item_scores": {
+      "1": 3,
+      "2": 3,
+      "3": 2,
+      "4": 3,
+      "5": 3,
+      "6": 3,
+      "7": 3,
+      "8": 3,
+      "9": 2
+    },
+    "total_score": 25,
+    "severity": "severe"
+  },
+  {
+    "id": "phq9_severe_23",
+    "item_scores": {
+      "1": 3,
+      "2": 3,
+      "3": 3,
+      "4": 3,
+      "5": 3,
+      "6": 3,
+      "7": 3,
+      "8": 2,
+      "9": 0
+    },
+    "total_score": 23,
+    "severity": "severe"
+  },
+  {
+    "id": "phq9_severe_24",
+    "item_scores": {
+      "1": 3,
+      "2": 2,
+      "3": 3,
+      "4": 3,
+      "5": 3,
+      "6": 2,
+      "7": 3,
+      "8": 2,
+      "9": 3
+    },
+    "total_score": 24,
+    "severity": "severe"
+  },
+  {
+    "id": "phq9_severe_25",
+    "item_scores": {
+      "1": 2,
+      "2": 3,
+      "3": 3,
+      "4": 3,
+      "5": 3,
+      "6": 3,
+      "7": 2,
+      "8": 3,
+      "9": 2
+    },
+    "total_score": 24,
+    "severity": "severe"
+  },
+  {
+    "id": "phq9_severe_26",
+    "item_scores": {
+      "1": 3,
+      "2": 3,
+      "3": 3,
+      "4": 2,
+      "5": 3,
+      "6": 3,
+      "7": 2,
+      "8": 3,
+      "9": 3
+    },
+    "total_score": 25,
+    "severity": "severe"
+  },
+  {
+    "id": "phq9_severe_27",
+    "item_scores": {
+      "1": 3,
+      "2": 3,
+      "3": 3,
+      "4": 3,
+      "5": 3,
+      "6": 3,
+      "7": 3,
+      "8": 3,
+      "9": 0
+    },
+    "total_score": 24,
+    "severity": "severe"
+  },
+  {
+    "id": "phq9_severe_28",
+    "item_scores": {
+      "1": 1,
+      "2": 3,
+      "3": 3,
+      "4": 3,
+      "5": 2,
+      "6": 3,
+      "7": 3,
+      "8": 3,
+      "9": 2
+    },
+    "total_score": 23,
+    "severity": "severe"
+  },
+  {
+    "id": "phq9_severe_29",
+    "item_scores": {
+      "1": 3,
+      "2": 3,
+      "3": 3,
+      "4": 3,
+      "5": 3,
+      "6": 3,
+      "7": 3,
+      "8": 3,
+      "9": 0
+    },
+    "total_score": 24,
+    "severity": "severe"
+  },
+  {
+    "id": "phq9_severe_30",
+    "item_scores": {
+      "1": 3,
+      "2": 3,
+      "3": 3,
+      "4": 3,
+      "5": 3,
+      "6": 2,
+      "7": 3,
+      "8": 3,
+      "9": 3
+    },
+    "total_score": 26,
+    "severity": "severe"
+  },
+  {
+    "id": "phq9_severe_31",
+    "item_scores": {
+      "1": 3,
+      "2": 3,
+      "3": 3,
+      "4": 3,
+      "5": 3,
+      "6": 3,
+      "7": 3,
+      "8": 2,
+      "9": 0
+    },
+    "total_score": 23,
+    "severity": "severe"
+  },
+  {
+    "id": "phq9_severe_32",
+    "item_scores": {
+      "1": 2,
+      "2": 3,
+      "3": 3,
+      "4": 3,
+      "5": 3,
+      "6": 3,
+      "7": 3,
+      "8": 3,
+      "9": 1
+    },
+    "total_score": 24,
+    "severity": "severe"
+  },
+  {
+    "id": "phq9_severe_33",
+    "item_scores": {
+      "1": 3,
+      "2": 2,
+      "3": 3,
+      "4": 2,
+      "5": 2,
+      "6": 3,
+      "7": 3,
+      "8": 3,
+      "9": 3
+    },
+    "total_score": 24,
+    "severity": "severe"
+  },
+  {
+    "id": "phq9_severe_34",
+    "item_scores": {
+      "1": 3,
+      "2": 3,
+      "3": 3,
+      "4": 3,
+      "5": 3,
+      "6": 3,
+      "7": 3,
+      "8": 3,
+      "9": 2
+    },
+    "total_score": 26,
+    "severity": "severe"
+  },
+  {
+    "id": "phq9_severe_35",
+    "item_scores": {
+      "1": 3,
+      "2": 3,
+      "3": 3,
+      "4": 3,
+      "5": 3,
+      "6": 3,
+      "7": 3,
+      "8": 3,
+      "9": 2
+    },
+    "total_score": 26,
+    "severity": "severe"
+  },
+  {
+    "id": "phq9_severe_36",
+    "item_scores": {
+      "1": 2,
+      "2": 2,
+      "3": 3,
+      "4": 3,
+      "5": 3,
+      "6": 3,
+      "7": 2,
+      "8": 3,
+      "9": 0
+    },
+    "total_score": 21,
+    "severity": "severe"
+  },
+  {
+    "id": "phq9_severe_37",
+    "item_scores": {
+      "1": 3,
+      "2": 3,
+      "3": 3,
+      "4": 3,
+      "5": 3,
+      "6": 3,
+      "7": 3,
+      "8": 3,
+      "9": 3
+    },
+    "total_score": 27,
+    "severity": "severe"
+  },
+  {
+    "id": "phq9_severe_38",
+    "item_scores": {
+      "1": 3,
+      "2": 3,
+      "3": 2,
+      "4": 3,
+      "5": 3,
+      "6": 2,
+      "7": 2,
+      "8": 2,
+      "9": 1
+    },
+    "total_score": 21,
+    "severity": "severe"
+  },
+  {
+    "id": "phq9_severe_39",
+    "item_scores": {
+      "1": 3,
+      "2": 3,
+      "3": 3,
+      "4": 3,
+      "5": 3,
+      "6": 3,
+      "7": 2,
+      "8": 3,
+      "9": 0
+    },
+    "total_score": 23,
+    "severity": "severe"
+  },
+  {
+    "id": "phq9_severe_40",
+    "item_scores": {
+      "1": 3,
+      "2": 3,
+      "3": 3,
+      "4": 3,
+      "5": 3,
+      "6": 3,
+      "7": 3,
+      "8": 3,
+      "9": 2
+    },
+    "total_score": 26,
+    "severity": "severe"
+  },
+  {
+    "id": "phq9_severe_41",
+    "item_scores": {
+      "1": 3,
+      "2": 3,
+      "3": 3,
+      "4": 3,
+      "5": 3,
+      "6": 3,
+      "7": 3,
+      "8": 3,
+      "9": 3
+    },
+    "total_score": 27,
+    "severity": "severe"
+  },
+  {
+    "id": "phq9_severe_42",
+    "item_scores": {
+      "1": 3,
+      "2": 3,
+      "3": 3,
+      "4": 3,
+      "5": 3,
+      "6": 2,
+      "7": 3,
+      "8": 3,
+      "9": 2
+    },
+    "total_score": 25,
+    "severity": "severe"
+  },
+  {
+    "id": "phq9_severe_43",
+    "item_scores": {
+      "1": 3,
+      "2": 1,
+      "3": 3,
+      "4": 3,
+      "5": 3,
+      "6": 3,
+      "7": 3,
+      "8": 1,
+      "9": 0
+    },
+    "total_score": 20,
+    "severity": "severe"
+  },
+  {
+    "id": "phq9_severe_44",
+    "item_scores": {
+      "1": 3,
+      "2": 3,
+      "3": 3,
+      "4": 3,
+      "5": 3,
+      "6": 3,
+      "7": 3,
+      "8": 2,
+      "9": 3
+    },
+    "total_score": 26,
+    "severity": "severe"
+  },
+  {
+    "id": "phq9_severe_45",
+    "item_scores": {
+      "1": 3,
+      "2": 3,
+      "3": 3,
+      "4": 3,
+      "5": 3,
+      "6": 3,
+      "7": 3,
+      "8": 3,
+      "9": 2
+    },
+    "total_score": 26,
+    "severity": "severe"
+  },
+  {
+    "id": "phq9_severe_46",
+    "item_scores": {
+      "1": 3,
+      "2": 3,
+      "3": 3,
+      "4": 3,
+      "5": 2,
+      "6": 2,
+      "7": 1,
+      "8": 3,
+      "9": 1
+    },
+    "total_score": 21,
+    "severity": "severe"
+  },
+  {
+    "id": "phq9_severe_47",
+    "item_scores": {
+      "1": 2,
+      "2": 3,
+      "3": 3,
+      "4": 2,
+      "5": 3,
+      "6": 3,
+      "7": 3,
+      "8": 3,
+      "9": 0
+    },
+    "total_score": 22,
+    "severity": "severe"
+  },
+  {
+    "id": "phq9_severe_48",
+    "item_scores": {
+      "1": 3,
+      "2": 3,
+      "3": 3,
+      "4": 3,
+      "5": 3,
+      "6": 3,
+      "7": 3,
+      "8": 3,
+      "9": 0
+    },
+    "total_score": 24,
+    "severity": "severe"
+  },
+  {
+    "id": "phq9_severe_49",
+    "item_scores": {
+      "1": 3,
+      "2": 3,
+      "3": 3,
+      "4": 3,
+      "5": 3,
+      "6": 3,
+      "7": 0,
+      "8": 3,
+      "9": 1
+    },
+    "total_score": 22,
+    "severity": "severe"
+  }
+]

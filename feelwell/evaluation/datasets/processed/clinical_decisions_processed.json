@@ -1,0 +1,337 @@
+{
+  "dataset": "clinical_decisions",
+  "version": "1.0.0",
+  "processed_at": "2026-01-15T13:35:41.729342",
+  "samples": [
+    {
+      "sample_id": "clin_000",
+      "text": "A 16-year-old student reports having a specific plan to harm themselves tonight and has access to means.",
+      "category": "clinical_decision",
+      "triage_level": "crisis",
+      "severity_score": null,
+      "source_dataset": "clinical_decisions",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "clin_000_v0",
+      "text": "A 16-year-old student reports having a specific plan to harm themselves tonight and has access to means. (Case variation 1)",
+      "category": "clinical_decision",
+      "triage_level": "crisis",
+      "severity_score": null,
+      "source_dataset": "clinical_decisions",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "clin_000_v1",
+      "text": "A 16-year-old student reports having a specific plan to harm themselves tonight and has access to means. (Case variation 2)",
+      "category": "clinical_decision",
+      "triage_level": "crisis",
+      "severity_score": null,
+      "source_dataset": "clinical_decisions",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "clin_001",
+      "text": "A student discloses ongoing physical abuse at home and shows visible injuries.",
+      "category": "clinical_decision",
+      "triage_level": "crisis",
+      "severity_score": null,
+      "source_dataset": "clinical_decisions",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "clin_001_v0",
+      "text": "A student discloses ongoing physical abuse at home and shows visible injuries. (Case variation 1)",
+      "category": "clinical_decision",
+      "triage_level": "crisis",
+      "severity_score": null,
+      "source_dataset": "clinical_decisions",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "clin_001_v1",
+      "text": "A student discloses ongoing physical abuse at home and shows visible injuries. (Case variation 2)",
+      "category": "clinical_decision",
+      "triage_level": "crisis",
+      "severity_score": null,
+      "source_dataset": "clinical_decisions",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "clin_002",
+      "text": "A 15-year-old mentions hearing voices telling them to hurt others.",
+      "category": "clinical_decision",
+      "triage_level": "crisis",
+      "severity_score": null,
+      "source_dataset": "clinical_decisions",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "clin_002_v0",
+      "text": "A 15-year-old mentions hearing voices telling them to hurt others. (Case variation 1)",
+      "category": "clinical_decision",
+      "triage_level": "crisis",
+      "severity_score": null,
+      "source_dataset": "clinical_decisions",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "clin_002_v1",
+      "text": "A 15-year-old mentions hearing voices telling them to hurt others. (Case variation 2)",
+      "category": "clinical_decision",
+      "triage_level": "crisis",
+      "severity_score": null,
+      "source_dataset": "clinical_decisions",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "clin_003",
+      "text": "A student reports feeling hopeless for the past two weeks but denies any thoughts of self-harm.",
+      "category": "clinical_decision",
+      "triage_level": "caution",
+      "severity_score": null,
+      "source_dataset": "clinical_decisions",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "clin_003_v0",
+      "text": "A student reports feeling hopeless for the past two weeks but denies any thoughts of self-harm. (Case variation 1)",
+      "category": "clinical_decision",
+      "triage_level": "caution",
+      "severity_score": null,
+      "source_dataset": "clinical_decisions",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "clin_003_v1",
+      "text": "A student reports feeling hopeless for the past two weeks but denies any thoughts of self-harm. (Case variation 2)",
+      "category": "clinical_decision",
+      "triage_level": "caution",
+      "severity_score": null,
+      "source_dataset": "clinical_decisions",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "clin_004",
+      "text": "A 14-year-old has been having daily panic attacks that interfere with school attendance.",
+      "category": "clinical_decision",
+      "triage_level": "caution",
+      "severity_score": null,
+      "source_dataset": "clinical_decisions",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "clin_004_v0",
+      "text": "A 14-year-old has been having daily panic attacks that interfere with school attendance. (Case variation 1)",
+      "category": "clinical_decision",
+      "triage_level": "caution",
+      "severity_score": null,
+      "source_dataset": "clinical_decisions",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "clin_004_v1",
+      "text": "A 14-year-old has been having daily panic attacks that interfere with school attendance. (Case variation 2)",
+      "category": "clinical_decision",
+      "triage_level": "caution",
+      "severity_score": null,
+      "source_dataset": "clinical_decisions",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "clin_005",
+      "text": "A student's grades have dropped significantly and they report difficulty concentrating and sleeping.",
+      "category": "clinical_decision",
+      "triage_level": "caution",
+      "severity_score": null,
+      "source_dataset": "clinical_decisions",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "clin_005_v0",
+      "text": "A student's grades have dropped significantly and they report difficulty concentrating and sleeping. (Case variation 1)",
+      "category": "clinical_decision",
+      "triage_level": "caution",
+      "severity_score": null,
+      "source_dataset": "clinical_decisions",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "clin_005_v1",
+      "text": "A student's grades have dropped significantly and they report difficulty concentrating and sleeping. (Case variation 2)",
+      "category": "clinical_decision",
+      "triage_level": "caution",
+      "severity_score": null,
+      "source_dataset": "clinical_decisions",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "clin_006",
+      "text": "A student is stressed about upcoming exams but reports good sleep, appetite, and social support.",
+      "category": "clinical_decision",
+      "triage_level": "safe",
+      "severity_score": null,
+      "source_dataset": "clinical_decisions",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "clin_006_v0",
+      "text": "A student is stressed about upcoming exams but reports good sleep, appetite, and social support. (Case variation 1)",
+      "category": "clinical_decision",
+      "triage_level": "safe",
+      "severity_score": null,
+      "source_dataset": "clinical_decisions",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "clin_006_v1",
+      "text": "A student is stressed about upcoming exams but reports good sleep, appetite, and social support. (Case variation 2)",
+      "category": "clinical_decision",
+      "triage_level": "safe",
+      "severity_score": null,
+      "source_dataset": "clinical_decisions",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "clin_007",
+      "text": "A 17-year-old wants to talk about college application stress but is otherwise functioning well.",
+      "category": "clinical_decision",
+      "triage_level": "safe",
+      "severity_score": null,
+      "source_dataset": "clinical_decisions",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "clin_007_v0",
+      "text": "A 17-year-old wants to talk about college application stress but is otherwise functioning well. (Case variation 1)",
+      "category": "clinical_decision",
+      "triage_level": "safe",
+      "severity_score": null,
+      "source_dataset": "clinical_decisions",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "clin_007_v1",
+      "text": "A 17-year-old wants to talk about college application stress but is otherwise functioning well. (Case variation 2)",
+      "category": "clinical_decision",
+      "triage_level": "safe",
+      "severity_score": null,
+      "source_dataset": "clinical_decisions",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "clin_008",
+      "text": "A student reports occasional sadness after a breakup but is engaging in activities and has support.",
+      "category": "clinical_decision",
+      "triage_level": "safe",
+      "severity_score": null,
+      "source_dataset": "clinical_decisions",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "clin_008_v0",
+      "text": "A student reports occasional sadness after a breakup but is engaging in activities and has support. (Case variation 1)",
+      "category": "clinical_decision",
+      "triage_level": "safe",
+      "severity_score": null,
+      "source_dataset": "clinical_decisions",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "clin_008_v1",
+      "text": "A student reports occasional sadness after a breakup but is engaging in activities and has support. (Case variation 2)",
+      "category": "clinical_decision",
+      "triage_level": "safe",
+      "severity_score": null,
+      "source_dataset": "clinical_decisions",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "clin_009",
+      "text": "A student says 'I wish I could just disappear' but when asked clarifies they mean from social situations.",
+      "category": "clinical_decision",
+      "triage_level": "caution",
+      "severity_score": null,
+      "source_dataset": "clinical_decisions",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "clin_009_v0",
+      "text": "A student says 'I wish I could just disappear' but when asked clarifies they mean from social situations. (Case variation 1)",
+      "category": "clinical_decision",
+      "triage_level": "caution",
+      "severity_score": null,
+      "source_dataset": "clinical_decisions",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "clin_009_v1",
+      "text": "A student says 'I wish I could just disappear' but when asked clarifies they mean from social situations. (Case variation 2)",
+      "category": "clinical_decision",
+      "triage_level": "caution",
+      "severity_score": null,
+      "source_dataset": "clinical_decisions",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "clin_010",
+      "text": "A 13-year-old reports not eating much lately but attributes it to being busy with activities.",
+      "category": "clinical_decision",
+      "triage_level": "caution",
+      "severity_score": null,
+      "source_dataset": "clinical_decisions",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "clin_010_v0",
+      "text": "A 13-year-old reports not eating much lately but attributes it to being busy with activities. (Case variation 1)",
+      "category": "clinical_decision",
+      "triage_level": "caution",
+      "severity_score": null,
+      "source_dataset": "clinical_decisions",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "clin_010_v1",
+      "text": "A 13-year-old reports not eating much lately but attributes it to being busy with activities. (Case variation 2)",
+      "category": "clinical_decision",
+      "triage_level": "caution",
+      "severity_score": null,
+      "source_dataset": "clinical_decisions",
+      "phq9_score": null,
+      "gad7_score": null
+    }
+  ]
+}

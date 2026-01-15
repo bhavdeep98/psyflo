@@ -1,0 +1,302 @@
+[
+  {
+    "input": "I've been feeling really down lately. Nothing seems to make me happy anymore.",
+    "output": "I hear that you've been struggling with low mood. Can you tell me more about when this started?",
+    "topic": "depression"
+  },
+  {
+    "input": "I've been feeling really down lately. Nothing seems to make me happy anymore. (variation 1)",
+    "output": "I hear that you've been struggling with low mood. Can you tell me more about when this started?",
+    "topic": "depression"
+  },
+  {
+    "input": "I've been feeling really down lately. Nothing seems to make me happy anymore. (variation 2)",
+    "output": "I hear that you've been struggling with low mood. Can you tell me more about when this started?",
+    "topic": "depression"
+  },
+  {
+    "input": "I've been feeling really down lately. Nothing seems to make me happy anymore. (variation 3)",
+    "output": "I hear that you've been struggling with low mood. Can you tell me more about when this started?",
+    "topic": "depression"
+  },
+  {
+    "input": "I can't get out of bed most days. I feel worthless and hopeless.",
+    "output": "Those feelings of worthlessness and hopelessness sound really difficult. You're not alone in this.",
+    "topic": "depression"
+  },
+  {
+    "input": "I can't get out of bed most days. I feel worthless and hopeless. (variation 1)",
+    "output": "Those feelings of worthlessness and hopelessness sound really difficult. You're not alone in this.",
+    "topic": "depression"
+  },
+  {
+    "input": "I can't get out of bed most days. I feel worthless and hopeless. (variation 2)",
+    "output": "Those feelings of worthlessness and hopelessness sound really difficult. You're not alone in this.",
+    "topic": "depression"
+  },
+  {
+    "input": "I can't get out of bed most days. I feel worthless and hopeless. (variation 3)",
+    "output": "Those feelings of worthlessness and hopelessness sound really difficult. You're not alone in this.",
+    "topic": "depression"
+  },
+  {
+    "input": "I've lost interest in everything I used to enjoy. Even my hobbies feel pointless.",
+    "output": "Losing interest in activities you once enjoyed is a common experience. Let's explore what might help.",
+    "topic": "depression"
+  },
+  {
+    "input": "I've lost interest in everything I used to enjoy. Even my hobbies feel pointless. (variation 1)",
+    "output": "Losing interest in activities you once enjoyed is a common experience. Let's explore what might help.",
+    "topic": "depression"
+  },
+  {
+    "input": "I've lost interest in everything I used to enjoy. Even my hobbies feel pointless. (variation 2)",
+    "output": "Losing interest in activities you once enjoyed is a common experience. Let's explore what might help.",
+    "topic": "depression"
+  },
+  {
+    "input": "I've lost interest in everything I used to enjoy. Even my hobbies feel pointless. (variation 3)",
+    "output": "Losing interest in activities you once enjoyed is a common experience. Let's explore what might help.",
+    "topic": "depression"
+  },
+  {
+    "input": "I'm constantly worried about everything. My heart races and I can't calm down.",
+    "output": "It sounds like you're experiencing significant anxiety. Let's work on some grounding techniques.",
+    "topic": "anxiety"
+  },
+  {
+    "input": "I'm constantly worried about everything. My heart races and I can't calm down. (variation 1)",
+    "output": "It sounds like you're experiencing significant anxiety. Let's work on some grounding techniques.",
+    "topic": "anxiety"
+  },
+  {
+    "input": "I'm constantly worried about everything. My heart races and I can't calm down. (variation 2)",
+    "output": "It sounds like you're experiencing significant anxiety. Let's work on some grounding techniques.",
+    "topic": "anxiety"
+  },
+  {
+    "input": "I'm constantly worried about everything. My heart races and I can't calm down. (variation 3)",
+    "output": "It sounds like you're experiencing significant anxiety. Let's work on some grounding techniques.",
+    "topic": "anxiety"
+  },
+  {
+    "input": "I have panic attacks almost every day. I'm scared to leave my house.",
+    "output": "Panic attacks can be terrifying. You're brave for reaching out. Let's talk about what triggers them.",
+    "topic": "anxiety"
+  },
+  {
+    "input": "I have panic attacks almost every day. I'm scared to leave my house. (variation 1)",
+    "output": "Panic attacks can be terrifying. You're brave for reaching out. Let's talk about what triggers them.",
+    "topic": "anxiety"
+  },
+  {
+    "input": "I have panic attacks almost every day. I'm scared to leave my house. (variation 2)",
+    "output": "Panic attacks can be terrifying. You're brave for reaching out. Let's talk about what triggers them.",
+    "topic": "anxiety"
+  },
+  {
+    "input": "I have panic attacks almost every day. I'm scared to leave my house. (variation 3)",
+    "output": "Panic attacks can be terrifying. You're brave for reaching out. Let's talk about what triggers them.",
+    "topic": "anxiety"
+  },
+  {
+    "input": "I don't want to be here anymore. I've been thinking about ending it all.",
+    "output": "I'm really concerned about what you're sharing. Your safety is the most important thing right now.",
+    "topic": "suicidal"
+  },
+  {
+    "input": "I don't want to be here anymore. I've been thinking about ending it all. (variation 1)",
+    "output": "I'm really concerned about what you're sharing. Your safety is the most important thing right now.",
+    "topic": "suicidal"
+  },
+  {
+    "input": "I don't want to be here anymore. I've been thinking about ending it all. (variation 2)",
+    "output": "I'm really concerned about what you're sharing. Your safety is the most important thing right now.",
+    "topic": "suicidal"
+  },
+  {
+    "input": "I don't want to be here anymore. I've been thinking about ending it all. (variation 3)",
+    "output": "I'm really concerned about what you're sharing. Your safety is the most important thing right now.",
+    "topic": "suicidal"
+  },
+  {
+    "input": "I've been cutting myself to cope with the pain. I don't know what else to do.",
+    "output": "Thank you for trusting me with this. Self-harm is a sign you're in a lot of pain. Let's get you support.",
+    "topic": "self-harm"
+  },
+  {
+    "input": "I've been cutting myself to cope with the pain. I don't know what else to do. (variation 1)",
+    "output": "Thank you for trusting me with this. Self-harm is a sign you're in a lot of pain. Let's get you support.",
+    "topic": "self-harm"
+  },
+  {
+    "input": "I've been cutting myself to cope with the pain. I don't know what else to do. (variation 2)",
+    "output": "Thank you for trusting me with this. Self-harm is a sign you're in a lot of pain. Let's get you support.",
+    "topic": "self-harm"
+  },
+  {
+    "input": "I've been cutting myself to cope with the pain. I don't know what else to do. (variation 3)",
+    "output": "Thank you for trusting me with this. Self-harm is a sign you're in a lot of pain. Let's get you support.",
+    "topic": "self-harm"
+  },
+  {
+    "input": "I keep having nightmares about what happened. I can't escape the memories.",
+    "output": "Trauma can stay with us in many ways. Those nightmares are your mind trying to process what happened.",
+    "topic": "trauma"
+  },
+  {
+    "input": "I keep having nightmares about what happened. I can't escape the memories. (variation 1)",
+    "output": "Trauma can stay with us in many ways. Those nightmares are your mind trying to process what happened.",
+    "topic": "trauma"
+  },
+  {
+    "input": "I keep having nightmares about what happened. I can't escape the memories. (variation 2)",
+    "output": "Trauma can stay with us in many ways. Those nightmares are your mind trying to process what happened.",
+    "topic": "trauma"
+  },
+  {
+    "input": "I keep having nightmares about what happened. I can't escape the memories. (variation 3)",
+    "output": "Trauma can stay with us in many ways. Those nightmares are your mind trying to process what happened.",
+    "topic": "trauma"
+  },
+  {
+    "input": "I'm so stressed about my exams. I can't focus on studying.",
+    "output": "Exam stress is really common. Let's break down what's feeling overwhelming.",
+    "topic": "stress"
+  },
+  {
+    "input": "I'm so stressed about my exams. I can't focus on studying. (variation 1)",
+    "output": "Exam stress is really common. Let's break down what's feeling overwhelming.",
+    "topic": "stress"
+  },
+  {
+    "input": "I'm so stressed about my exams. I can't focus on studying. (variation 2)",
+    "output": "Exam stress is really common. Let's break down what's feeling overwhelming.",
+    "topic": "stress"
+  },
+  {
+    "input": "I'm so stressed about my exams. I can't focus on studying. (variation 3)",
+    "output": "Exam stress is really common. Let's break down what's feeling overwhelming.",
+    "topic": "stress"
+  },
+  {
+    "input": "Work has been overwhelming. I'm working 60 hours a week and still falling behind.",
+    "output": "That sounds exhausting. Burnout is real. Let's talk about boundaries and self-care.",
+    "topic": "stress"
+  },
+  {
+    "input": "Work has been overwhelming. I'm working 60 hours a week and still falling behind. (variation 1)",
+    "output": "That sounds exhausting. Burnout is real. Let's talk about boundaries and self-care.",
+    "topic": "stress"
+  },
+  {
+    "input": "Work has been overwhelming. I'm working 60 hours a week and still falling behind. (variation 2)",
+    "output": "That sounds exhausting. Burnout is real. Let's talk about boundaries and self-care.",
+    "topic": "stress"
+  },
+  {
+    "input": "Work has been overwhelming. I'm working 60 hours a week and still falling behind. (variation 3)",
+    "output": "That sounds exhausting. Burnout is real. Let's talk about boundaries and self-care.",
+    "topic": "stress"
+  },
+  {
+    "input": "My partner and I keep fighting. I don't know if we can work things out.",
+    "output": "Relationship conflicts can be really painful. What do you think is at the core of these fights?",
+    "topic": "relationship"
+  },
+  {
+    "input": "My partner and I keep fighting. I don't know if we can work things out. (variation 1)",
+    "output": "Relationship conflicts can be really painful. What do you think is at the core of these fights?",
+    "topic": "relationship"
+  },
+  {
+    "input": "My partner and I keep fighting. I don't know if we can work things out. (variation 2)",
+    "output": "Relationship conflicts can be really painful. What do you think is at the core of these fights?",
+    "topic": "relationship"
+  },
+  {
+    "input": "My partner and I keep fighting. I don't know if we can work things out. (variation 3)",
+    "output": "Relationship conflicts can be really painful. What do you think is at the core of these fights?",
+    "topic": "relationship"
+  },
+  {
+    "input": "I lost my grandmother last month. I can't stop crying.",
+    "output": "I'm so sorry for your loss. Grief takes time, and there's no right way to mourn.",
+    "topic": "grief"
+  },
+  {
+    "input": "I lost my grandmother last month. I can't stop crying. (variation 1)",
+    "output": "I'm so sorry for your loss. Grief takes time, and there's no right way to mourn.",
+    "topic": "grief"
+  },
+  {
+    "input": "I lost my grandmother last month. I can't stop crying. (variation 2)",
+    "output": "I'm so sorry for your loss. Grief takes time, and there's no right way to mourn.",
+    "topic": "grief"
+  },
+  {
+    "input": "I lost my grandmother last month. I can't stop crying. (variation 3)",
+    "output": "I'm so sorry for your loss. Grief takes time, and there's no right way to mourn.",
+    "topic": "grief"
+  },
+  {
+    "input": "I just need someone to talk to. I've been feeling lonely.",
+    "output": "I'm here for you. Loneliness can be really hard. Tell me more about what's been going on.",
+    "topic": "loneliness"
+  },
+  {
+    "input": "I just need someone to talk to. I've been feeling lonely. (variation 1)",
+    "output": "I'm here for you. Loneliness can be really hard. Tell me more about what's been going on.",
+    "topic": "loneliness"
+  },
+  {
+    "input": "I just need someone to talk to. I've been feeling lonely. (variation 2)",
+    "output": "I'm here for you. Loneliness can be really hard. Tell me more about what's been going on.",
+    "topic": "loneliness"
+  },
+  {
+    "input": "I just need someone to talk to. I've been feeling lonely. (variation 3)",
+    "output": "I'm here for you. Loneliness can be really hard. Tell me more about what's been going on.",
+    "topic": "loneliness"
+  },
+  {
+    "input": "I'm not sure what I'm feeling. I just know something isn't right.",
+    "output": "It's okay not to have all the answers. Let's explore what you're experiencing together.",
+    "topic": "general"
+  },
+  {
+    "input": "I'm not sure what I'm feeling. I just know something isn't right. (variation 1)",
+    "output": "It's okay not to have all the answers. Let's explore what you're experiencing together.",
+    "topic": "general"
+  },
+  {
+    "input": "I'm not sure what I'm feeling. I just know something isn't right. (variation 2)",
+    "output": "It's okay not to have all the answers. Let's explore what you're experiencing together.",
+    "topic": "general"
+  },
+  {
+    "input": "I'm not sure what I'm feeling. I just know something isn't right. (variation 3)",
+    "output": "It's okay not to have all the answers. Let's explore what you're experiencing together.",
+    "topic": "general"
+  },
+  {
+    "input": "I'm failing my classes and my parents are going to be so disappointed.",
+    "output": "Academic pressure can feel overwhelming. Let's talk about what's making it hard to succeed.",
+    "topic": "academic"
+  },
+  {
+    "input": "I'm failing my classes and my parents are going to be so disappointed. (variation 1)",
+    "output": "Academic pressure can feel overwhelming. Let's talk about what's making it hard to succeed.",
+    "topic": "academic"
+  },
+  {
+    "input": "I'm failing my classes and my parents are going to be so disappointed. (variation 2)",
+    "output": "Academic pressure can feel overwhelming. Let's talk about what's making it hard to succeed.",
+    "topic": "academic"
+  },
+  {
+    "input": "I'm failing my classes and my parents are going to be so disappointed. (variation 3)",
+    "output": "Academic pressure can feel overwhelming. Let's talk about what's making it hard to succeed.",
+    "topic": "academic"
+  }
+]

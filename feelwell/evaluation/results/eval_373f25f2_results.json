@@ -1,0 +1,242 @@
+{
+  "run_id": "eval_373f25f2",
+  "started_at": "2026-01-15T13:43:44.558943",
+  "completed_at": "2026-01-15T13:43:44.590663",
+  "duration_seconds": 0.03172,
+  "total_samples_evaluated": 193,
+  "overall_accuracy": 0.4922,
+  "crisis_recall": 0.375,
+  "crisis_precision": 0.8333,
+  "false_negative_count": 25,
+  "passes_safety_threshold": false,
+  "safety_issues": [
+    "Crisis recall below 100%: 37.50%",
+    "False negatives detected: 25"
+  ],
+  "avg_latency_ms": 0.07,
+  "p99_latency_ms": 0.23,
+  "metrics_by_category": {
+    "mentalchat16k": {
+      "category": "mentalchat16k",
+      "total": 60,
+      "accuracy": 0.6,
+      "crisis_precision": 0.0,
+      "crisis_recall": 1.0
+    },
+    "phq9": {
+      "category": "phq9",
+      "total": 15,
+      "accuracy": 0.5333,
+      "crisis_precision": 0.0,
+      "crisis_recall": 1.0
+    },
+    "clinical": {
+      "category": "clinical",
+      "total": 33,
+      "accuracy": 0.2727,
+      "crisis_precision": 0.0,
+      "crisis_recall": 1.0
+    }
+  },
+  "metrics_by_dataset": {
+    "benchmark_crisis_detection": {
+      "total": 20,
+      "correct": 11,
+      "crisis_tp": 11,
+      "crisis_fp": 0,
+      "crisis_fn": 9,
+      "latencies": [
+        0.10383299377281219,
+        0.08870799501892179,
+        0.05524999869521707,
+        0.060999998822808266,
+        0.05545800377149135,
+        0.06741601100657135,
+        0.0677499920129776,
+        0.06991700502112508,
+        0.051875002100132406,
+        0.0659159995848313,
+        0.061416998505592346,
+        0.1784999913070351,
+        0.20974999642930925,
+        0.08375001198146492,
+        0.22612500470131636,
+        0.08604099275544286,
+        0.06929200026206672,
+        0.06141599442344159,
+        0.06212499283719808,
+        0.05904099089093506
+      ],
+      "pass_rate": 0.55,
+      "crisis_recall": 0.55
+    },
+    "benchmark_adversarial_cases": {
+      "total": 20,
+      "correct": 4,
+      "crisis_tp": 4,
+      "crisis_fp": 0,
+      "crisis_fn": 16,
+      "latencies": [
+        0.0642910017631948,
+        0.0578339968342334,
+        0.04991701280232519,
+        0.04716700641438365,
+        0.04650000482797623,
+        0.052916002459824085,
+        0.059833997511304915,
+        0.05966599564999342,
+        0.04862499190494418,
+        0.051875002100132406,
+        0.05762498767580837,
+        0.06633299926761538,
+        0.05299999611452222,
+        0.044665997847914696,
+        0.04254200030118227,
+        0.04225000157020986,
+        0.06083300104364753,
+        0.05620799493044615,
+        0.05254099960438907,
+        0.05745798989664763
+      ],
+      "pass_rate": 0.2,
+      "crisis_recall": 0.2
+    },
+    "benchmark_false_positives": {
+      "total": 25,
+      "correct": 22,
+      "crisis_tp": 0,
+      "crisis_fp": 3,
+      "crisis_fn": 0,
+      "latencies": [
+        0.05425000563263893,
+        0.06604100053664297,
+        0.05575000250246376,
+        0.05149999924469739,
+        0.06425000901799649,
+        0.06299999949987978,
+        0.060582999140024185,
+        0.06566599768120795,
+        0.06145899533294141,
+        0.0788750039646402,
+        0.05833299655932933,
+        0.05741701170336455,
+        0.06020799628458917,
+        0.057375000324100256,
+        0.058457997511141,
+        0.06354200013447553,
+        0.124708007206209,
+        0.12337499356362969,
+        0.07129200093913823,
+        0.06550000398419797,
+        0.057375000324100256,
+        0.06012499216012657,
+        0.06795799708925188,
+        0.07158299558795989,
+        0.06712500180583447
+      ],
+      "pass_rate": 0.88,
+      "crisis_recall": 1.0
+    },
+    "benchmark_caution_cases": {
+      "total": 20,
+      "correct": 5,
+      "crisis_tp": 0,
+      "crisis_fp": 0,
+      "crisis_fn": 0,
+      "latencies": [
+        0.08733299910090864,
+        0.06974999269004911,
+        0.09779199899639934,
+        0.051458002417348325,
+        0.052624993259087205,
+        0.05833400064148009,
+        0.049583992222324014,
+        0.07704200106672943,
+        0.06354200013447553,
+        0.06570899859070778,
+        0.06925000343471766,
+        0.08450000314041972,
+        0.05541699647437781,
+        0.07041700882837176,
+        0.06729199958499521,
+        0.07537500641774386,
+        0.056958000641316175,
+        0.07633300265297294,
+        0.07179200474638492,
+        0.11304199870210141
+      ],
+      "pass_rate": 0.25,
+      "crisis_recall": 1.0
+    },
+    "mentalchat16k": {
+      "total": 60,
+      "correct": 36,
+      "accuracy": 0.6,
+      "category": "mentalchat16k",
+      "stats": {
+        "total_samples": 60,
+        "samples_by_category": {
+          "depression": 12,
+          "anxiety": 8,
+          "suicidal_ideation": 4,
+          "self_harm": 4,
+          "trauma": 4,
+          "stress": 8,
+          "relationship": 4,
+          "grief": 4,
+          "loneliness": 4,
+          "general_support": 4,
+          "academic": 4
+        },
+        "samples_by_triage": {
+          "caution": 28,
+          "crisis": 8,
+          "safe": 24
+        },
+        "avg_text_length": 80.3,
+        "has_severity_scores": false,
+        "has_clinical_scores": false
+      }
+    },
+    "phq9_depression": {
+      "total": 15,
+      "correct": 8,
+      "accuracy": 0.5333333333333333,
+      "category": "phq9",
+      "stats": {
+        "total_samples": 15,
+        "samples_by_category": {
+          "depression": 15
+        },
+        "samples_by_triage": {
+          "caution": 5,
+          "safe": 8,
+          "crisis": 2
+        },
+        "avg_text_length": 75.0,
+        "has_severity_scores": true,
+        "has_clinical_scores": true
+      }
+    },
+    "clinical_decisions": {
+      "total": 33,
+      "correct": 9,
+      "accuracy": 0.2727272727272727,
+      "category": "clinical",
+      "stats": {
+        "total_samples": 33,
+        "samples_by_category": {
+          "clinical_decision": 33
+        },
+        "samples_by_triage": {
+          "crisis": 9,
+          "caution": 15,
+          "safe": 9
+        },
+        "avg_text_length": 105.3,
+        "has_severity_scores": false,
+        "has_clinical_scores": false
+      }
+    }
+  }
+}

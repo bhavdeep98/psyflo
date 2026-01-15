@@ -1,0 +1,607 @@
+{
+  "dataset": "mentalchat16k",
+  "version": "1.0.0",
+  "processed_at": "2026-01-15T13:35:41.719935",
+  "samples": [
+    {
+      "sample_id": "mc16k_train_0_39d0e1c8",
+      "text": "I've been feeling really down lately. Nothing seems to make me happy anymore.",
+      "category": "depression",
+      "triage_level": "caution",
+      "severity_score": null,
+      "source_dataset": "mentalchat16k",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "mc16k_train_1_041c432e",
+      "text": "I've been feeling really down lately. Nothing seems to make me happy anymore. (variation 1)",
+      "category": "depression",
+      "triage_level": "caution",
+      "severity_score": null,
+      "source_dataset": "mentalchat16k",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "mc16k_train_2_64916ab6",
+      "text": "I've been feeling really down lately. Nothing seems to make me happy anymore. (variation 2)",
+      "category": "depression",
+      "triage_level": "caution",
+      "severity_score": null,
+      "source_dataset": "mentalchat16k",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "mc16k_train_3_e276d0a7",
+      "text": "I've been feeling really down lately. Nothing seems to make me happy anymore. (variation 3)",
+      "category": "depression",
+      "triage_level": "caution",
+      "severity_score": null,
+      "source_dataset": "mentalchat16k",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "mc16k_train_4_a331f3e4",
+      "text": "I can't get out of bed most days. I feel worthless and hopeless.",
+      "category": "depression",
+      "triage_level": "caution",
+      "severity_score": null,
+      "source_dataset": "mentalchat16k",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "mc16k_train_5_439adacd",
+      "text": "I can't get out of bed most days. I feel worthless and hopeless. (variation 1)",
+      "category": "depression",
+      "triage_level": "caution",
+      "severity_score": null,
+      "source_dataset": "mentalchat16k",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "mc16k_train_6_adab5589",
+      "text": "I can't get out of bed most days. I feel worthless and hopeless. (variation 2)",
+      "category": "depression",
+      "triage_level": "caution",
+      "severity_score": null,
+      "source_dataset": "mentalchat16k",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "mc16k_train_7_fc70629e",
+      "text": "I can't get out of bed most days. I feel worthless and hopeless. (variation 3)",
+      "category": "depression",
+      "triage_level": "caution",
+      "severity_score": null,
+      "source_dataset": "mentalchat16k",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "mc16k_train_8_4eee2d20",
+      "text": "I've lost interest in everything I used to enjoy. Even my hobbies feel pointless.",
+      "category": "depression",
+      "triage_level": "caution",
+      "severity_score": null,
+      "source_dataset": "mentalchat16k",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "mc16k_train_9_0567d447",
+      "text": "I've lost interest in everything I used to enjoy. Even my hobbies feel pointless. (variation 1)",
+      "category": "depression",
+      "triage_level": "caution",
+      "severity_score": null,
+      "source_dataset": "mentalchat16k",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "mc16k_train_10_2ba6857f",
+      "text": "I've lost interest in everything I used to enjoy. Even my hobbies feel pointless. (variation 2)",
+      "category": "depression",
+      "triage_level": "caution",
+      "severity_score": null,
+      "source_dataset": "mentalchat16k",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "mc16k_train_11_ed621264",
+      "text": "I've lost interest in everything I used to enjoy. Even my hobbies feel pointless. (variation 3)",
+      "category": "depression",
+      "triage_level": "caution",
+      "severity_score": null,
+      "source_dataset": "mentalchat16k",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "mc16k_train_12_6ad85b64",
+      "text": "I'm constantly worried about everything. My heart races and I can't calm down.",
+      "category": "anxiety",
+      "triage_level": "caution",
+      "severity_score": null,
+      "source_dataset": "mentalchat16k",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "mc16k_train_13_eb05045f",
+      "text": "I'm constantly worried about everything. My heart races and I can't calm down. (variation 1)",
+      "category": "anxiety",
+      "triage_level": "caution",
+      "severity_score": null,
+      "source_dataset": "mentalchat16k",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "mc16k_train_14_5c2634c7",
+      "text": "I'm constantly worried about everything. My heart races and I can't calm down. (variation 2)",
+      "category": "anxiety",
+      "triage_level": "caution",
+      "severity_score": null,
+      "source_dataset": "mentalchat16k",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "mc16k_train_15_8d42438e",
+      "text": "I'm constantly worried about everything. My heart races and I can't calm down. (variation 3)",
+      "category": "anxiety",
+      "triage_level": "caution",
+      "severity_score": null,
+      "source_dataset": "mentalchat16k",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "mc16k_train_16_0270f878",
+      "text": "I have panic attacks almost every day. I'm scared to leave my house.",
+      "category": "anxiety",
+      "triage_level": "caution",
+      "severity_score": null,
+      "source_dataset": "mentalchat16k",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "mc16k_train_17_a58ff4f9",
+      "text": "I have panic attacks almost every day. I'm scared to leave my house. (variation 1)",
+      "category": "anxiety",
+      "triage_level": "caution",
+      "severity_score": null,
+      "source_dataset": "mentalchat16k",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "mc16k_train_18_31dc96c6",
+      "text": "I have panic attacks almost every day. I'm scared to leave my house. (variation 2)",
+      "category": "anxiety",
+      "triage_level": "caution",
+      "severity_score": null,
+      "source_dataset": "mentalchat16k",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "mc16k_train_19_96d8d555",
+      "text": "I have panic attacks almost every day. I'm scared to leave my house. (variation 3)",
+      "category": "anxiety",
+      "triage_level": "caution",
+      "severity_score": null,
+      "source_dataset": "mentalchat16k",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "mc16k_train_20_d9480299",
+      "text": "I don't want to be here anymore. I've been thinking about ending it all.",
+      "category": "suicidal_ideation",
+      "triage_level": "crisis",
+      "severity_score": null,
+      "source_dataset": "mentalchat16k",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "mc16k_train_21_014b5254",
+      "text": "I don't want to be here anymore. I've been thinking about ending it all. (variation 1)",
+      "category": "suicidal_ideation",
+      "triage_level": "crisis",
+      "severity_score": null,
+      "source_dataset": "mentalchat16k",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "mc16k_train_22_788d4389",
+      "text": "I don't want to be here anymore. I've been thinking about ending it all. (variation 2)",
+      "category": "suicidal_ideation",
+      "triage_level": "crisis",
+      "severity_score": null,
+      "source_dataset": "mentalchat16k",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "mc16k_train_23_c607d718",
+      "text": "I don't want to be here anymore. I've been thinking about ending it all. (variation 3)",
+      "category": "suicidal_ideation",
+      "triage_level": "crisis",
+      "severity_score": null,
+      "source_dataset": "mentalchat16k",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "mc16k_train_24_cff29c49",
+      "text": "I've been cutting myself to cope with the pain. I don't know what else to do.",
+      "category": "self_harm",
+      "triage_level": "crisis",
+      "severity_score": null,
+      "source_dataset": "mentalchat16k",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "mc16k_train_25_6253974b",
+      "text": "I've been cutting myself to cope with the pain. I don't know what else to do. (variation 1)",
+      "category": "self_harm",
+      "triage_level": "crisis",
+      "severity_score": null,
+      "source_dataset": "mentalchat16k",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "mc16k_train_26_7ade2031",
+      "text": "I've been cutting myself to cope with the pain. I don't know what else to do. (variation 2)",
+      "category": "self_harm",
+      "triage_level": "crisis",
+      "severity_score": null,
+      "source_dataset": "mentalchat16k",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "mc16k_train_27_f551c453",
+      "text": "I've been cutting myself to cope with the pain. I don't know what else to do. (variation 3)",
+      "category": "self_harm",
+      "triage_level": "crisis",
+      "severity_score": null,
+      "source_dataset": "mentalchat16k",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "mc16k_train_28_e711b2b6",
+      "text": "I keep having nightmares about what happened. I can't escape the memories.",
+      "category": "trauma",
+      "triage_level": "caution",
+      "severity_score": null,
+      "source_dataset": "mentalchat16k",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "mc16k_train_29_8d5770e1",
+      "text": "I keep having nightmares about what happened. I can't escape the memories. (variation 1)",
+      "category": "trauma",
+      "triage_level": "caution",
+      "severity_score": null,
+      "source_dataset": "mentalchat16k",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "mc16k_train_30_cb45644f",
+      "text": "I keep having nightmares about what happened. I can't escape the memories. (variation 2)",
+      "category": "trauma",
+      "triage_level": "caution",
+      "severity_score": null,
+      "source_dataset": "mentalchat16k",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "mc16k_train_31_2d9efb87",
+      "text": "I keep having nightmares about what happened. I can't escape the memories. (variation 3)",
+      "category": "trauma",
+      "triage_level": "caution",
+      "severity_score": null,
+      "source_dataset": "mentalchat16k",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "mc16k_train_32_1eefeadf",
+      "text": "I'm so stressed about my exams. I can't focus on studying.",
+      "category": "stress",
+      "triage_level": "safe",
+      "severity_score": null,
+      "source_dataset": "mentalchat16k",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "mc16k_train_33_1956a877",
+      "text": "I'm so stressed about my exams. I can't focus on studying. (variation 1)",
+      "category": "stress",
+      "triage_level": "safe",
+      "severity_score": null,
+      "source_dataset": "mentalchat16k",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "mc16k_train_34_ba1f0f19",
+      "text": "I'm so stressed about my exams. I can't focus on studying. (variation 2)",
+      "category": "stress",
+      "triage_level": "safe",
+      "severity_score": null,
+      "source_dataset": "mentalchat16k",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "mc16k_train_35_5af319fc",
+      "text": "I'm so stressed about my exams. I can't focus on studying. (variation 3)",
+      "category": "stress",
+      "triage_level": "safe",
+      "severity_score": null,
+      "source_dataset": "mentalchat16k",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "mc16k_train_36_b9552eca",
+      "text": "Work has been overwhelming. I'm working 60 hours a week and still falling behind.",
+      "category": "stress",
+      "triage_level": "safe",
+      "severity_score": null,
+      "source_dataset": "mentalchat16k",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "mc16k_train_37_4782afa6",
+      "text": "Work has been overwhelming. I'm working 60 hours a week and still falling behind. (variation 1)",
+      "category": "stress",
+      "triage_level": "safe",
+      "severity_score": null,
+      "source_dataset": "mentalchat16k",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "mc16k_train_38_f825a99c",
+      "text": "Work has been overwhelming. I'm working 60 hours a week and still falling behind. (variation 2)",
+      "category": "stress",
+      "triage_level": "safe",
+      "severity_score": null,
+      "source_dataset": "mentalchat16k",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "mc16k_train_39_3ccc7f11",
+      "text": "Work has been overwhelming. I'm working 60 hours a week and still falling behind. (variation 3)",
+      "category": "stress",
+      "triage_level": "safe",
+      "severity_score": null,
+      "source_dataset": "mentalchat16k",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "mc16k_train_40_c082ca5d",
+      "text": "My partner and I keep fighting. I don't know if we can work things out.",
+      "category": "relationship",
+      "triage_level": "safe",
+      "severity_score": null,
+      "source_dataset": "mentalchat16k",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "mc16k_train_41_f98feb6f",
+      "text": "My partner and I keep fighting. I don't know if we can work things out. (variation 1)",
+      "category": "relationship",
+      "triage_level": "safe",
+      "severity_score": null,
+      "source_dataset": "mentalchat16k",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "mc16k_train_42_5cb840bc",
+      "text": "My partner and I keep fighting. I don't know if we can work things out. (variation 2)",
+      "category": "relationship",
+      "triage_level": "safe",
+      "severity_score": null,
+      "source_dataset": "mentalchat16k",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "mc16k_train_43_79b81d2f",
+      "text": "My partner and I keep fighting. I don't know if we can work things out. (variation 3)",
+      "category": "relationship",
+      "triage_level": "safe",
+      "severity_score": null,
+      "source_dataset": "mentalchat16k",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "mc16k_train_44_62c01633",
+      "text": "I lost my grandmother last month. I can't stop crying.",
+      "category": "grief",
+      "triage_level": "caution",
+      "severity_score": null,
+      "source_dataset": "mentalchat16k",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "mc16k_train_45_e9d8d59a",
+      "text": "I lost my grandmother last month. I can't stop crying. (variation 1)",
+      "category": "grief",
+      "triage_level": "caution",
+      "severity_score": null,
+      "source_dataset": "mentalchat16k",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "mc16k_train_46_e6392d41",
+      "text": "I lost my grandmother last month. I can't stop crying. (variation 2)",
+      "category": "grief",
+      "triage_level": "caution",
+      "severity_score": null,
+      "source_dataset": "mentalchat16k",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "mc16k_train_47_b04fba81",
+      "text": "I lost my grandmother last month. I can't stop crying. (variation 3)",
+      "category": "grief",
+      "triage_level": "caution",
+      "severity_score": null,
+      "source_dataset": "mentalchat16k",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "mc16k_train_48_3f6888e7",
+      "text": "I just need someone to talk to. I've been feeling lonely.",
+      "category": "loneliness",
+      "triage_level": "safe",
+      "severity_score": null,
+      "source_dataset": "mentalchat16k",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "mc16k_train_49_0ef62d73",
+      "text": "I just need someone to talk to. I've been feeling lonely. (variation 1)",
+      "category": "loneliness",
+      "triage_level": "safe",
+      "severity_score": null,
+      "source_dataset": "mentalchat16k",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "mc16k_train_50_c337373e",
+      "text": "I just need someone to talk to. I've been feeling lonely. (variation 2)",
+      "category": "loneliness",
+      "triage_level": "safe",
+      "severity_score": null,
+      "source_dataset": "mentalchat16k",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "mc16k_train_51_7b547a65",
+      "text": "I just need someone to talk to. I've been feeling lonely. (variation 3)",
+      "category": "loneliness",
+      "triage_level": "safe",
+      "severity_score": null,
+      "source_dataset": "mentalchat16k",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "mc16k_train_52_5bbf2bc6",
+      "text": "I'm not sure what I'm feeling. I just know something isn't right.",
+      "category": "general_support",
+      "triage_level": "safe",
+      "severity_score": null,
+      "source_dataset": "mentalchat16k",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "mc16k_train_53_91987a2d",
+      "text": "I'm not sure what I'm feeling. I just know something isn't right. (variation 1)",
+      "category": "general_support",
+      "triage_level": "safe",
+      "severity_score": null,
+      "source_dataset": "mentalchat16k",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "mc16k_train_54_117e3255",
+      "text": "I'm not sure what I'm feeling. I just know something isn't right. (variation 2)",
+      "category": "general_support",
+      "triage_level": "safe",
+      "severity_score": null,
+      "source_dataset": "mentalchat16k",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "mc16k_train_55_2208bf7a",
+      "text": "I'm not sure what I'm feeling. I just know something isn't right. (variation 3)",
+      "category": "general_support",
+      "triage_level": "safe",
+      "severity_score": null,
+      "source_dataset": "mentalchat16k",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "mc16k_train_56_7d078a4b",
+      "text": "I'm failing my classes and my parents are going to be so disappointed.",
+      "category": "academic",
+      "triage_level": "safe",
+      "severity_score": null,
+      "source_dataset": "mentalchat16k",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "mc16k_train_57_abeba965",
+      "text": "I'm failing my classes and my parents are going to be so disappointed. (variation 1)",
+      "category": "academic",
+      "triage_level": "safe",
+      "severity_score": null,
+      "source_dataset": "mentalchat16k",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "mc16k_train_58_a3997760",
+      "text": "I'm failing my classes and my parents are going to be so disappointed. (variation 2)",
+      "category": "academic",
+      "triage_level": "safe",
+      "severity_score": null,
+      "source_dataset": "mentalchat16k",
+      "phq9_score": null,
+      "gad7_score": null
+    },
+    {
+      "sample_id": "mc16k_train_59_55de469d",
+      "text": "I'm failing my classes and my parents are going to be so disappointed. (variation 3)",
+      "category": "academic",
+      "triage_level": "safe",
+      "severity_score": null,
+      "source_dataset": "mentalchat16k",
+      "phq9_score": null,
+      "gad7_score": null
+    }
+  ]
+}
