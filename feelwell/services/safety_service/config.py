@@ -39,6 +39,7 @@ class SafetyConfig:
 
 # Crisis keywords that trigger immediate bypass (regex-based safety net)
 # These are hard-coded per ADR-001 - LLM never sees messages with these
+# Updated: 2026-01-15 - Added passive suicidal ideation patterns
 CRISIS_KEYWORDS: FrozenSet[str] = frozenset({
     # Direct self-harm language
     "kill myself",
@@ -46,6 +47,8 @@ CRISIS_KEYWORDS: FrozenSet[str] = frozenset({
     "want to die",
     "suicide",
     "suicidal",
+    "hurt myself",
+    "harm myself",
     
     # Methods (critical - indicates planning)
     "pills",
@@ -55,18 +58,41 @@ CRISIS_KEYWORDS: FrozenSet[str] = frozenset({
     "rope",
     "cut myself",
     "cutting",
+    "jump off",
+    "hang myself",
     
-    # Coded language (teen slang - requires regular updates)
+    # Passive suicidal ideation (coded language)
+    "never wake up",
+    "sleep forever",
+    "disappear forever",
+    "stop existing",
+    "fade away",
+    "permanent solution",
+    "final solution",
+    "no way out",
+    "can't take it anymore",
+    "can't do this anymore",
+    "better off without me",
+    "world without me",
+    "nobody would miss me",
+    "nobody would care",
+    "wouldn't care if i died",
+    
+    # Teen/youth coded language (requires regular updates)
     "unalive",
+    "kms",  # kill myself
+    "ctb",  # catch the bus (suicide forum term)
     "become a ghost",
     "final exit",
     "goodbye forever",
     "no point anymore",
+    "yeet myself",
     
     # Psychosis indicators
     "voices telling me",
     "they're watching me",
     "not real",
+    "voices in my head",
 })
 
 # Caution keywords that elevate risk score but don't trigger bypass
