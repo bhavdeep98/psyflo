@@ -10,6 +10,13 @@ dev = [
     "pytest>=7.0",
     "pytest-cov>=4.0",
 ]
+evaluation = [
+    "fastapi>=0.104.0",
+    "uvicorn>=0.24.0",
+    "pydantic>=2.0",
+    "datasets>=2.14.0",
+    "numpy>=1.24.0",
+]
 
 [tool.pytest.ini_options]
 testpaths = ["services"]
