@@ -1,0 +1,93 @@
+@startuml
+title Audit Service - Class Diagram (ADR-005)
+
+package "Audit Core" {
+    class AuditLogger {
+        - _entries: List[AuditEntry]
+        - _last_hash: str
+        + __init__()
+        + log(action, entity_type, entity_id, actor_id, ...) : AuditEntry
+        + log_data_access(...) : AuditEntry
+        + log_crisis_event(...) : AuditEntry
+        + verify_chain() : bool
+        + query(...) : List[AuditEntry]
+    }
+
+    class AuditEntry <<frozen>> {
+        + entry_id: str
+        + timestamp: datetime
+        + action: AuditAction
+        + entity_type: AuditEntity
+        + entity_id: str
+        + actor_id: str
+        + actor_role: str
+        + school_id: str
+        + details: dict
+        + previous_hash: str
+        + entry_hash: str
+        + compute_hash() : str
+    }
+
+    enum AuditAction {
+        VIEW_CONVERSATION
+        VIEW_STUDENT_PROFILE
+        VIEW_CLINICAL_SCORES
+        EXPORT_DATA
+        CREATE_SESSION
+        END_SESSION
+        UPDATE_CONSENT
+        DELETE_DATA
+        CRISIS_DETECTED
+        CRISIS_ACKNOWLEDGED
+        CRISIS_RESOLVED
+        ROLE_ASSIGNED
+        ROLE_REVOKED
+        CONFIG_CHANGED
+    }
+
+    enum AuditEntity {
+        STUDENT
+        COUNSELOR
+        ADMIN
+        SESSION
+        CONVERSATION
+        CRISIS_EVENT
+        SYSTEM
+    }
+}
+
+package "Persistence" {
+    class AuditRepository {
+        - connection_manager: ConnectionManager
+        - qldb_ledger: str
+        - use_qldb: bool
+        - _memory_store: List[AuditEntry]
+        + __init__(connection_manager, qldb_ledger, use_qldb)
+        + append(entry) : bool
+        + query(...) : List[AuditEntry]
+        + verify_chain(entries) : bool
+        - _append_qldb(entry) : bool
+        - _append_postgres(entry) : bool
+        - _append_memory(entry) : bool
+    }
+}
+
+AuditLogger ..> AuditEntry : creates
+AuditLogger --> AuditRepository : persists to
+AuditEntry --> AuditAction : has
+AuditEntry --> AuditEntity : references
+
+note right of AuditEntry
+  Immutable (frozen dataclass)
+  Hash chain for verification
+  Per ADR-005: WORM storage
+end note
+
+note right of AuditRepository
+  Supports:
+  - AWS QLDB (true immutability)
+  - PostgreSQL (WORM policies)
+  - In-memory (development)
+end note
+
+@enduml

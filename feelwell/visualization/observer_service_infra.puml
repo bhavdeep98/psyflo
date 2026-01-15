@@ -1,0 +1,36 @@
+@startuml
+title Observer Service - Infrastructure Architecture
+
+package "AWS Cloud (VPC)" {
+    package "Private Subnet" {
+        component "Observer Service\n(Fargate Service)" as Observer {
+            port 8080
+        }
+    }
+    
+    database "PostgreSQL\n(Clinical Data)" as DB
+    database "OpenSearch\n(Embeddings)" as OpenSearch
+    component "Kinesis Data Stream" as Kinesis
+    component "CloudWatch" as CW
+}
+
+cloud "External Services" {
+    [Chat Service] as Chat
+    [Crisis Engine] as Engine
+}
+
+Chat --> Observer : HTTP /analyze (Async)
+Observer --> DB : Store Session Data
+Observer --> OpenSearch : Semantic Search (RAG)
+Observer --> Kinesis : Publish Risk Events
+Observer ..> CW : Logs (Masked) & Metrics
+
+Kinesis --> Engine : Consume Threshold Events
+
+note right of Observer
+  - CPU/Memory Optimized
+  - Auto-scaling (CPU > 70%)
+  - Async Processing
+end note
+
+@enduml

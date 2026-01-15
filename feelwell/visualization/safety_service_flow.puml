@@ -1,0 +1,61 @@
+@startuml
+title Safety Service - Request Flow Logic
+actor User
+participant "Chat Service" as Chat
+participant "Safety Service\n(ECS Fargate)" as Safety
+participant "SafetyScanner" as Scanner
+participant "CrisisEventPublisher" as Publisher
+queue "Kinesis Stream\n(Crisis Events)" as Kinesis
+participant "LLM Service" as LLM
+
+User -> Chat: Send Message
+activate Chat
+
+Chat -> Safety: POST /scan\n{message, session_id, student_id}
+activate Safety
+
+Safety -> Safety: Validate Request
+Safety -> Safety: Hash PII (student_id)
+
+Safety -> Scanner: scan(text, student_id_hash)
+activate Scanner
+
+Scanner -> Scanner: Normalize Text
+Scanner -> Scanner: Check Crisis Patterns (Layer 1)
+
+alt Crisis Keywords Found
+    Scanner -> Scanner: Create Crisis Result\n(bypass_llm=True)
+    Scanner --> Safety: ScanResult(CRISIS)
+else No Crisis Keywords
+    Scanner -> Scanner: Check Caution Patterns (Layer 2)
+    Scanner -> Scanner: Calculate Risk Score
+    Scanner --> Safety: ScanResult(SAFE/CAUTION)
+end
+deactivate Scanner
+
+alt Risk == CRISIS
+    Safety -> Publisher: publish_crisis()
+    activate Publisher
+    Publisher -> Kinesis: PutRecord(CrisisEvent)
+    Publisher --> Safety: Success/Failure
+    deactivate Publisher
+    
+    Safety --> Chat: 200 OK\n{risk: CRISIS, bypass_llm: True, crisis_ui: {...}}
+    
+    Chat -> User: Show Crisis UI\n(Static Resources, hotlines)
+    note right: LLM is BYPASSED completely
+    
+else Risk != CRISIS
+    Safety --> Chat: 200 OK\n{risk: SAFE/CAUTION, bypass_llm: False}
+    deactivate Safety
+    
+    Chat -> LLM: Send Message + Prompt
+    activate LLM
+    LLM --> Chat: Response
+    deactivate LLM
+    Chat --> User: LLM Response
+    
+end
+deactivate Chat
+
+@enduml

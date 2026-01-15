@@ -1,0 +1,142 @@
+@startuml
+title Feelwell Platform - AWS Deployment Architecture
+
+!define AWSPuml https://raw.githubusercontent.com/awslabs/aws-icons-for-plantuml/v18.0/dist
+skinparam backgroundColor #FEFEFE
+
+package "AWS Cloud" {
+    package "VPC (Multi-AZ)" {
+        package "Public Subnets" {
+            [Application Load Balancer\n(External)] as ALB
+            [NAT Gateway] as NAT
+        }
+        
+        package "Private Subnets (AZ-A)" {
+            [Safety Service\n(Fargate)] as SafetyA
+            [Observer Service\n(Fargate)] as ObserverA
+            [Crisis Engine\n(Fargate)] as CrisisA
+            [Analytics Service\n(Fargate)] as AnalyticsA
+            [Audit Service\n(Fargate)] as AuditA
+        }
+        
+        package "Private Subnets (AZ-B)" {
+            [Safety Service\n(Fargate)] as SafetyB
+            [Observer Service\n(Fargate)] as ObserverB
+            [Crisis Engine\n(Fargate)] as CrisisB
+            [Analytics Service\n(Fargate)] as AnalyticsB
+            [Audit Service\n(Fargate)] as AuditB
+        }
+        
+        package "Isolated Subnets" {
+            database "RDS PostgreSQL\n(Multi-AZ)" as RDS
+            database "OpenSearch\n(3-node cluster)" as OS
+        }
+    }
+    
+    package "Serverless" {
+        [Kinesis Data Streams\n(Crisis Events)] as Kinesis
+        [QLDB\n(Audit Ledger)] as QLDB
+        [S3\n(Archives)] as S3
+        [Secrets Manager] as Secrets
+        [KMS\n(Encryption Keys)] as KMS
+    }
+    
+    package "Edge" {
+        [CloudFront\n(CDN)] as CF
+        [WAF\n(Web Firewall)] as WAF
+        [Route 53\n(DNS)] as R53
+    }
+    
+    package "Observability" {
+        [CloudWatch\n(Logs & Metrics)] as CW
+        [X-Ray\n(Tracing)] as XRay
+    }
+    
+    package "Notifications" {
+        [SNS\n(Alerts)] as SNS
+        [SES\n(Email)] as SES
+    }
+}
+
+cloud "Internet" {
+    [Mobile App] as Mobile
+    [Web Dashboard] as Web
+}
+
+' Edge flow
+Mobile --> R53
+Web --> R53
+R53 --> CF
+CF --> WAF
+WAF --> ALB
+
+' Load balancing
+ALB --> SafetyA
+ALB --> SafetyB
+ALB --> ObserverA
+ALB --> ObserverB
+ALB --> AnalyticsA
+ALB --> AnalyticsB
+ALB --> AuditA
+ALB --> AuditB
+
+' Event streaming
+SafetyA --> Kinesis
+SafetyB --> Kinesis
+ObserverA --> Kinesis
+ObserverB --> Kinesis
+Kinesis --> CrisisA
+Kinesis --> CrisisB
+
+' Data persistence
+ObserverA --> RDS
+ObserverB --> RDS
+AnalyticsA --> RDS
+AnalyticsB --> RDS
+AuditA --> QLDB
+AuditB --> QLDB
+ObserverA --> OS
+ObserverB --> OS
+
+' Archival
+RDS --> S3
+QLDB --> S3
+
+' Notifications
+CrisisA --> SNS
+CrisisB --> SNS
+SNS --> SES
+
+' Security
+SafetyA --> Secrets
+SafetyB --> Secrets
+RDS --> KMS
+QLDB --> KMS
+S3 --> KMS
+
+' Observability
+SafetyA ..> CW
+SafetyB ..> CW
+ObserverA ..> CW
+ObserverB ..> CW
+CrisisA ..> CW
+CrisisB ..> CW
+
+' NAT for outbound
+SafetyA --> NAT
+SafetyB --> NAT
+
+note right of RDS
+  - Multi-AZ for HA
+  - Encrypted at rest
+  - Automated backups
+  - Point-in-time recovery
+end note
+
+note right of Kinesis
+  - 2 shards (scalable)
+  - 24h retention
+  - Encrypted
+end note
+
+@enduml

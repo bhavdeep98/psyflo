@@ -1,0 +1,109 @@
+@startuml
+title Feelwell Platform - System Architecture Overview
+
+!define RECTANGLE class
+
+skinparam componentStyle rectangle
+skinparam backgroundColor #FEFEFE
+
+package "Client Layer" {
+    [Mobile App\n(Student)] as Mobile
+    [Web Dashboard\n(Counselor/Admin)] as Dashboard
+}
+
+package "Gateway Layer" {
+    [API Gateway\n+ WAF] as Gateway
+    [Auth Service\n(SSO/SAML)] as Auth
+}
+
+package "Core Services" #LightBlue {
+    package "Safety-Critical Path" #FFE4E1 {
+        [Safety Service\n(ADR-001)] as Safety
+        [Crisis Engine\n(ADR-004)] as Crisis
+    }
+    
+    package "Analysis Layer" {
+        [Chat Service\n(LLM Integration)] as Chat
+        [Observer Service\n(BERT/Clinical)] as Observer
+    }
+    
+    package "Support Services" {
+        [Audit Service\n(ADR-005)] as Audit
+        [Analytics Service\n(ADR-006)] as Analytics
+    }
+}
+
+package "Event Streaming" #LightGreen {
+    queue "Kinesis\n(Crisis Events)" as Kinesis
+}
+
+package "Data Layer" #LightYellow {
+    database "PostgreSQL\n(Clinical Data)" as Postgres
+    database "QLDB\n(Audit Trail)" as QLDB
+    database "OpenSearch\n(Embeddings)" as OpenSearch
+    storage "S3\n(Archives)" as S3
+}
+
+package "External" {
+    [LLM Provider\n(Bedrock/OpenAI)] as LLM
+    [Notification\n(SNS/SES)] as Notify
+}
+
+' Client connections
+Mobile --> Gateway
+Dashboard --> Gateway
+
+' Gateway routing
+Gateway --> Auth : Authenticate
+Gateway --> Safety : /scan
+Gateway --> Chat : /chat
+Gateway --> Observer : /analyze
+Gateway --> Analytics : /dashboard
+Gateway --> Audit : /audit
+
+' Safety-critical flow
+Safety --> Kinesis : Crisis Events
+Observer --> Kinesis : Threshold Events
+Kinesis --> Crisis : Consume Events
+Crisis --> Notify : Alert Counselors
+
+' Chat flow
+Chat --> Safety : Pre-check
+Chat --> LLM : Generate Response
+Chat --> Observer : Async Analysis
+
+' Data persistence
+Observer --> Postgres : Session Data
+Analytics --> Postgres : Query Summaries
+Audit --> QLDB : Immutable Logs
+Observer --> OpenSearch : Embeddings
+
+' Archival
+Postgres --> S3 : Archive (Parquet)
+QLDB --> S3 : Archive (Glacier)
+
+' Audit logging (all services)
+Safety ..> Audit : Log Events
+Chat ..> Audit : Log Events
+Observer ..> Audit : Log Events
+Crisis ..> Audit : Log Events
+Analytics ..> Audit : Log Events
+
+note right of Safety
+  ADR-001: Deterministic
+  guardrails bypass LLM
+  for crisis keywords
+end note
+
+note right of Audit
+  ADR-005: Immutable
+  audit trail for
+  FERPA/HIPAA compliance
+end note
+
+note right of Analytics
+  ADR-006: k-anonymity
+  suppresses small groups
+end note
+
+@enduml

@@ -1,0 +1,67 @@
+@startuml
+title Analytics Service - Dashboard Query Flow (ADR-006)
+
+actor "School Counselor" as Counselor
+participant "Dashboard UI" as UI
+participant "Analytics Service" as Analytics
+participant "KAnonymityEnforcer" as KAnon
+database "PostgreSQL\n(Session Data)" as DB
+participant "Audit Service" as Audit
+
+== Mood Trends Query ==
+
+Counselor -> UI: View School Mood Trends
+UI -> Analytics: GET /mood-trends\n?school_id=X&group_by=grade_level
+
+activate Analytics
+
+Analytics -> Audit: Log Data Access\n(VIEW_CLINICAL_SCORES)
+
+Analytics -> DB: SELECT grade_level, AVG(risk_score)\nFROM sessions\nWHERE school_id = X\nGROUP BY grade_level
+DB --> Analytics: Aggregated Results
+
+loop For Each Grade Level
+    Analytics -> KAnon: check_and_suppress(data, group_size)
+    activate KAnon
+    
+    alt Group Size >= 5
+        KAnon --> Analytics: AggregateResult(data, suppressed=false)
+    else Group Size < 5
+        KAnon --> Analytics: AggregateResult(null, suppressed=true,\nreason="k-anonymity violation")
+    end
+    deactivate KAnon
+end
+
+Analytics --> UI: 200 OK\n{trends: {9th: {suppressed: true}, 10th: {avg: 0.45}}}
+deactivate Analytics
+
+UI --> Counselor: Display Trends\n(Some grades hidden for privacy)
+
+== School Overview Query ==
+
+Counselor -> UI: View School Overview
+UI -> Analytics: GET /school-overview?school_id=X
+
+activate Analytics
+
+Analytics -> DB: SELECT COUNT(DISTINCT student_id_hash)\nFROM sessions WHERE school_id = X
+DB --> Analytics: unique_students = 4
+
+Analytics -> KAnon: check_and_suppress(overview, group_size=4)
+activate KAnon
+KAnon --> Analytics: AggregateResult(null, suppressed=true)
+deactivate KAnon
+
+Analytics --> UI: 200 OK\n{suppressed: true, reason: "Insufficient students"}
+deactivate Analytics
+
+UI --> Counselor: "Data unavailable for privacy protection"
+
+note right of KAnon
+  ADR-006: k-anonymity threshold = 5
+  Prevents reverse-engineering
+  individual student data from
+  aggregated reports
+end note
+
+@enduml

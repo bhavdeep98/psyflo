@@ -1,0 +1,58 @@
+@startuml
+title Analytics Service - Infrastructure Architecture (ADR-006)
+
+package "AWS Cloud (VPC)" {
+    package "Private Subnet" {
+        component "Analytics Service\n(Fargate Service)" as Fargate {
+            port 8080
+        }
+    }
+    
+    database "PostgreSQL\n(Session Summaries)" as Postgres {
+        frame "session_summaries"
+        frame "flagged_sessions"
+    }
+    
+    storage "S3\n(Parquet Archives)" as S3 {
+        frame "interaction_logs/"
+        frame "trend_data/"
+    }
+    
+    component "Athena\n(Ad-hoc Queries)" as Athena
+    component "CloudWatch" as CW
+}
+
+cloud "Consumers" {
+    [Counselor Dashboard] as Dashboard
+    [Admin Portal] as Admin
+}
+
+cloud "Data Sources" {
+    [Observer Service] as Observer
+}
+
+Observer --> Fargate : POST /sessions\n(Session Summaries)
+Dashboard --> Fargate : GET /flagged-sessions\nGET /mood-trends
+Admin --> Fargate : GET /school-overview
+
+Fargate --> Postgres : Query Session Data
+Fargate --> S3 : Archive Historical Data
+Fargate ..> CW : Logs & Metrics
+
+S3 --> Athena : Query Archives
+
+note right of Fargate
+  Per ADR-006:
+  - k-anonymity enforcement
+  - Suppress if group < 5
+  - No individual student data
+end note
+
+note right of S3
+  Per ADR-002:
+  - Parquet format
+  - 1-7 year retention
+  - Cost-optimized storage
+end note
+
+@enduml

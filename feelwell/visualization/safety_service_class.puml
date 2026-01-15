@@ -1,0 +1,80 @@
+@startuml
+title Safety Service - Class Diagram
+
+package "Safety Service Core" {
+    class SafetyScanner {
+        - config: SafetyConfig
+        - thresholds: ClinicalThresholds
+        - _crisis_patterns: List[re.Pattern]
+        - _caution_patterns: List[re.Pattern]
+        + __init__(config, thresholds)
+        + scan(message_id, text, student_id) : ScanResult
+        - _compile_patterns(keywords)
+        - _scan_patterns(text, patterns)
+        - _calculate_risk_score(caution_matches)
+        - _determine_risk_level(risk_score)
+        - _create_crisis_result(...)
+    }
+
+    class ScanResult {
+        + message_id: str
+        + risk_level: RiskLevel
+        + risk_score: float
+        + bypass_llm: bool
+        + matched_keywords: List[str]
+        + scan_latency_ms: float
+        + scanner_version: str
+        + scanned_at: datetime
+    }
+
+    enum RiskLevel {
+        SAFE
+        CAUTION
+        CRISIS
+    }
+
+    class SafetyConfig {
+        + bert_scanner_enabled: bool
+        + pattern_version: str
+    }
+
+    class ClinicalThresholds {
+        + LOW_SEVERITY_MAX: float
+        + MODERATE_SEVERITY_MAX: float
+    }
+}
+
+package "Crisis Management" {
+    class CrisisEventPublisher {
+        - stream_name: str
+        - from_env: bool
+        - region: str
+        - _kinesis_client: boto3.client
+        + __init__(stream_name, enabled, region)
+        + publish_crisis(...) : bool
+        + publish_batch(events) : int
+    }
+
+    class SafetyCrisisEvent {
+        + event_id: str
+        + event_type: str
+        + message_id: str
+        + session_id: str
+        + student_id_hash: str
+        + school_id: str
+        + risk_level: str
+        + risk_score: float
+        + matched_keywords: List[str]
+        + trigger_source: str
+        + to_kinesis_payload() : dict
+    }
+}
+
+SafetyScanner ..> ScanResult : produces
+SafetyScanner ..> SafetyConfig : uses
+SafetyScanner ..> ClinicalThresholds : uses
+ScanResult "1" *-- "1" RiskLevel
+
+CrisisEventPublisher ..> SafetyCrisisEvent : creates & publishes
+
+@enduml

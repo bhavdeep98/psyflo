@@ -1,0 +1,73 @@
+@startuml
+title Analytics Service - Class Diagram (ADR-006)
+
+package "Analytics Core" {
+    class AnalyticsHandler {
+        - config: AnalyticsConfig
+        - k_enforcer: KAnonymityEnforcer
+        - _flagged_sessions: List[FlaggedSession]
+        - _session_summaries: List[dict]
+        + __init__(config, k_enforcer)
+        + add_flagged_session(session)
+        + add_session_summary(summary)
+        + get_flagged_sessions(school_id, days, limit) : dict
+        + get_mood_trends(school_id, group_by, days) : dict
+        + get_school_overview(school_id, days) : dict
+    }
+
+    class AnalyticsConfig {
+        + k_anonymity_threshold: int = 5
+        + default_lookback_days: int = 7
+        + max_lookback_days: int = 90
+    }
+
+    class FlaggedSession <<frozen>> {
+        + session_id: str
+        + student_id_hash: str
+        + school_id: str
+        + end_risk_score: float
+        + risk_trajectory: str
+        + phq9_score: int
+        + gad7_score: int
+        + counselor_flag_reason: str
+        + session_end: datetime
+        + message_count: int
+    }
+}
+
+package "Privacy Protection" {
+    class KAnonymityEnforcer {
+        - k_threshold: int
+        + __init__(k_threshold)
+        + check_and_suppress(data, group_size, context) : AggregateResult
+        + aggregate_with_anonymity(records, group_by, ...) : dict
+    }
+
+    class AggregateResult<T> <<frozen>> {
+        + data: T
+        + group_size: int
+        + suppressed: bool
+        + suppression_reason: str
+    }
+}
+
+AnalyticsHandler --> KAnonymityEnforcer : uses
+AnalyticsHandler --> AnalyticsConfig : uses
+AnalyticsHandler *-- FlaggedSession : manages
+
+KAnonymityEnforcer ..> AggregateResult : produces
+
+note right of KAnonymityEnforcer
+  Per ADR-006:
+  Suppress data if k < 5
+  Prevents re-identification
+  of individual students
+end note
+
+note right of AggregateResult
+  Contains either:
+  - Aggregated data (if k >= 5)
+  - Suppression reason (if k < 5)
+end note
+
+@enduml

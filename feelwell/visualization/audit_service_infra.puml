@@ -1,0 +1,58 @@
+@startuml
+title Audit Service - Infrastructure Architecture (ADR-005)
+
+package "AWS Cloud (VPC)" {
+    package "Private Subnet" {
+        component "Audit Service\n(Fargate Service)" as Fargate {
+            port 8080
+        }
+    }
+    
+    database "AWS QLDB\n(feelwell-audit-ledger)" as QLDB {
+        frame "audit_entries"
+        note "True Immutability\nCryptographic Verification"
+    }
+    
+    database "PostgreSQL\n(Fallback)" as Postgres {
+        frame "audit_entries\n(WORM Policy)"
+    }
+    
+    storage "S3 Glacier\n(Long-term Archive)" as Glacier
+    component "CloudWatch" as CW
+}
+
+cloud "All Services" {
+    [Safety Service]
+    [Observer Service]
+    [Crisis Engine]
+    [Analytics Service]
+    [Dashboard API]
+}
+
+[Safety Service] --> Fargate : Log Crisis Events
+[Observer Service] --> Fargate : Log Analysis Events
+[Crisis Engine] --> Fargate : Log State Changes
+[Analytics Service] --> Fargate : Log Data Access
+[Dashboard API] --> Fargate : Log User Actions
+
+Fargate --> QLDB : Primary Storage\n(Append-Only)
+Fargate --> Postgres : Fallback Storage
+Fargate ..> CW : Logs & Metrics
+
+QLDB --> Glacier : Archive (7+ years)\nPer ADR-002
+
+note right of QLDB
+  Per ADR-005:
+  - Immutable Audit Trail
+  - HIPAA/FERPA Compliance
+  - Legal Defense Ready
+  - 7+ Year Retention
+end note
+
+note right of Fargate
+  - All data access logged
+  - Hash chain verification
+  - No PII in logs (ADR-003)
+end note
+
+@enduml

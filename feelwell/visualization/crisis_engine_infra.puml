@@ -1,0 +1,45 @@
+@startuml
+title Crisis Engine - Infrastructure Architecture
+
+package "AWS Cloud (VPC)" {
+    package "Private Subnet" {
+        component "Crisis Engine\n(Fargate Service)" as Fargate {
+            port 8080
+        }
+    }
+    
+    component "Kinesis Data Stream\n(Input Events)" as InStream
+    database "DynamoDB\n(Crisis State)" as DDB {
+        frame "Active Crises"
+        frame "School Index (GSI)"
+    }
+    component "SNS / SES\n(Notifications)" as Notifications
+    component "CloudWatch" as CW
+}
+
+cloud "Upstream Services" {
+    [Safety Service]
+    [Observer Service]
+}
+
+[Safety Service] --> InStream : Publish Crisis
+[Observer Service] --> InStream : Publish Threshold
+
+InStream --> Fargate : Consume (KCL)
+Fargate --> DDB : Read/Write State
+Fargate --> Notifications : Send Alerts (Counselors)
+Fargate ..> CW : Logs & Metrics
+
+note right of Fargate
+  - Active-Active HA (Min 2 Instances)
+  - Event-Driven Consumer
+  - Zero Downtime Tolerant
+end note
+
+note right of DDB
+  - Global Tables Ready
+  - Encrypted (KMS)
+  - Time-To-Live (TTL)
+end note
+
+@enduml

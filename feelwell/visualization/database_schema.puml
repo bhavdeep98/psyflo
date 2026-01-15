@@ -1,0 +1,110 @@
+@startuml
+title Feelwell Platform - Database Schema
+
+!define TABLE(name) entity name << (T,#FFAAAA) >>
+!define LEDGER(name) entity name << (L,#AAFFAA) >>
+
+package "PostgreSQL (Clinical Data)" {
+    TABLE(session_summaries) {
+        * id : varchar(36) <<PK>>
+        --
+        student_id_hash : varchar(64)
+        school_id : varchar(36)
+        duration_minutes : int
+        message_count : int
+        start_risk_score : decimal(3,2)
+        end_risk_score : decimal(3,2)
+        phq9_score : int
+        gad7_score : int
+        risk_trajectory : varchar(20)
+        counselor_flag : boolean
+        markers_json : jsonb
+        created_at : timestamp
+    }
+    
+    TABLE(current_snapshots) {
+        * id : varchar(36) <<PK>>
+        --
+        message_id : varchar(36)
+        session_id : varchar(36) <<FK>>
+        student_id_hash : varchar(64)
+        risk_score : decimal(3,2)
+        risk_level : varchar(10)
+        markers_json : jsonb
+        timestamp : timestamp
+    }
+    
+    TABLE(crisis_records) {
+        * crisis_id : varchar(36) <<PK>>
+        --
+        event_id : varchar(36)
+        student_id_hash : varchar(64)
+        school_id : varchar(36)
+        state : varchar(20)
+        escalation_path : varchar(30)
+        trigger_source : varchar(30)
+        created_at : timestamp
+        acknowledged_at : timestamp
+        acknowledged_by : varchar(64)
+        resolved_at : timestamp
+        resolved_by : varchar(64)
+        resolution_notes : text
+    }
+    
+    TABLE(schools) {
+        * school_id : varchar(36) <<PK>>
+        --
+        name : varchar(255)
+        district_id : varchar(36)
+        config_json : jsonb
+        created_at : timestamp
+    }
+}
+
+package "QLDB (Immutable Audit)" {
+    LEDGER(audit_entries) {
+        * entry_id : varchar(36) <<PK>>
+        --
+        timestamp : timestamp
+        action : varchar(30)
+        entity_type : varchar(20)
+        entity_id : varchar(64)
+        actor_id : varchar(64)
+        actor_role : varchar(20)
+        school_id : varchar(36)
+        details : ion_struct
+        previous_hash : varchar(64)
+        entry_hash : varchar(64)
+    }
+}
+
+package "OpenSearch (Embeddings)" {
+    entity message_embeddings << (I,#AAAAFF) >> {
+        * message_id : keyword
+        --
+        session_id : keyword
+        embedding : dense_vector(768)
+        text_hash : keyword
+        timestamp : date
+    }
+}
+
+session_summaries ||--o{ current_snapshots : contains
+session_summaries }o--|| schools : belongs_to
+crisis_records }o--|| schools : belongs_to
+
+note right of audit_entries
+  Per ADR-005:
+  - Append-only (no UPDATE/DELETE)
+  - Hash chain for verification
+  - 7+ year retention
+end note
+
+note right of session_summaries
+  Per ADR-003:
+  - No raw PII stored
+  - student_id_hash only
+  - Encrypted at rest (KMS)
+end note
+
+@enduml

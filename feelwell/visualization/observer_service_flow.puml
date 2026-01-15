@@ -1,0 +1,48 @@
+@startuml
+title Observer Service - Asynchronous Analysis Flow
+actor "Chat Service" as Chat
+participant "Observer Service" as Observer
+participant "MessageAnalyzer" as Analyzer
+participant "ClinicalMarkerDetector" as Clinical
+participant "BERTSentimentAnalyzer" as BERT
+participant "ThresholdEventPublisher" as Publisher
+queue "Kinesis Stream\n(Crisis Events)" as Kinesis
+
+Chat -> Observer: POST /analyze\n{message, safety_score, ...}
+activate Observer
+note right: Called async after Safety check passed
+
+Observer -> Observer: Hash PII (student_id)
+
+Observer -> Analyzer: analyze(text, safety_score)
+activate Analyzer
+
+Analyzer -> Clinical: detect(text)
+activate Clinical
+Clinical --> Analyzer: List[ClinicalMarker]
+deactivate Clinical
+
+opt BERT Enabled
+    Analyzer -> BERT: analyze(text)
+    BERT --> Analyzer: SentimentResult
+end
+
+Analyzer -> Analyzer: Calculate Composite Risk Score\n(Markers + Sentiment + Safety Score)
+Analyzer --> Observer: CurrentSnapshot
+deactivate Analyzer
+
+Observer -> Clinical: calculate_phq9_score(markers)
+Observer -> Clinical: calculate_gad7_score(markers)
+
+alt Risk Level >= CAUTION
+    Observer -> Publisher: publish_threshold_event()
+    activate Publisher
+    Publisher -> Kinesis: PutRecord(ThresholdEvent)
+    Publisher --> Observer: Success
+    deactivate Publisher
+end
+
+Observer --> Chat: 200 OK\n{risk_level, markers, phq9_score}
+deactivate Observer
+
+@enduml

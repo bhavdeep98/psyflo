@@ -1,0 +1,102 @@
+@startuml
+title Feelwell Platform - End-to-End Data Flow
+
+actor "Student" as Student
+actor "Counselor" as Counselor
+
+box "Client" #LightBlue
+    participant "Mobile App" as App
+    participant "Dashboard" as Dash
+end box
+
+box "Gateway" #LightGreen
+    participant "API Gateway" as GW
+    participant "Auth (SSO)" as Auth
+end box
+
+box "Safety-Critical" #FFE4E1
+    participant "Safety Service" as Safety
+    participant "Crisis Engine" as Crisis
+end box
+
+box "Analysis" #LightYellow
+    participant "Chat Service" as Chat
+    participant "Observer Service" as Observer
+end box
+
+box "Support" #LightGray
+    participant "Audit Service" as Audit
+    participant "Analytics Service" as Analytics
+end box
+
+queue "Kinesis" as K
+database "PostgreSQL" as DB
+database "QLDB" as QLDB
+
+== Student Message Flow ==
+
+Student -> App: Send Message
+App -> GW: POST /chat
+GW -> Auth: Validate Token
+Auth --> GW: OK
+
+GW -> Safety: POST /scan\n{message, student_id}
+Safety -> Safety: Pattern Matching\n(ADR-001)
+Safety -> Audit: Log Scan Event
+
+alt CRISIS Detected
+    Safety -> K: Publish CrisisEvent
+    Safety --> GW: {bypass_llm: true}
+    K -> Crisis: Consume Event
+    Crisis -> Crisis: Create CrisisRecord
+    Crisis -> Audit: Log Crisis
+    Crisis --> Counselor: Alert (SNS)
+    GW --> App: Crisis UI (Static)
+    App --> Student: Show Resources
+else SAFE/CAUTION
+    Safety --> GW: {bypass_llm: false}
+    GW -> Chat: Forward Message
+    Chat -> Chat: Generate LLM Response
+    Chat --> GW: Response
+    
+    GW -> Observer: POST /analyze (Async)
+    Observer -> Observer: Clinical Markers\nBERT Sentiment
+    Observer -> DB: Store Snapshot
+    Observer -> Audit: Log Analysis
+    
+    alt Risk >= CAUTION
+        Observer -> K: Publish ThresholdEvent
+        K -> Crisis: Consume Event
+    end
+    
+    GW --> App: LLM Response
+    App --> Student: Display Response
+end
+
+== Counselor Dashboard Flow ==
+
+Counselor -> Dash: View Flagged Sessions
+Dash -> GW: GET /flagged-sessions
+GW -> Auth: Validate Token (Role: Counselor)
+Auth --> GW: OK
+
+GW -> Analytics: GET /flagged-sessions\n?school_id=X
+Analytics -> DB: Query Sessions
+Analytics -> Analytics: Apply k-anonymity\n(ADR-006)
+Analytics -> Audit: Log Data Access\n(ADR-005)
+Analytics --> GW: Filtered Results
+GW --> Dash: Display Sessions
+Dash --> Counselor: Show Dashboard
+
+== Session End Flow ==
+
+App -> GW: POST /session/end
+GW -> Observer: POST /summarize
+Observer -> Observer: Aggregate Snapshots
+Observer -> DB: Store SessionSummary
+Observer -> Analytics: POST /sessions\n(Summary Data)
+Observer -> Audit: Log Session End
+Observer --> GW: Summary
+GW --> App: OK
+
+@enduml

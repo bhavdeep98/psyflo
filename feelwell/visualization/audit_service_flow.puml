@@ -1,0 +1,80 @@
+@startuml
+title Audit Service - Audit Trail Flow (ADR-005)
+
+actor "Counselor" as User
+participant "Dashboard API" as API
+participant "Audit Service" as Audit
+participant "AuditLogger" as Logger
+participant "AuditRepository" as Repo
+database "QLDB / PostgreSQL\n(WORM Storage)" as DB
+
+== Data Access Audit ==
+
+User -> API: View Student Conversation
+activate API
+
+API -> Audit: POST /audit\n{action: VIEW_CONVERSATION, ...}
+activate Audit
+
+Audit -> Audit: Validate Request
+Audit -> Audit: Hash PII (student_id, actor_id)
+
+Audit -> Logger: log_data_access(...)
+activate Logger
+
+Logger -> Logger: Create AuditEntry
+Logger -> Logger: Compute Hash\n(SHA-256 of content)
+Logger -> Logger: Chain to Previous Entry
+
+Logger -> Repo: append(entry)
+activate Repo
+
+alt Using QLDB
+    Repo -> DB: INSERT INTO audit_entries\n(Ledger Transaction)
+else Using PostgreSQL
+    Repo -> DB: INSERT INTO audit_entries\n(Append-Only Table)
+end
+
+DB --> Repo: Success
+deactivate Repo
+
+Logger --> Audit: AuditEntry
+deactivate Logger
+
+Audit --> API: 201 Created\n{entry_id, timestamp}
+deactivate Audit
+
+API -> API: Proceed with Data Access
+API --> User: Student Conversation Data
+deactivate API
+
+== Chain Verification ==
+
+actor "Compliance Officer" as Compliance
+
+Compliance -> Audit: GET /audit/verify
+activate Audit
+
+Audit -> Repo: verify_chain()
+activate Repo
+
+Repo -> DB: SELECT * FROM audit_entries\nORDER BY timestamp
+DB --> Repo: All Entries
+
+loop For Each Entry
+    Repo -> Repo: Verify previous_hash matches
+    Repo -> Repo: Recompute entry_hash
+    Repo -> Repo: Compare with stored hash
+end
+
+alt Chain Valid
+    Repo --> Audit: True
+    Audit --> Compliance: 200 OK\n{valid: true, entry_count: N}
+else Chain Tampered
+    Repo --> Audit: False (with details)
+    Audit --> Compliance: 200 OK\n{valid: false, tampered_entry: ...}
+end
+deactivate Repo
+deactivate Audit
+
+@enduml

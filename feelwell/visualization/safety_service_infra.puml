@@ -1,0 +1,44 @@
+@startuml
+title Safety Service - Infrastructure Architecture
+
+package "AWS Cloud (VPC)" {
+    package "Private Subnet" {
+        component "Safety Service\n(Fargate Service)" as Fargate {
+            port 8001
+        }
+        
+        component "Internal ALB" as ALB {
+            port 80
+        }
+    }
+    
+    component "Kinesis Data Stream\n(feelwell-crisis-events)" as Kinesis
+    component "CloudWatch\nLogs & Alarms" as CW
+}
+
+cloud "Other Services" {
+    [Chat Service] as Chat
+    [Crisis Engine] as Engine
+}
+
+Chat --> ALB : HTTP /scan
+ALB --> Fargate : Forward Traffic (Round Robin)
+
+Fargate --> Kinesis : PutRecord (Crisis Event)
+Fargate ..> CW : Logs (PII Redacted)
+Fargate ..> CW : Metrics (CPU, Memory)
+
+Kinesis --> Engine : Consume Events
+
+note right of Fargate
+  - Minimum 2 Instances (HA)
+  - Auto-scaling based on CPU
+  - Circuit Breaker Enabled
+end note
+
+note right of ALB
+  - Internal Only
+  - Health Check: /health
+end note
+
+@enduml

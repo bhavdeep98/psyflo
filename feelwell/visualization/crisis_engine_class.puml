@@ -1,0 +1,67 @@
+@startuml
+title Crisis Engine - Class Diagram
+
+package "Crisis Management" {
+    class CrisisHandler {
+        - event_publisher: CrisisEventPublisher
+        - _active_crises: dict
+        + __init__(event_publisher)
+        + handle_safety_crisis(...) : CrisisRecord
+        + handle_observer_threshold(...) : CrisisRecord
+        + acknowledge(crisis_id, acknowledged_by) : Optional[CrisisRecord]
+        + resolve(crisis_id, resolved_by, notes) : Optional[CrisisRecord]
+        + get_active_crises(school_id) : list
+    }
+
+    class CrisisRecord {
+        + crisis_id: str
+        + event_id: str
+        + student_id_hash: str
+        + state: CrisisState
+        + escalation_path: EscalationPath
+        + created_at: datetime
+        + acknowledged_at: datetime
+        + resolved_at: datetime
+    }
+    
+    enum CrisisState {
+        DETECTED
+        NOTIFYING
+        ACKNOWLEDGED
+        IN_PROGRESS
+        RESOLVED
+        ESCALATED
+    }
+}
+
+package "Eventing" {
+    class CrisisEventPublisher {
+        - stream_name: str
+        + publish(event) : bool
+        + create_crisis_event(...) : CrisisEvent
+    }
+    
+    class CrisisEvent {
+        + event_id: str
+        + event_type: CrisisEventType
+        + risk_level: str
+        + to_event_payload() : dict
+    }
+    
+    enum EscalationPath {
+        COUNSELOR_ALERT
+        ADMIN_ALERT
+        EMERGENCY_SERVICES
+        PARENT_NOTIFICATION
+    }
+}
+
+CrisisHandler --> CrisisEventPublisher : uses
+CrisisHandler *-- CrisisRecord : manages
+CrisisRecord --> CrisisState : has status
+CrisisRecord --> EscalationPath : has path
+
+CrisisEventPublisher ..> CrisisEvent : creates & publishes
+CrisisEvent --> EscalationPath : uses
+
+@enduml

@@ -1,0 +1,82 @@
+@startuml
+title Observer Service - Class Diagram
+
+package "Observer Core" {
+    class MessageAnalyzer {
+        - config: AnalysisConfig
+        - marker_detector: ClinicalMarkerDetector
+        - sentiment_analyzer: BERTSentimentAnalyzer
+        + __init__(config, marker_detector, sentiment_analyzer)
+        + analyze(message_id, session_id, student_id, text, safety_risk_score) : CurrentSnapshot
+        - _calculate_risk_score(...)
+        - _determine_risk_level(...)
+    }
+
+    class AnalysisConfig {
+        + marker_weight: float
+        + sentiment_weight: float
+        + caution_threshold: float
+        + crisis_threshold: float
+        + bert_enabled: bool
+    }
+
+    class CurrentSnapshot {
+        + message_id: str
+        + session_id: str
+        + student_id_hash: str
+        + risk_score: float
+        + risk_level: RiskLevel
+        + markers: List[ClinicalMarker]
+    }
+    
+    class SessionSummarizer {
+        - marker_detector: ClinicalMarkerDetector
+        + summarize(session_id, snapshots, ...) : SessionSummary
+    }
+}
+
+package "Clinical Analysis" {
+    class ClinicalMarkerDetector {
+        + detect(text) : List[ClinicalMarker]
+        + calculate_phq9_score(markers) : int
+        + calculate_gad7_score(markers) : int
+    }
+
+    class BERTSentimentAnalyzer {
+        + is_available: bool
+        + analyze(text) : SentimentResult
+    }
+    
+    class ClinicalMarker {
+        + framework: ClinicalFramework
+        + item_id: str
+        + confidence: float
+    }
+}
+
+package "Event Publishing" {
+    class ThresholdEventPublisher {
+        + publish_threshold_event(...) : bool
+    }
+    
+    class ThresholdEvent {
+        + event_id: str
+        + risk_level: str
+        + risk_score: float
+        + phq9_score: int
+        + to_kinesis_payload() : dict
+    }
+}
+
+MessageAnalyzer ..> CurrentSnapshot : produces
+MessageAnalyzer ..> AnalysisConfig : uses
+MessageAnalyzer --> ClinicalMarkerDetector : uses
+MessageAnalyzer --> BERTSentimentAnalyzer : uses (optional)
+
+ThresholdEventPublisher ..> ThresholdEvent : creates & publishes
+MessageAnalyzer ..> ThresholdEventPublisher : triggers if high risk
+
+CurrentSnapshot "1" *-- "*" ClinicalMarker
+SessionSummarizer ..> CurrentSnapshot : aggregates
+
+@enduml

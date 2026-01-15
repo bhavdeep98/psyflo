@@ -1,0 +1,56 @@
+@startuml
+title Crisis Engine - Incident Management Flow
+actor "Upstream Service\n(Safety/Observer)" as Upstream
+queue "Kinesis Stream\n(Input Events)" as KinesisIn
+participant "Crisis Engine" as Engine
+participant "CrisisHandler" as Handler
+database "DynamoDB\n(State Table)" as DB
+participant "CrisisEventPublisher" as Publisher
+queue "Notification Stream\n(SNS/SES)" as Notify
+actor "School Counselor" as Counselor
+
+Upstream -> KinesisIn: Publish Event\n(CrisisDetected / ThresholdExceeded)
+
+KinesisIn -> Engine: Consume Event
+activate Engine
+
+Engine -> Handler: handle_safety_crisis() / handle_observer_threshold()
+activate Handler
+
+Handler -> Publisher: create_crisis_event()
+Handler -> Handler: Create CrisisRecord(State=DETECTED)
+
+Handler -> DB: Save Record
+activate DB
+DB --> Handler: Success
+deactivate DB
+
+Handler -> Publisher: publish(NotificationEvent)
+activate Publisher
+Publisher -> Notify: Send Notification\n(EscalationPath=COUNSELOR_ALERT)
+deactivate Publisher
+
+Handler -> Handler: Update State = NOTIFYING
+Handler -> DB: Update Record
+deactivate Handler
+deactivate Engine
+
+... Time Passes ...
+
+Counselor -> Engine: Acknowledge Alert (API)
+activate Engine
+Engine -> Handler: acknowledge(crisis_id, user_id)
+Handler -> DB: Update Record (State=ACKNOWLEDGED)
+Engine --> Counselor: 200 OK
+deactivate Engine
+
+... Counseling Session ...
+
+Counselor -> Engine: Resolve Incident (API)
+activate Engine
+Engine -> Handler: resolve(crisis_id, notes)
+Handler -> DB: Update Record (State=RESOLVED)
+Engine --> Counselor: 200 OK
+deactivate Engine
+
+@enduml
